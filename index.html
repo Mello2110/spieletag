@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Spieletag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #4F253D;
+  --accent-light: #6B3454;
+  --accent-glow: rgba(79,37,61,0.15);
+  --complement: #25504F;
+  --complement-light: #347170;
+  --bg: #F5F4F2;
+  --bg-card: #FFFFFF;
+  --bg-dark: #1A1A1A;
+  --text: #1A1A1A;
+  --text-muted: #6B6B6B;
+  --text-light: #999;
+  --border: #E5E3E0;
+  --border-hover: #CCC;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.2s ease;
+}
+html.dark {
+  --bg: #111113;
+  --bg-card: #1C1C1F;
+  --bg-dark: #0A0A0B;
+  --text: #E8E6E3;
+  --text-muted: #8A8A8A;
+  --text-light: #5A5A5A;
+  --border: #2A2A2D;
+  --border-hover: #3A3A3D;
+  --accent-glow: rgba(79,37,61,0.3);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+}
+html.dark .badge-main{background:#7A3D5E}
+html.dark .badge-between{background:#347170}
+html.dark .badge-penalty{background:#A0673A}
+html.dark .score-pts{filter:brightness(2.2)}
+html.dark .shuffle-card{background:var(--bg-card);border-color:#7A3D5E;color:#C27A9E}
+html.dark .toggle-track{background:#333}
+html.dark .pp{background:rgba(79,37,61,0.3)}
+html.dark .draw-card .game-points{filter:brightness(1.4)}
+html.dark .draw-card .game-points.complement{filter:brightness(1.6)}
+html.dark .final-row.first{background:#7A3D5E}
+html.dark .btn-secondary{background:var(--bg-card)}
+html.dark select{color-scheme:dark}
+
+/* Dark mode toggle */
+.darkmode-btn{
+  position:fixed;top:16px;right:16px;z-index:50;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:20px;padding:8px 14px;cursor:pointer;
+  font-size:.85rem;transition:all var(--transition);
+  display:flex;align-items:center;gap:4px;
+  font-family:'DM Sans',sans-serif;color:var(--text);
+  box-shadow:var(--shadow-sm);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;min-height:100dvh;
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;
+}
+.container{max-width:900px;margin:0 auto;padding:24px 16px 100px}
+
+.header{text-align:center;padding:48px 0 40px}
+.header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--accent);letter-spacing:-1px;line-height:1}
+.header p{color:var(--text-muted);font-size:.95rem;margin-top:8px;font-weight:300}
+
+.phase-bar{display:flex;justify-content:center;gap:8px;margin-bottom:40px}
+.phase-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:all .4s ease}
+.phase-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}
+.phase-dot.done{background:var(--complement)}
+
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+.card-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.card-subtitle{font-size:.82rem;color:var(--text-muted);margin-bottom:16px;font-weight:300}
+
+.badge{font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;border-radius:4px;color:#fff}
+.badge-main{background:var(--accent)}.badge-between{background:var(--complement)}.badge-penalty{background:#8B4513}
+
+/* --- INPUTS: 16px minimum to prevent iOS zoom --- */
+.input-group{margin-bottom:14px;animation:slideIn .25s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+.input-row{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.input-row-fields{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.input-row-meta{display:flex;gap:6px;align-items:center;flex-shrink:0}
+
+input[type="text"],input[type="number"],textarea,select{
+  font-family:'DM Sans',sans-serif;
+  font-size:16px; /* CRITICAL: prevents iOS auto-zoom */
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:12px 14px;background:var(--bg);color:var(--text);
+  outline:none;width:100%;
+  -webkit-appearance:none;appearance:none;
+  transition:border-color var(--transition),box-shadow var(--transition);
+}
+input:focus,textarea:focus,select:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);
+}
+textarea{resize:vertical;min-height:44px;max-height:100px}
+input[type="number"]{width:70px;flex-shrink:0}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  padding-right:28px;cursor:pointer;
+}
+select.small-select{
+  width:auto;min-width:64px;padding:10px 28px 10px 10px;
+  font-size:16px;text-align:left;
+}
+
+/* Touch-friendly buttons */
+.remove-btn{
+  background:none;border:none;color:var(--text-light);cursor:pointer;
+  font-size:1.4rem;padding:10px;line-height:1;min-width:44px;min-height:44px;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.remove-btn:active{color:#c0392b}
+
+.btn{
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
+  border:none;border-radius:var(--radius-sm);padding:14px 20px;
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:all var(--transition);min-height:48px;
+}
+.btn-add{
+  background:transparent;color:var(--accent);border:1px dashed var(--border);
+  width:100%;padding:14px;margin-top:4px;
+}
+.btn-add:active{border-color:var(--accent);background:var(--accent-glow)}
+.btn-primary{background:var(--accent);color:#fff;padding:16px 32px;font-weight:600;border-radius:var(--radius)}
+.btn-primary:active{background:var(--accent-light)}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:active{background:#ddd}
+.btn-complement{background:var(--complement);color:#fff}
+.btn-complement:active{background:var(--complement-light)}
+.btn-group{display:flex;gap:10px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+
+/* Toggle switch — touch-optimized */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
+.toggle-row-label{flex:1}
+.toggle-row-label .trl-title{font-size:.9rem;font-weight:500}
+.toggle-row-label .trl-sub{font-size:.78rem;color:var(--text-muted);font-weight:300}
+.toggle-switch{
+  position:relative;width:52px;height:32px;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.toggle-switch input{
+  position:absolute;opacity:0;width:100%;height:100%;
+  margin:0;padding:0;cursor:pointer;z-index:2;
+}
+.toggle-track{
+  position:absolute;inset:0;background:var(--border);border-radius:16px;
+  cursor:pointer;transition:background .2s;pointer-events:none;
+}
+.toggle-track::after{
+  content:'';position:absolute;top:4px;left:4px;width:24px;height:24px;
+  background:#fff;border-radius:50%;transition:transform .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+}
+.toggle-switch input:checked+.toggle-track{background:var(--accent)}
+.toggle-switch input:checked+.toggle-track::after{transform:translateX(20px)}
+
+.option-inline{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.option-inline label{font-size:.85rem;color:var(--text-muted);white-space:nowrap}
+.option-inline input[type="number"]{width:70px}
+
+/* Option sections */
+.option-section{padding:16px 0;border-top:1px solid var(--border)}
+.option-section:first-child{border-top:none;padding-top:0}
+.option-section-title{font-size:.85rem;font-weight:600;margin-bottom:10px;color:var(--text)}
+.option-hint{font-size:.75rem;color:var(--text-light);margin-top:6px;font-weight:300;line-height:1.4}
+
+/* Checkboxes — touch-sized */
+.checkbox-row{display:flex;align-items:center;gap:10px;padding:8px 0;min-height:44px}
+.checkbox-row input[type="checkbox"]{
+  width:22px;height:22px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.checkbox-row label{font-size:.9rem;cursor:pointer;-webkit-user-select:none;user-select:none}
+
+/* Points preview */
+.points-preview{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.points-preview .pp{background:var(--accent-glow);color:var(--accent);font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:12px}
+
+/* Probability UI */
+.prob-grid{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.prob-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prob-row .prob-label{font-size:.85rem;min-width:100px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.prob-row input[type="number"]{width:65px;text-align:center;padding:10px 4px}
+.prob-row .prob-auto{font-size:.78rem;color:var(--complement);font-weight:500;min-width:50px}
+.prob-bar-wrap{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;min-width:40px}
+.prob-bar{height:100%;border-radius:4px;transition:width .3s ease}
+.prob-bar.bar-main{background:var(--accent)}
+.prob-bar.bar-between{background:var(--complement)}
+.prob-bar.bar-penalty{background:#8B4513}
+.prob-total{font-size:.78rem;margin-top:6px;color:var(--text-light)}
+.prob-total.over{color:#c0392b;font-weight:600}
+
+/* Players */
+.players-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.player-tag{
+  display:flex;align-items:center;gap:6px;background:var(--bg);
+  border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:.9rem;
+}
+.player-tag .remove-btn{font-size:.9rem;padding:4px;min-width:32px;min-height:32px;margin:0}
+.player-input-row{display:flex;gap:8px;margin-top:12px}
+.player-input-row input{flex:1}
+.player-input-row .btn{flex-shrink:0;min-width:48px}
+
+/* Draw */
+.draw-screen{text-align:center}
+.draw-card{
+  background:var(--bg-card);border:2px solid var(--border);border-radius:16px;
+  padding:40px 24px;max-width:500px;margin:0 auto 24px;position:relative;overflow:hidden;
+}
+.draw-card.type-main{border-color:var(--accent)}
+.draw-card.type-between{border-color:var(--complement)}
+.draw-card.type-penalty{border-color:#8B4513}
+.draw-card .game-number{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:16px}
+.draw-card .game-name{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;margin-bottom:12px;word-break:break-word}
+.draw-card .game-desc{color:var(--text-muted);font-size:.95rem;line-height:1.5;margin-bottom:20px;font-weight:300}
+.draw-card .game-points{font-size:1.1rem;font-weight:600;color:var(--accent)}
+.draw-card .game-points.complement{color:var(--complement)}
+.draw-card .game-points.penalty-color{color:#8B4513}
+.draw-card .game-repeat-info{font-size:.78rem;color:var(--text-light);margin-top:8px}
+
+/* Shuffle overlay */
+.shuffle-overlay{position:fixed;inset:0;background:rgba(26,26,26,.85);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(4px)}
+.shuffle-cards{position:relative;width:160px;height:200px}
+.shuffle-card{position:absolute;width:120px;height:160px;background:var(--bg-card);border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2rem;color:var(--accent);top:20px;left:20px}
+.shuffle-text{position:absolute;bottom:-50px;width:300px;left:50%;transform:translateX(-50%);text-align:center;color:#fff;font-size:.9rem;letter-spacing:2px;text-transform:uppercase}
+
+/* Dancebreak */
+.dancebreak-overlay{position:fixed;inset:0;background:var(--bg-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:200;animation:danceIn .4s ease;padding:20px}
+@keyframes danceIn{from{opacity:0;transform:scale(1.1)}to{opacity:1;transform:scale(1)}}
+.dancebreak-overlay .dance-emoji{font-size:4rem;animation:danceBounce .5s ease infinite alternate}
+@keyframes danceBounce{from{transform:translateY(0) rotate(-5deg)}to{transform:translateY(-16px) rotate(5deg)}}
+.dancebreak-overlay h2{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;margin:20px 0 8px;text-transform:uppercase;letter-spacing:4px;text-align:center}
+.dancebreak-overlay .dance-sub{color:#888;font-size:.9rem;margin-bottom:32px;font-weight:300}
+.dancebreak-overlay .dance-timer{font-size:3.5rem;font-weight:800;color:var(--accent);filter:brightness(1.8);font-variant-numeric:tabular-nums}
+.dancebreak-overlay .dance-bar{width:min(280px,80vw);height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:24px;overflow:hidden}
+.dancebreak-overlay .dance-bar-fill{height:100%;background:var(--accent);filter:brightness(1.5);border-radius:2px;transition:width 1s linear}
+.dancebreak-overlay .dance-skip{margin-top:32px;background:none;border:1px solid rgba(255,255,255,.15);color:#666;font-family:'DM Sans',sans-serif;font-size:16px;padding:12px 24px;border-radius:20px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:48px}
+
+/* Scoreboard */
+.scoreboard{background:var(--bg-dark);border-radius:var(--radius);padding:20px;margin-bottom:20px;color:#fff}
+.scoreboard-title{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:#888;margin-bottom:12px}
+.score-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.score-row:last-child{border:none}
+.score-rank{width:24px;font-weight:700;color:#666;font-size:.85rem}
+.score-name{flex:1;font-weight:500;font-size:.95rem}
+.score-pts{font-weight:700;font-size:1.1rem;color:var(--accent);filter:brightness(1.8)}
+
+/* Results */
+.results-section{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px;text-align:left}
+.results-title{font-weight:600;margin-bottom:12px;font-size:.95rem}
+.result-row{display:flex;align-items:center;gap:12px;padding:8px 0}
+.result-row label{flex:1;font-size:.9rem}
+.result-row select{width:auto;min-width:160px}
+
+/* History */
+.history-section{margin-top:24px}
+.history-item{
+  display:flex;align-items:center;gap:8px;padding:12px 14px;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);margin-bottom:8px;font-size:.85rem;
+  flex-wrap:wrap;
+}
+.history-num{font-weight:700;color:var(--text-light);width:20px;text-align:center;flex-shrink:0}
+.history-name{flex:1;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.history-winner{color:var(--accent);font-weight:600;flex-shrink:0}
+.history-undo{
+  background:none;border:none;color:var(--text-light);cursor:pointer;
+  font-size:.8rem;text-decoration:underline;padding:4px 8px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  min-height:36px;display:flex;align-items:center;
+}
+
+/* Winner */
+.winner-screen{text-align:center;padding:40px 16px}
+.winner-screen .crown{font-size:3.5rem;margin-bottom:16px}
+.winner-screen h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--accent);margin-bottom:8px}
+.winner-screen .subtitle{color:var(--text-muted);font-size:1rem;font-weight:300;margin-bottom:32px}
+.final-scores{max-width:400px;margin:0 auto}
+.final-row{display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:8px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border)}
+.final-row.first{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.03);box-shadow:var(--shadow-lg)}
+.final-row .rank{font-weight:800;font-size:1.2rem;width:32px}
+.final-row.first .rank{color:rgba(255,255,255,.7)}
+.final-row .name{flex:1;font-weight:600;font-size:1rem}
+.final-row .pts{font-weight:800;font-size:1.1rem}
+.final-row.first .pts{color:#fff}
+
+.end-game-btn{margin-top:16px;text-align:center}
+.hidden{display:none!important}
+.text-muted{color:var(--text-muted)}.text-sm{font-size:.85rem}
+.warn-text{color:#c0392b;font-size:.78rem;margin-top:4px}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:600px){
+  .container{padding:16px 12px 80px}
+  .header{padding:36px 0 28px}
+  .header h1{font-size:2rem}
+  .card{padding:18px}
+  .draw-card{padding:28px 18px}
+  .draw-card .game-name{font-size:1.4rem}
+  .input-row-meta{width:100%;margin-top:4px}
+  .prob-row{flex-wrap:wrap}
+  .prob-row .prob-label{min-width:auto}
+  .prob-bar-wrap{min-width:100%;order:10;margin-top:2px}
+  .option-inline{gap:8px}
+  .history-item{gap:6px;padding:10px 12px}
+  .btn-group{gap:8px}
+  .dancebreak-overlay h2{font-size:1.8rem;letter-spacing:2px}
+}
+@media(min-width:768px){
+  .header h1{font-size:3rem}
+  .card{padding:28px}
+}
+</style>
+</head>
+<body>
+<button class="darkmode-btn" id="darkmode-btn" type="button">🌙 Dark</button>
+<div class="container">
+  <div class="header"><h1>Spieletag</h1><p>Spiele vorbereiten, mischen und ziehen</p></div>
+  <div class="phase-bar">
+    <div class="phase-dot active" data-phase="0"></div>
+    <div class="phase-dot" data-phase="1"></div>
+    <div class="phase-dot" data-phase="2"></div>
+  </div>
+
+  <!-- SETUP -->
+  <div id="phase-setup">
+    <div class="card">
+      <div class="card-title">Spieler</div>
+      <div class="card-subtitle">Wer ist heute dabei?</div>
+      <div class="players-grid" id="players-grid"></div>
+      <div class="player-input-row">
+        <input type="text" id="player-name-input" placeholder="Name eingeben …" autocomplete="off" autocorrect="off" autocapitalize="words">
+        <button class="btn btn-secondary" type="button" id="add-player-btn">＋</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚙️ Optionen</div>
+      <div class="card-subtitle">Spieletag-Einstellungen</div>
+
+      <div class="option-section">
+        <div class="option-section-title">Hauptspiel-Punkte</div>
+        <div class="option-inline">
+          <label>Start bei</label>
+          <input type="number" id="main-pts-start" value="3" min="1" max="50" inputmode="numeric" pattern="[0-9]*">
+          <label>Pkt</label>
+          <label>+</label>
+          <input type="number" id="main-pts-step" value="1" min="0" max="20" inputmode="numeric" pattern="[0-9]*">
+          <label>pro Spiel</label>
+        </div>
+        <div class="points-preview" id="points-preview"></div>
+        <div class="option-hint">Vorschau: Punkte für die ersten Hauptspiele</div>
+      </div>
+
+      <div class="option-section">
+        <div class="option-section-title">Wann endet der Spieletag?</div>
+        <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Endet wenn alle Spiele der gewählten Kategorien aus dem Pool sind.</div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="end-main" checked>
+          <label for="end-main">Hauptspiele</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="end-between">
+          <label for="end-between">Zwischenspiele</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="end-penalty">
+          <label for="end-penalty">Strafspiele</label>
+        </div>
+      </div>
+
+      <div class="option-section">
+        <div class="option-section-title">Zieh-Wahrscheinlichkeiten</div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="prob-random" checked>
+          <label for="prob-random">Komplett zufällig (Urne)</label>
+        </div>
+        <div id="prob-custom" class="hidden" style="margin-top:12px;">
+          <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Fixiere nur die Kategorien die dir wichtig sind. Nicht-fixierte Spiele teilen sich den Rest wie in einer Urne.</div>
+          <div class="prob-grid">
+            <div class="prob-row">
+              <span class="prob-label"><span class="badge badge-main">H</span> Haupt</span>
+              <input type="number" id="prob-main" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
+              <span class="prob-auto" id="prob-main-auto"></span>
+              <div class="prob-bar-wrap"><div class="prob-bar bar-main" id="prob-bar-main" style="width:33%"></div></div>
+            </div>
+            <div class="prob-row">
+              <span class="prob-label"><span class="badge badge-between">Z</span> Zwischen</span>
+              <input type="number" id="prob-between" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
+              <span class="prob-auto" id="prob-between-auto"></span>
+              <div class="prob-bar-wrap"><div class="prob-bar bar-between" id="prob-bar-between" style="width:33%"></div></div>
+            </div>
+            <div class="prob-row">
+              <span class="prob-label"><span class="badge badge-penalty">S</span> Strafe</span>
+              <input type="number" id="prob-penalty" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
+              <span class="prob-auto" id="prob-penalty-auto"></span>
+              <div class="prob-bar-wrap"><div class="prob-bar bar-penalty" id="prob-bar-penalty" style="width:33%"></div></div>
+            </div>
+          </div>
+          <div class="prob-total" id="prob-total">Gesamt: 100%</div>
+        </div>
+      </div>
+
+      <div class="option-section">
+        <div class="toggle-row">
+          <div class="toggle-row-label">
+            <div class="trl-title">Dancebreak</div>
+            <div class="trl-sub">Zufällige Tanzpause beim Ziehen</div>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="dancebreak-toggle" checked>
+            <label class="toggle-track" for="dancebreak-toggle"></label>
+          </div>
+        </div>
+        <div class="option-inline" id="dancebreak-options">
+          <label>Dauer</label>
+          <input type="number" id="dancebreak-duration" value="60" min="10" max="300" inputmode="numeric" pattern="[0-9]*">
+          <label>Sek.</label>
+          <label style="margin-left:4px;">Chance</label>
+          <select id="dancebreak-chance" class="small-select">
+            <option value="0.1">10%</option>
+            <option value="0.2" selected>20%</option>
+            <option value="0.3">30%</option>
+            <option value="0.4">40%</option>
+            <option value="0.5">50%</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="badge badge-main">Haupt</span> Hauptspiele</div>
+      <div class="card-subtitle">Progressive Punkte · Wiederholungen wählbar</div>
+      <div id="main-games-list"></div>
+      <button class="btn btn-add" type="button" id="add-main-btn">＋ Hauptspiel</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="badge badge-between">Zwischen</span> Zwischenspiele</div>
+      <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
+      <div id="between-games-list"></div>
+      <button class="btn btn-add" type="button" id="add-between-btn">＋ Zwischenspiel</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="badge badge-penalty">Strafe</span> Strafspiele</div>
+      <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
+      <div id="penalty-games-list"></div>
+      <button class="btn btn-add" type="button" id="add-penalty-btn">＋ Strafspiel</button>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" type="button" id="start-btn">Spieletag starten →</button>
+    </div>
+  </div>
+
+  <!-- PLAYING -->
+  <div id="phase-play" class="hidden">
+    <div class="scoreboard" id="scoreboard"></div>
+    <div class="draw-screen">
+      <div id="draw-prompt">
+        <p class="text-muted text-sm" style="margin-bottom:20px;">
+          Noch <strong id="remaining-count">0</strong> Ziehungen übrig
+        </p>
+        <button class="btn btn-primary" type="button" id="draw-btn">🎲 Spiel ziehen</button>
+      </div>
+      <div id="current-game" class="hidden">
+        <div class="draw-card" id="draw-card">
+          <div class="game-number" id="game-number"></div>
+          <div class="game-name" id="game-name"></div>
+          <div class="game-desc" id="game-desc"></div>
+          <div class="game-points" id="game-points"></div>
+          <div class="game-repeat-info" id="game-repeat-info"></div>
+        </div>
+        <div class="results-section">
+          <div class="results-title">Ergebnis eintragen</div>
+          <div id="results-rows"></div>
+          <div class="btn-group" style="margin-top:16px;">
+            <button class="btn btn-complement" type="button" id="submit-btn">Ergebnis bestätigen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="end-game-btn" id="end-game-wrap" style="display:none;">
+      <button class="btn btn-primary" type="button" id="end-game-btn" style="background:var(--complement);">🏁 Spieletag beenden</button>
+    </div>
+    <div class="history-section">
+      <div class="card-subtitle" style="margin-bottom:12px;">Spielverlauf</div>
+      <div id="history-list"></div>
+    </div>
+    <div class="btn-group" style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);">
+      <button class="btn btn-secondary" type="button" id="restart-same-btn" style="font-size:14px;">🔄 Neustart</button>
+      <button class="btn btn-secondary" type="button" id="restart-edit-btn" style="font-size:14px;">✏️ Anpassen</button>
+      <button class="btn btn-secondary" type="button" id="restart-full-btn" style="font-size:14px;">🗑 Komplett neu</button>
+    </div>
+  </div>
+
+  <!-- WINNER -->
+  <div id="phase-winner" class="hidden"></div>
+</div>
+
+<div class="shuffle-overlay hidden" id="shuffle-overlay">
+  <div style="position:relative">
+    <div class="shuffle-cards">
+      <div class="shuffle-card" style="transform:rotate(-5deg)">?</div>
+      <div class="shuffle-card" style="transform:rotate(3deg) translate(8px,-4px)">?</div>
+      <div class="shuffle-card" style="transform:rotate(-2deg) translate(-4px,6px)">?</div>
+    </div>
+    <div class="shuffle-text">Mische Spiele …</div>
+  </div>
+</div>
+
+<script>
+// ====== STATE ======
+let players=[], allGames=[], remainingGames=[], history=[], scores={};
+let mainGameCounter=0, currentGame=null;
+let gameFieldCounters={main:0,between:0,penalty:0};
+let savedGames=[], savedPlayers=[];
+let dancebreakTimer=null, dancebreakActive=false;
+let settings={
+  dancebreak:true, dancebreakDuration:60, dancebreakChance:0.2,
+  mainPtsStart:3, mainPtsStep:1,
+  endConditions:{main:true, between:false, penalty:false},
+  probRandom:true,
+  probWeights:{main:null, between:null, penalty:null},
+  probUserSet:{main:false, between:false, penalty:false}
+};
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// ====== DARK MODE ======
+function toggleDarkMode(){
+  document.documentElement.classList.toggle('dark');
+  const isDark=document.documentElement.classList.contains('dark');
+  document.getElementById('darkmode-btn').textContent=isDark?'☀️ Light':'🌙 Dark';
+  try{localStorage.setItem('gameday-dark',isDark?'1':'0')}catch(e){}
+}
+function initDarkMode(){
+  try{
+    const s=localStorage.getItem('gameday-dark');
+    if(s==='1'||(s===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+      document.documentElement.classList.add('dark');
+      document.getElementById('darkmode-btn').textContent='☀️ Light';
+    }
+  }catch(e){}
+}
+
+// ====== PLAYERS ======
+function addPlayer(){
+  const inp=document.getElementById('player-name-input');
+  const n=inp.value.trim();
+  if(!n||players.includes(n)){inp.value='';return}
+  players.push(n);inp.value='';renderPlayers();inp.focus();
+}
+function removePlayer(n){players=players.filter(p=>p!==n);renderPlayers()}
+function renderPlayers(){
+  document.getElementById('players-grid').innerHTML=players.map(p=>
+    `<div class="player-tag">${esc(p)}<button class="remove-btn" type="button" data-remove-player="${esc(p)}" title="Entfernen">×</button></div>`
+  ).join('');
+}
+
+// ====== POINTS PREVIEW ======
+function updatePointsPreview(){
+  const start=parseInt(document.getElementById('main-pts-start').value)||1;
+  const step=parseInt(document.getElementById('main-pts-step').value)||0;
+  const prev=document.getElementById('points-preview');
+  let html='';
+  for(let i=0;i<6;i++) html+=`<span class="pp">${i+1}. → ${start+step*i}P</span>`;
+  html+='<span class="pp" style="background:none;color:var(--text-light);">…</span>';
+  prev.innerHTML=html;
+}
+
+// ====== GAME FIELDS ======
+function addGameField(type,prefill){
+  gameFieldCounters[type]++;
+  const list=document.getElementById(type+'-games-list');
+  const id=type+'-'+gameFieldCounters[type];
+  const div=document.createElement('div');
+  div.className='input-group';div.id='field-'+id;
+  const showPts=(type==='between'||type==='penalty');
+  const defPts=prefill?prefill.points:(type==='penalty'?3:2);
+  const defRep=prefill?prefill.maxRepeats:1;
+  const ptsField=showPts?`<input type="number" placeholder="Pkt" min="1" value="${defPts}" id="pts-${id}" title="Punkte" inputmode="numeric" pattern="[0-9]*" style="width:60px;">`:'';
+  let repOpts='';
+  for(let r=1;r<=9;r++) repOpts+=`<option value="${r}" ${defRep===r?'selected':''}>${r}×</option>`;
+  repOpts+=`<option value="0" ${defRep===0?'selected':''}>∞</option>`;
+  div.innerHTML=`
+    <div class="input-row">
+      <div class="input-row-fields">
+        <input type="text" placeholder="Spielname" id="name-${id}" value="${prefill?esc(prefill.name):''}" autocomplete="off" autocorrect="off">
+        <textarea placeholder="Beschreibung (optional)" id="desc-${id}" rows="1">${prefill?esc(prefill.desc):''}</textarea>
+      </div>
+      <div class="input-row-meta">
+        ${ptsField}
+        <select class="small-select" id="rep-${id}" title="Wie oft spielbar">${repOpts}</select>
+        <button class="remove-btn" type="button" data-remove-field="${id}" title="Entfernen">×</button>
+      </div>
+    </div>`;
+  list.appendChild(div);
+  if(!prefill){const nameInp=document.getElementById('name-'+id);if(nameInp)nameInp.focus();}
+}
+function removeField(id){const el=document.getElementById('field-'+id);if(el)el.remove()}
+
+// ====== COLLECT ======
+function collectGames(){
+  allGames=[];let uid=0;
+  ['main','between','penalty'].forEach(type=>{
+    const list=document.getElementById(type+'-games-list');
+    list.querySelectorAll('.input-group').forEach(group=>{
+      const id=group.id.replace('field-','');
+      const name=document.getElementById('name-'+id)?.value.trim();
+      const desc=document.getElementById('desc-'+id)?.value.trim()||'';
+      const showPts=(type==='between'||type==='penalty');
+      const pts=showPts?(parseInt(document.getElementById('pts-'+id)?.value)||2):0;
+      const maxRep=parseInt(document.getElementById('rep-'+id)?.value);
+      if(name) allGames.push({type,name,desc,points:pts,maxRepeats:maxRep,timesPlayed:0,uid:'g'+(uid++)});
+    });
+  });
+}
+function collectSettings(){
+  settings.dancebreak=document.getElementById('dancebreak-toggle').checked;
+  settings.dancebreakDuration=parseInt(document.getElementById('dancebreak-duration').value)||60;
+  settings.dancebreakChance=parseFloat(document.getElementById('dancebreak-chance').value)||0.2;
+  settings.mainPtsStart=parseInt(document.getElementById('main-pts-start').value)||1;
+  settings.mainPtsStep=parseInt(document.getElementById('main-pts-step').value)||0;
+  settings.endConditions={main:document.getElementById('end-main').checked,between:document.getElementById('end-between').checked,penalty:document.getElementById('end-penalty').checked};
+  settings.probRandom=document.getElementById('prob-random').checked;
+  if(!settings.probRandom){
+    const {probs}=calcProbabilities();
+    settings.probWeights=probs;
+    settings.probUserSet={};
+    ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);settings.probUserSet[t]=inp&&inp.value.trim()!=='';});
+  } else {
+    settings.probWeights={main:null,between:null,penalty:null};
+    settings.probUserSet={main:false,between:false,penalty:false};
+  }
+}
+function validateEndConditions(){
+  const ec=settings.endConditions;
+  if(!ec.main&&!ec.between&&!ec.penalty){alert('Mindestens eine Kategorie als Ende-Bedingung wählen.');return false}
+  const types=[];
+  if(ec.main)types.push('main');if(ec.between)types.push('between');if(ec.penalty)types.push('penalty');
+  const inf=allGames.filter(g=>types.includes(g.type)&&g.maxRepeats===0);
+  if(inf.length>0) return confirm('Achtung: '+inf.map(g=>g.name).join(', ')+' sind auf ∞ gesetzt. Das Spiel kann nur manuell beendet werden. Fortfahren?');
+  return true;
+}
+
+// ====== PROBABILITY ======
+function calcProbabilities(){
+  const types=['main','between','penalty'];
+  const vals={};const locked=[];let lockedSum=0;
+  types.forEach(t=>{const inp=document.getElementById('prob-'+t);const v=inp&&inp.value.trim()!==''?parseInt(inp.value):null;vals[t]=v;if(v!==null&&!isNaN(v)){locked.push(t);lockedSum+=v}});
+  const result={};
+  if(lockedSum>100){types.forEach(t=>result[t]=vals[t]||0);return{probs:result,over:true}}
+  const unlocked=types.filter(t=>!locked.includes(t));
+  const remainder=100-lockedSum;
+  const autoEach=unlocked.length>0?remainder/unlocked.length:0;
+  types.forEach(t=>{result[t]=locked.includes(t)?vals[t]:Math.round(autoEach*10)/10});
+  return{probs:result,over:false};
+}
+function updateProbPreview(){
+  const{probs,over}=calcProbabilities();
+  const userSet={};
+  ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);userSet[t]=inp&&inp.value.trim()!==''});
+  const freeTypes=['main','between','penalty'].filter(t=>!userSet[t]);
+  const fixedSum=['main','between','penalty'].filter(t=>userSet[t]).reduce((s,t)=>s+probs[t],0);
+  const freeShare=Math.max(0,100-fixedSum);
+  ['main','between','penalty'].forEach(t=>{
+    document.getElementById('prob-'+t+'-auto').textContent=userSet[t]?'':'← '+Math.round(probs[t])+'%';
+    document.getElementById('prob-bar-'+t).style.width=probs[t]+'%';
+  });
+  const tel=document.getElementById('prob-total');
+  tel.textContent='Gesamt: '+Math.round(Object.values(probs).reduce((a,b)=>a+b,0))+'%';
+  tel.classList.toggle('over',over);
+  if(freeTypes.length>0&&freeTypes.length<3) tel.textContent+=' · Nicht-fixierte teilen '+Math.round(freeShare)+'% (Urne)';
+}
+
+// ====== POOL & END ======
+function buildDrawPool(){
+  remainingGames=allGames.filter(g=>g.maxRepeats===0||g.timesPlayed<g.maxRepeats);
+  remainingGames.sort(()=>Math.random()-0.5);
+}
+function isGameOver(){
+  const ec=settings.endConditions;const types=[];
+  if(ec.main)types.push('main');if(ec.between)types.push('between');if(ec.penalty)types.push('penalty');
+  return types.every(type=>{const g=allGames.filter(x=>x.type===type);return g.length===0||g.every(x=>x.maxRepeats!==0&&x.timesPlayed>=x.maxRepeats)});
+}
+function hasDrawableGames(){return allGames.some(g=>g.maxRepeats===0||g.timesPlayed<g.maxRepeats)}
+function countRemaining(){
+  const ec=settings.endConditions;const types=[];
+  if(ec.main)types.push('main');if(ec.between)types.push('between');if(ec.penalty)types.push('penalty');
+  let count=0,inf=false;
+  allGames.forEach(g=>{if(!types.includes(g.type))return;if(g.maxRepeats===0)inf=true;else count+=Math.max(0,g.maxRepeats-g.timesPlayed)});
+  return inf?'∞':count;
+}
+
+// ====== START ======
+function startGame(){
+  collectGames();collectSettings();
+  if(players.length<2)return alert('Mindestens 2 Spieler benötigt.');
+  if(allGames.length<1)return alert('Mindestens 1 Spiel benötigt.');
+  if(!validateEndConditions())return;
+  savedGames=JSON.parse(JSON.stringify(allGames));savedPlayers=[...players];
+  scores={};players.forEach(p=>scores[p]=0);mainGameCounter=0;history=[];
+  buildDrawPool();
+  showShuffleAnimation(()=>{setPhase(1);renderScoreboard();renderHistory();updateRemaining();updateEndButton()});
+}
+
+// ====== SHUFFLE ======
+function showShuffleAnimation(cb){
+  const ov=document.getElementById('shuffle-overlay');ov.classList.remove('hidden');
+  const cards=ov.querySelectorAll('.shuffle-card');let t=0;
+  const iv=setInterval(()=>{
+    cards.forEach(c=>{c.style.transition='.15s ease';c.style.transform=`translate(${(Math.random()-.5)*30}px,${(Math.random()-.5)*20}px) rotate(${(Math.random()-.5)*25}deg)`});
+    if(++t>12){clearInterval(iv);cards.forEach((c,i)=>{c.style.transition='.3s ease';c.style.transform=`rotate(${(i-1)*3}deg) translate(${(i-1)*4}px,0)`});setTimeout(()=>{ov.classList.add('hidden');cb()},400)}
+  },130);
+}
+
+// ====== DRAW ======
+function drawGame(){
+  if(!hasDrawableGames())return;buildDrawPool();if(!remainingGames.length)return;
+  if(settings.dancebreak&&!dancebreakActive&&Math.random()<settings.dancebreakChance){showDancebreak(()=>actuallyDrawGame());return}
+  actuallyDrawGame();
+}
+function actuallyDrawGame(){
+  let pool=remainingGames;
+  if(!settings.probRandom&&settings.probUserSet){
+    const pw=settings.probWeights;
+    const fixedTypes=[],freeTypes=[];let fixedSum=0;
+    ['main','between','penalty'].forEach(t=>{if(settings.probUserSet[t]&&pw[t]!=null){fixedTypes.push(t);fixedSum+=pw[t]}else{freeTypes.push(t)}});
+    const countByType={main:0,between:0,penalty:0};pool.forEach(g=>countByType[g.type]++);
+    const activeFixed=fixedTypes.filter(t=>countByType[t]>0);
+    const activeFree=freeTypes.filter(t=>countByType[t]>0);
+    if(activeFixed.length>0||activeFree.length>0){
+      let afs=0;activeFixed.forEach(t=>afs+=pw[t]);
+      const freePool=activeFree.reduce((n,t)=>n+countByType[t],0);
+      const freeShare=Math.max(0,100-afs);
+      const weights=pool.map(g=>{
+        if(activeFixed.includes(g.type))return pw[g.type]/countByType[g.type];
+        if(activeFree.includes(g.type))return freePool>0?freeShare/freePool:1;
+        return 1;
+      });
+      const totalW=weights.reduce((a,b)=>a+b,0);
+      let roll=Math.random()*totalW,picked=0;
+      for(let i=0;i<weights.length;i++){roll-=weights[i];if(roll<=0){picked=i;break}}
+      currentGame=pool[picked];
+    } else {currentGame=pool[Math.floor(Math.random()*pool.length)]}
+  } else {currentGame=pool[Math.floor(Math.random()*pool.length)]}
+
+  // Calculate display points (don't mutate original for main games)
+  let drawPoints=currentGame.points;
+  if(currentGame.type==='main'){mainGameCounter++;drawPoints=settings.mainPtsStart+settings.mainPtsStep*(mainGameCounter-1)}
+  // Store current draw points for this round
+  currentGame._drawPoints=drawPoints;
+  const card=document.getElementById('draw-card');
+  document.getElementById('draw-prompt').classList.add('hidden');
+  document.getElementById('current-game').classList.remove('hidden');
+  card.className='draw-card';card.style.opacity='0';card.style.transform='scale(0.8) rotateY(90deg)';card.style.transition='none';
+  const tl={main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
+  const tc={main:'type-main',between:'type-between',penalty:'type-penalty'};
+  const pc={main:'',between:'complement',penalty:'penalty-color'};
+  document.getElementById('game-number').textContent=`Runde ${history.length+1} · ${tl[currentGame.type]}`;
+  document.getElementById('game-name').textContent=currentGame.name;
+  document.getElementById('game-desc').textContent=currentGame.desc;
+  document.getElementById('game-points').className='game-points '+pc[currentGame.type];
+  document.getElementById('game-points').textContent=drawPoints+(drawPoints===1?' Punkt':' Punkte');
+  const ri=document.getElementById('game-repeat-info');
+  if(currentGame.maxRepeats===0)ri.textContent='Bereits '+currentGame.timesPlayed+'× gespielt · Unbegrenzt';
+  else if(currentGame.maxRepeats>1)ri.textContent=currentGame.timesPlayed+' von '+currentGame.maxRepeats+'× gespielt';
+  else ri.textContent='';
+  requestAnimationFrame(()=>{card.style.transition='.5s cubic-bezier(.34,1.56,.64,1)';card.style.opacity='1';card.style.transform='scale(1) rotateY(0deg)';card.classList.add(tc[currentGame.type])});
+  renderResultRows();updateRemaining();
+}
+function renderResultRows(){
+  document.getElementById('results-rows').innerHTML=players.map((p,i)=>
+    `<div class="result-row"><label>${esc(p)}</label><select id="result-sel-${i}"><option value="0">Nicht gewonnen</option><option value="1">🏆 Gewonnen</option></select></div>`
+  ).join('');
+}
+function submitResults(){
+  const winners=[];
+  const pts=currentGame._drawPoints||currentGame.points;
+  players.forEach((p,i)=>{const sel=document.getElementById('result-sel-'+i);if(sel&&sel.value==='1'){winners.push(p);scores[p]+=pts}});
+  currentGame.timesPlayed++;
+  history.push({game:{...currentGame},winners:[...winners],pointsAwarded:pts});
+  renderScoreboard();renderHistory();
+  document.getElementById('current-game').classList.add('hidden');
+  if(isGameOver()){showWinnerScreen()}
+  else if(hasDrawableGames()){document.getElementById('draw-prompt').classList.remove('hidden');document.getElementById('draw-btn').textContent='🎲 Nächstes Spiel ziehen'}
+  else{showWinnerScreen()}
+  updateRemaining();updateEndButton();
+}
+function updateEndButton(){const w=document.getElementById('end-game-wrap');w.style.display=(hasDrawableGames()&&history.length>0)?'block':'none'}
+
+// ====== UNDO ======
+function undoResult(idx){
+  const e=history[idx];if(!e)return;
+  e.winners.forEach(w=>{scores[w]-=e.pointsAwarded});
+  if(e.game.type==='main')mainGameCounter--;
+  const orig=allGames.find(g=>g.uid===e.game.uid);if(orig)orig.timesPlayed--;
+  history.splice(idx,1);
+  renderScoreboard();renderHistory();updateRemaining();updateEndButton();
+  document.getElementById('current-game').classList.add('hidden');
+  document.getElementById('draw-prompt').classList.remove('hidden');
+}
+
+// ====== SCOREBOARD ======
+function renderScoreboard(){
+  const s=[...players].sort((a,b)=>scores[b]-scores[a]);
+  document.getElementById('scoreboard').innerHTML=`<div class="scoreboard-title">Punktestand</div>${s.map((p,i)=>`<div class="score-row"><span class="score-rank">${i+1}.</span><span class="score-name">${esc(p)}</span><span class="score-pts">${scores[p]}</span></div>`).join('')}`;
+}
+
+// ====== HISTORY ======
+function renderHistory(){
+  const l=document.getElementById('history-list');
+  if(!history.length){l.innerHTML='<p class="text-muted text-sm" style="padding:8px 0;">Noch keine Spiele gespielt.</p>';return}
+  const bt=t=>t==='main'?'main':t==='between'?'between':'penalty';
+  const bl=t=>t==='main'?'H':t==='between'?'Z':'S';
+  l.innerHTML=history.map((h,i)=>`<div class="history-item"><span class="history-num">${i+1}</span><span class="badge badge-${bt(h.game.type)}" style="font-size:.6rem;">${bl(h.game.type)}</span><span class="history-name">${esc(h.game.name)}</span><span class="history-winner">${h.winners.length?h.winners.map(esc).join(', '):'—'}</span><button class="history-undo" type="button" data-undo="${i}">↩ Undo</button></div>`).join('');
+}
+function updateRemaining(){const el=document.getElementById('remaining-count');if(el)el.textContent=countRemaining()}
+
+// ====== WINNER ======
+function showWinnerScreen(){
+  setPhase(2);const s=[...players].sort((a,b)=>scores[b]-scores[a]);const w=s[0];
+  document.getElementById('phase-winner').innerHTML=`<div class="winner-screen"><div class="crown">👑</div><h2>${esc(w)}</h2><p class="subtitle">gewinnt den Spieletag mit ${scores[w]} Punkten!</p><div class="final-scores">${s.map((p,i)=>`<div class="final-row ${i===0?'first':''}"><span class="rank">${i===0?'👑':i+1+'.'}</span><span class="name">${esc(p)}</span><span class="pts">${scores[p]} Pkt</span></div>`).join('')}</div><div class="btn-group" style="margin-top:40px;"><button class="btn btn-primary" type="button" id="win-restart-btn">🔄 Nochmal spielen</button><button class="btn btn-complement" type="button" id="win-edit-btn">✏️ Anpassen</button><button class="btn btn-secondary" type="button" id="win-new-btn">Komplett neu</button></div></div>`;
+}
+
+// ====== DANCEBREAK ======
+function showDancebreak(cb){
+  dancebreakActive=true;window._dbCb=cb;let rem=settings.dancebreakDuration;const total=rem;
+  const ov=document.createElement('div');ov.className='dancebreak-overlay';ov.id='dancebreak-overlay';
+  ov.innerHTML=`<div class="dance-emoji">💃🕺</div><h2>Dancebreak!</h2><p class="dance-sub">Alle tanzen — keine Ausnahmen!</p><div class="dance-timer" id="dance-countdown">${rem}</div><div class="dance-bar"><div class="dance-bar-fill" id="dance-bar-fill" style="width:100%"></div></div><button class="dance-skip" type="button" id="dance-skip-btn">Überspringen</button>`;
+  document.body.appendChild(ov);
+  dancebreakTimer=setInterval(()=>{rem--;document.getElementById('dance-countdown').textContent=rem;document.getElementById('dance-bar-fill').style.width=((rem/total)*100)+'%';if(rem<=0)endDancebreak(cb)},1000);
+}
+function endDancebreak(cb){
+  clearInterval(dancebreakTimer);dancebreakActive=false;
+  const ov=document.getElementById('dancebreak-overlay');
+  if(ov){ov.style.transition='opacity .4s';ov.style.opacity='0';setTimeout(()=>ov.remove(),400)}
+  if(cb)cb();
+}
+
+// ====== RESTART ======
+function restartSameGames(){
+  if(!savedGames.length)return location.reload();
+  players=[...savedPlayers];allGames=JSON.parse(JSON.stringify(savedGames));
+  allGames.forEach(g=>g.timesPlayed=0);scores={};players.forEach(p=>scores[p]=0);
+  mainGameCounter=0;history=[];currentGame=null;buildDrawPool();
+  showShuffleAnimation(()=>{setPhase(1);renderScoreboard();renderHistory();updateRemaining();updateEndButton();document.getElementById('current-game').classList.add('hidden');document.getElementById('draw-prompt').classList.remove('hidden');document.getElementById('draw-btn').textContent='🎲 Spiel ziehen'});
+}
+function restartToSetup(){
+  const games=savedGames.length?JSON.parse(JSON.stringify(savedGames)):[];
+  const pls=savedPlayers.length?[...savedPlayers]:[...players];
+  scores={};mainGameCounter=0;history=[];currentGame=null;remainingGames=[];players=pls;
+  setPhase(0);renderPlayers();
+  document.getElementById('dancebreak-toggle').checked=settings.dancebreak;
+  document.getElementById('dancebreak-options').style.display=settings.dancebreak?'flex':'none';
+  document.getElementById('dancebreak-duration').value=settings.dancebreakDuration;
+  document.getElementById('dancebreak-chance').value=settings.dancebreakChance;
+  document.getElementById('main-pts-start').value=settings.mainPtsStart;
+  document.getElementById('main-pts-step').value=settings.mainPtsStep;
+  document.getElementById('end-main').checked=settings.endConditions.main;
+  document.getElementById('end-between').checked=settings.endConditions.between;
+  document.getElementById('end-penalty').checked=settings.endConditions.penalty;
+  document.getElementById('prob-random').checked=settings.probRandom;
+  document.getElementById('prob-custom').classList.toggle('hidden',settings.probRandom);
+  if(!settings.probRandom&&settings.probWeights){
+    ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);if(inp)inp.value=settings.probUserSet[t]?Math.round(settings.probWeights[t]):''});
+    updateProbPreview();
+  }
+  updatePointsPreview();
+  ['main','between','penalty'].forEach(t=>{document.getElementById(t+'-games-list').innerHTML=''});
+  gameFieldCounters={main:0,between:0,penalty:0};
+  if(games.length)games.forEach(g=>addGameField(g.type,g));
+  else{addGameField('main');addGameField('between');addGameField('penalty')}
+}
+function confirmRestart(mode){
+  const msgs={same:'Neustart mit gleichen Spielen?',edit:'Zurück zur Bearbeitung?',full:'Komplett neu starten?'};
+  if(!confirm(msgs[mode]+' Fortschritt geht verloren.'))return;
+  if(mode==='same')restartSameGames();else if(mode==='edit')restartToSetup();else location.reload();
+}
+
+// ====== PHASES ======
+function setPhase(n){
+  ['phase-setup','phase-play','phase-winner'].forEach((id,i)=>{document.getElementById(id).classList.toggle('hidden',i!==n)});
+  document.querySelectorAll('.phase-dot').forEach((d,i)=>{d.classList.toggle('active',i===n);d.classList.toggle('done',i<n)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ====== EVENT DELEGATION (touch-safe) ======
+document.addEventListener('click',function(e){
+  const t=e.target;
+  // Remove player
+  if(t.dataset.removePlayer){removePlayer(t.dataset.removePlayer);return}
+  // Remove game field
+  if(t.dataset.removeField){removeField(t.dataset.removeField);return}
+  // Undo
+  if(t.dataset.undo!==undefined){undoResult(parseInt(t.dataset.undo));return}
+  // Winner screen buttons
+  if(t.id==='win-restart-btn'){restartSameGames();return}
+  if(t.id==='win-edit-btn'){restartToSetup();return}
+  if(t.id==='win-new-btn'){location.reload();return}
+  // Dance skip
+  if(t.id==='dance-skip-btn'){endDancebreak(window._dbCb);return}
+});
+
+// Static button listeners
+document.getElementById('darkmode-btn').addEventListener('click',toggleDarkMode);
+document.getElementById('add-player-btn').addEventListener('click',addPlayer);
+document.getElementById('player-name-input').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();addPlayer()}});
+document.getElementById('add-main-btn').addEventListener('click',()=>addGameField('main'));
+document.getElementById('add-between-btn').addEventListener('click',()=>addGameField('between'));
+document.getElementById('add-penalty-btn').addEventListener('click',()=>addGameField('penalty'));
+document.getElementById('start-btn').addEventListener('click',startGame);
+document.getElementById('draw-btn').addEventListener('click',drawGame);
+document.getElementById('submit-btn').addEventListener('click',submitResults);
+document.getElementById('end-game-btn').addEventListener('click',showWinnerScreen);
+document.getElementById('restart-same-btn').addEventListener('click',()=>confirmRestart('same'));
+document.getElementById('restart-edit-btn').addEventListener('click',()=>confirmRestart('edit'));
+document.getElementById('restart-full-btn').addEventListener('click',()=>confirmRestart('full'));
+document.getElementById('dancebreak-toggle').addEventListener('change',function(){document.getElementById('dancebreak-options').style.display=this.checked?'flex':'none'});
+document.getElementById('prob-random').addEventListener('change',function(){document.getElementById('prob-custom').classList.toggle('hidden',this.checked);if(!this.checked)updateProbPreview()});
+document.getElementById('main-pts-start').addEventListener('input',updatePointsPreview);
+document.getElementById('main-pts-step').addEventListener('input',updatePointsPreview);
+['prob-main','prob-between','prob-penalty'].forEach(id=>{document.getElementById(id).addEventListener('input',updateProbPreview)});
+
+// ====== INIT ======
+initDarkMode();
+addGameField('main');addGameField('between');addGameField('penalty');
+updatePointsPreview();
+</script>
+</body>
+</html>
