@@ -4,7 +4,7 @@
 
 Das Spieletag System ist eine kostenlose Web-App, die euren Spieleabend organisiert: Spiele mischen, Runden ziehen, Punkte tracken – alles in einem, direkt im Browser, keine Installation nötig.
 
-👉 **[Hier klicken, um die App direkt zu starten](https://mello2110.github.io/spieletag/)** *(Öffnet sich in einem neuen Fenster)*
+👉 **[Hier klicken, um die App direkt zu starten](https://mello2110.github.io/spieletag/)**
 
 ---
 
