@@ -18,39 +18,39 @@
 
 <style>
 :root {
-  --accent: #4F253D;
-  --accent-light: #6B3454;
-  --accent-glow: rgba(79,37,61,0.15);
-  --complement: #25504F;
-  --complement-light: #347170;
-  --bg: #F5F4F2;
-  --bg-card: #FFFFFF;
-  --bg-dark: #1A1A1A;
-  --text: #1A1A1A;
-  --text-muted: #6B6B6B;
-  --text-light: #999;
-  --border: #E5E3E0;
-  --border-hover: #CCC;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --transition: 0.2s ease;
+ --accent: #4F253D;
+ --accent-light: #6B3454;
+ --accent-glow: rgba(79,37,61,0.15);
+ --complement: #25504F;
+ --complement-light: #347170;
+ --bg: #F5F4F2;
+ --bg-card: #FFFFFF;
+ --bg-dark: #1A1A1A;
+ --text: #1A1A1A;
+ --text-muted: #6B6B6B;
+ --text-light: #999;
+ --border: #E5E3E0;
+ --border-hover: #CCC;
+ --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+ --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+ --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+ --radius: 12px;
+ --radius-sm: 8px;
+ --transition: 0.2s ease;
 }
 html.dark {
-  --bg: #111113;
-  --bg-card: #1C1C1F;
-  --bg-dark: #0A0A0B;
-  --text: #E8E6E3;
-  --text-muted: #8A8A8A;
-  --text-light: #5A5A5A;
-  --border: #2A2A2D;
-  --border-hover: #3A3A3D;
-  --accent-glow: rgba(79,37,61,0.3);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+ --bg: #111113;
+ --bg-card: #1C1C1F;
+ --bg-dark: #0A0A0B;
+ --text: #E8E6E3;
+ --text-muted: #8A8A8A;
+ --text-light: #5A5A5A;
+ --border: #2A2A2D;
+ --border-hover: #3A3A3D;
+ --accent-glow: rgba(79,37,61,0.3);
+ --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+ --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+ --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
 }
 html.dark .badge-main{background:#7A3D5E}
 html.dark .badge-between{background:#347170}
@@ -77,207 +77,207 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
 
 /* Dark mode toggle */
 .darkmode-btn{
-  position:fixed;top:16px;right:16px;z-index:50;
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:20px;padding:8px 14px;cursor:pointer;
-  font-size:.85rem;transition:all var(--transition);
-  display:flex;align-items:center;gap:4px;
-  font-family:'DM Sans',sans-serif;color:var(--text);
-  box-shadow:var(--shadow-sm);
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
+ position:fixed;top:16px;right:16px;z-index:50;
+ background:var(--bg-card);border:1px solid var(--border);
+ border-radius:20px;padding:8px 14px;cursor:pointer;
+ font-size:.85rem;transition:all var(--transition);
+ display:flex;align-items:center;gap:4px;
+ font-family:'DM Sans',sans-serif;color:var(--text);
+ box-shadow:var(--shadow-sm);
+ -webkit-tap-highlight-color:transparent;
+ touch-action:manipulation;
 }
 
 /* Auth Button */
 .auth-btn{
-  position:fixed;top:16px;right:106px;z-index:50;
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:20px;padding:8px 14px;cursor:pointer;
-  font-size:.85rem;transition:all var(--transition);
-  display:flex;align-items:center;gap:6px;
-  font-family:'DM Sans',sans-serif;color:var(--text);
-  box-shadow:var(--shadow-sm);
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
-  white-space:nowrap;max-width:160px;overflow:hidden;
+ position:fixed;top:16px;right:106px;z-index:50;
+ background:var(--bg-card);border:1px solid var(--border);
+ border-radius:20px;padding:8px 14px;cursor:pointer;
+ font-size:.85rem;transition:all var(--transition);
+ display:flex;align-items:center;gap:6px;
+ font-family:'DM Sans',sans-serif;color:var(--text);
+ box-shadow:var(--shadow-sm);
+ -webkit-tap-highlight-color:transparent;
+ touch-action:manipulation;
+ white-space:nowrap;max-width:160px;overflow:hidden;
 }
 .auth-btn .auth-avatar{
-  width:20px;height:20px;border-radius:50%;
-  background:var(--accent);color:#fff;
-  font-size:.65rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
+ width:20px;height:20px;border-radius:50%;
+ background:var(--accent);color:#fff;
+ font-size:.65rem;font-weight:700;
+ display:flex;align-items:center;justify-content:center;
+ flex-shrink:0;
 }
 
 /* Session Info Banner */
 .session-banner {
-  position:fixed;top:16px;left:16px;z-index:50;
-  background:var(--accent);color:white;
-  border-radius:20px;padding:8px 14px;
-  font-size:.85rem;font-weight:600;
-  box-shadow:var(--shadow-sm);
-  display:flex;align-items:center;gap:8px;
+ position:fixed;top:16px;left:16px;z-index:50;
+ background:var(--accent);color:white;
+ border-radius:20px;padding:8px 14px;
+ font-size:.85rem;font-weight:600;
+ box-shadow:var(--shadow-sm);
+ display:flex;align-items:center;gap:8px;
 }
 .session-banner .role-badge {
-  background:rgba(255,255,255,0.2);
-  padding:2px 6px;border-radius:10px;font-size:0.7rem;text-transform:uppercase;
+ background:rgba(255,255,255,0.2);
+ padding:2px 6px;border-radius:10px;font-size:0.7rem;text-transform:uppercase;
 }
 .connection-status {
-  width: 8px; height: 8px; border-radius: 50%; background: #2ecc71;
+ width: 8px; height: 8px; border-radius: 50%; background: #2ecc71;
 }
 .connection-status.offline { background: #e74c3c; }
 
 /* ==========================================
-   MODAL BASE
-   ========================================== */
+  MODAL BASE
+  ========================================== */
 .modal-overlay{
-  position:fixed;inset:0;z-index:200;
-  background:rgba(0,0,0,0.5);
-  display:flex;align-items:center;justify-content:center;
-  padding:16px;
-  animation:fadeIn .2s ease;
+ position:fixed;inset:0;z-index:200;
+ background:rgba(0,0,0,0.5);
+ display:flex;align-items:center;justify-content:center;
+ padding:16px;
+ animation:fadeIn .2s ease;
 }
 .modal-overlay.hidden{display:none}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal-content{
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:16px;width:100%;max-width:480px;
-  max-height:90vh;overflow:hidden;
-  display:flex;flex-direction:column;
-  box-shadow:var(--shadow-lg);
-  animation:slideUp .25s ease;
+ background:var(--bg-card);border:1px solid var(--border);
+ border-radius:16px;width:100%;max-width:480px;
+ max-height:90vh;overflow:hidden;
+ display:flex;flex-direction:column;
+ box-shadow:var(--shadow-lg);
+ animation:slideUp .25s ease;
 }
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .modal-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 24px 16px;border-bottom:1px solid var(--border);
-  flex-shrink:0;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:20px 24px 16px;border-bottom:1px solid var(--border);
+ flex-shrink:0;
 }
 .modal-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
 .modal-close{
-  background:none;border:none;cursor:pointer;
-  font-size:1.4rem;color:var(--text-light);
-  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
-  border-radius:8px;transition:background var(--transition);
-  -webkit-tap-highlight-color:transparent;
+ background:none;border:none;cursor:pointer;
+ font-size:1.4rem;color:var(--text-light);
+ width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+ border-radius:8px;transition:background var(--transition);
+ -webkit-tap-highlight-color:transparent;
 }
 .modal-close:hover{background:var(--bg)}
 .modal-body{overflow-y:auto;flex:1;padding:20px 24px}
 .modal-footer{
-  padding:16px 24px;border-top:1px solid var(--border);
-  flex-shrink:0;
+ padding:16px 24px;border-top:1px solid var(--border);
+ flex-shrink:0;
 }
 
 /* ==========================================
-   AUTH MODAL
-   ========================================== */
+  AUTH MODAL
+  ========================================== */
 .auth-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px}
 .auth-tab{
-  flex:1;padding:10px;text-align:center;cursor:pointer;
-  font-size:.9rem;font-weight:500;color:var(--text-muted);
-  border-bottom:2px solid transparent;margin-bottom:-2px;
-  transition:all var(--transition);
-  background:none;border-top:none;border-left:none;border-right:none;
-  font-family:'DM Sans',sans-serif;
+ flex:1;padding:10px;text-align:center;cursor:pointer;
+ font-size:.9rem;font-weight:500;color:var(--text-muted);
+ border-bottom:2px solid transparent;margin-bottom:-2px;
+ transition:all var(--transition);
+ background:none;border-top:none;border-left:none;border-right:none;
+ font-family:'DM Sans',sans-serif;
 }
 .auth-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .auth-form{display:flex;flex-direction:column;gap:14px}
 .auth-field label{
-  display:block;font-size:.8rem;font-weight:600;
-  color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;
+ display:block;font-size:.8rem;font-weight:600;
+ color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;
 }
 .auth-input-hint{font-size:.75rem;color:var(--text-light);margin-top:4px}
 .auth-error{
-  background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);
-  border-radius:var(--radius-sm);padding:10px 14px;
-  font-size:.85rem;color:#c0392b;display:none;
+ background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);
+ border-radius:var(--radius-sm);padding:10px 14px;
+ font-size:.85rem;color:#c0392b;display:none;
 }
 .auth-error.visible{display:block}
 .auth-success{
-  background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);
-  border-radius:var(--radius-sm);padding:10px 14px;
-  font-size:.85rem;color:#27ae60;display:none;text-align:center;
+ background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);
+ border-radius:var(--radius-sm);padding:10px 14px;
+ font-size:.85rem;color:#27ae60;display:none;text-align:center;
 }
 .auth-success.visible{display:block}
 .auth-divider{
-  display:flex;align-items:center;gap:10px;color:var(--text-light);font-size:.8rem;
+ display:flex;align-items:center;gap:10px;color:var(--text-light);font-size:.8rem;
 }
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .user-info-panel{text-align:center;padding:8px 0}
 .user-avatar-large{
-  width:64px;height:64px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--complement));
-  color:#fff;font-size:1.5rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 12px;
+ width:64px;height:64px;border-radius:50%;
+ background:linear-gradient(135deg,var(--accent),var(--complement));
+ color:#fff;font-size:1.5rem;font-weight:700;
+ display:flex;align-items:center;justify-content:center;
+ margin:0 auto 12px;
 }
 .user-displayname{font-size:1.1rem;font-weight:600;margin-bottom:4px}
 .user-meta{font-size:.8rem;color:var(--text-muted)}
 .user-stats{
-  display:flex;gap:16px;justify-content:center;
-  margin:16px 0;padding:16px;
-  background:var(--bg);border-radius:var(--radius-sm);
+ display:flex;gap:16px;justify-content:center;
+ margin:16px 0;padding:16px;
+ background:var(--bg);border-radius:var(--radius-sm);
 }
 .user-stat{text-align:center}
 .user-stat-val{font-size:1.2rem;font-weight:700;color:var(--accent)}
 .user-stat-label{font-size:.75rem;color:var(--text-muted);margin-top:2px}
 
 /* ==========================================
-   LIBRARY MODAL
-   ========================================== */
+  LIBRARY MODAL
+  ========================================== */
 .lib-modal .modal-content{max-width:600px}
 .lib-filter-bar{
-  display:flex;flex-direction:column;gap:10px;margin-bottom:16px;
+ display:flex;flex-direction:column;gap:10px;margin-bottom:16px;
 }
 .lib-search{
-  position:relative;
+ position:relative;
 }
 .lib-search input{
-  padding-left:36px;
+ padding-left:36px;
 }
 .lib-search-icon{
-  position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  color:var(--text-light);font-size:1rem;pointer-events:none;
+ position:absolute;left:12px;top:50%;transform:translateY(-50%);
+ color:var(--text-light);font-size:1rem;pointer-events:none;
 }
 .lib-filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .lib-tabs{display:flex;gap:6px;flex-wrap:wrap}
 .lib-tab{
-  padding:6px 12px;border-radius:20px;cursor:pointer;
-  font-size:.8rem;font-weight:600;border:1px solid var(--border);
-  background:var(--bg);color:var(--text-muted);
-  transition:all var(--transition);
-  -webkit-tap-highlight-color:transparent;
-  font-family:'DM Sans',sans-serif;
+ padding:6px 12px;border-radius:20px;cursor:pointer;
+ font-size:.8rem;font-weight:600;border:1px solid var(--border);
+ background:var(--bg);color:var(--text-muted);
+ transition:all var(--transition);
+ -webkit-tap-highlight-color:transparent;
+ font-family:'DM Sans',sans-serif;
 }
 .lib-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .lib-tab.tab-between.active{background:var(--complement);border-color:var(--complement)}
 .lib-tab.tab-penalty.active{background:#8B4513;border-color:#8B4513}
 .lib-scope-toggle{
-  display:flex;border:1px solid var(--border);border-radius:20px;overflow:hidden;
-  margin-left:auto;flex-shrink:0;
+ display:flex;border:1px solid var(--border);border-radius:20px;overflow:hidden;
+ margin-left:auto;flex-shrink:0;
 }
 .lib-scope-btn{
-  padding:6px 14px;font-size:.8rem;font-weight:600;cursor:pointer;
-  background:var(--bg);color:var(--text-muted);border:none;
-  transition:all var(--transition);font-family:'DM Sans',sans-serif;
-  -webkit-tap-highlight-color:transparent;
+ padding:6px 14px;font-size:.8rem;font-weight:600;cursor:pointer;
+ background:var(--bg);color:var(--text-muted);border:none;
+ transition:all var(--transition);font-family:'DM Sans',sans-serif;
+ -webkit-tap-highlight-color:transparent;
 }
 .lib-scope-btn.active{background:var(--accent);color:#fff}
 .lib-sort-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-muted)}
 .lib-sort-row select{
-  padding:6px 28px 6px 10px;font-size:.82rem;
-  border-radius:20px;border-color:var(--border);
+ padding:6px 28px 6px 10px;font-size:.82rem;
+ border-radius:20px;border-color:var(--border);
 }
 .lib-empty{
-  text-align:center;padding:40px 20px;color:var(--text-muted);
+ text-align:center;padding:40px 20px;color:var(--text-muted);
 }
 .lib-empty-icon{font-size:2.5rem;margin-bottom:12px}
 .lib-games-list{display:flex;flex-direction:column;gap:8px}
 .lib-game-card{
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--radius-sm);padding:12px 14px;
-  display:flex;align-items:center;gap:10px;
-  transition:border-color var(--transition);
+ background:var(--bg);border:1px solid var(--border);
+ border-radius:var(--radius-sm);padding:12px 14px;
+ display:flex;align-items:center;gap:10px;
+ transition:border-color var(--transition);
 }
 .lib-game-card:hover{border-color:var(--border-hover)}
 .lib-game-info{flex:1;min-width:0}
@@ -286,13 +286,13 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
 .lib-game-creator{font-size:.72rem;color:var(--text-light);font-style:italic}
 .lib-game-actions{display:flex;gap:4px;align-items:center;flex-shrink:0}
 .lib-btn{
-  background:none;border:none;cursor:pointer;
-  padding:6px;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;color:var(--text-muted);
-  transition:all var(--transition);
-  -webkit-tap-highlight-color:transparent;
-  min-width:32px;min-height:32px;
+ background:none;border:none;cursor:pointer;
+ padding:6px;border-radius:6px;
+ display:flex;align-items:center;justify-content:center;
+ font-size:1rem;color:var(--text-muted);
+ transition:all var(--transition);
+ -webkit-tap-highlight-color:transparent;
+ min-width:32px;min-height:32px;
 }
 .lib-btn:hover{background:var(--bg-card);color:var(--text)}
 .lib-btn.star-btn.active{color:#f39c12}
@@ -302,56 +302,56 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
 .lib-btn.edit-btn:hover{color:var(--accent)}
 .lib-btn.delete-btn:hover{color:#e74c3c}
 .lib-global-badge{
-  font-size:.65rem;font-weight:700;padding:2px 6px;
-  border-radius:4px;background:rgba(37,80,79,0.15);
-  color:var(--complement);text-transform:uppercase;letter-spacing:.5px;
+ font-size:.65rem;font-weight:700;padding:2px 6px;
+ border-radius:4px;background:rgba(37,80,79,0.15);
+ color:var(--complement);text-transform:uppercase;letter-spacing:.5px;
 }
 
 /* Edit inline form in library */
 .lib-edit-form{
-  background:var(--bg-card);border:1px solid var(--accent);
-  border-radius:var(--radius-sm);padding:12px;margin-top:8px;
-  display:flex;flex-direction:column;gap:8px;
-  animation:slideIn .2s ease;
+ background:var(--bg-card);border:1px solid var(--accent);
+ border-radius:var(--radius-sm);padding:12px;margin-top:8px;
+ display:flex;flex-direction:column;gap:8px;
+ animation:slideIn .2s ease;
 }
 .lib-edit-form input,.lib-edit-form textarea{font-size:15px;padding:10px 12px}
 .lib-edit-actions{display:flex;gap:8px;justify-content:flex-end}
 
 /* Library button under game categories */
 .btn-lib{
-  background:transparent;color:var(--complement);
-  border:1px dashed var(--complement);
-  width:100%;padding:12px;margin-top:6px;
-  border-radius:var(--radius-sm);
-  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
-  transition:all var(--transition);
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+ background:transparent;color:var(--complement);
+ border:1px dashed var(--complement);
+ width:100%;padding:12px;margin-top:6px;
+ border-radius:var(--radius-sm);
+ font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;
+ cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+ transition:all var(--transition);
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
 }
 .btn-lib:active{background:rgba(37,80,79,0.1)}
 
 /* Saved badge on input fields */
 .game-field-wrap{position:relative}
 .saved-badge{
-  position:absolute;top:-8px;left:8px;z-index:5;
-  font-size:.65rem;font-weight:700;padding:2px 8px;
-  border-radius:10px;background:rgba(37,80,79,0.12);
-  color:var(--complement);pointer-events:none;
+ position:absolute;top:-8px;left:8px;z-index:5;
+ font-size:.65rem;font-weight:700;padding:2px 8px;
+ border-radius:10px;background:rgba(37,80,79,0.12);
+ color:var(--complement);pointer-events:none;
 }
 
 /* Login prompt in library */
 .lib-login-prompt{
-  text-align:center;padding:32px 20px;
+ text-align:center;padding:32px 20px;
 }
 .lib-login-prompt p{color:var(--text-muted);margin-bottom:16px;font-size:.9rem}
 
 
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
-  min-height:100vh;min-height:100dvh;
-  -webkit-font-smoothing:antialiased;
-  -webkit-text-size-adjust:100%;
+ font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+ min-height:100vh;min-height:100dvh;
+ -webkit-font-smoothing:antialiased;
+ -webkit-text-size-adjust:100%;
 }
 .container{max-width:900px;margin:0 auto;padding:24px 16px 100px}
 
@@ -379,57 +379,57 @@ body{
 .input-row-meta{display:flex;gap:6px;align-items:center;flex-shrink:0}
 
 input[type="text"],input[type="password"],input[type="number"],textarea,select{
-  font-family:'DM Sans',sans-serif;
-  font-size:16px;
-  border:1px solid var(--border);border-radius:var(--radius-sm);
-  padding:12px 14px;background:var(--bg);color:var(--text);
-  outline:none;width:100%;
-  -webkit-appearance:none;appearance:none;
-  transition:border-color var(--transition),box-shadow var(--transition);
+ font-family:'DM Sans',sans-serif;
+ font-size:16px;
+ border:1px solid var(--border);border-radius:var(--radius-sm);
+ padding:12px 14px;background:var(--bg);color:var(--text);
+ outline:none;width:100%;
+ -webkit-appearance:none;appearance:none;
+ transition:border-color var(--transition),box-shadow var(--transition);
 }
 input:focus,textarea:focus,select:focus{
-  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);
+ border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);
 }
 input.code-input {
-  font-family: monospace; font-size: 1.5rem; text-align: center; letter-spacing: 4px; text-transform: uppercase;
+ font-family: monospace; font-size: 1.5rem; text-align: center; letter-spacing: 4px; text-transform: uppercase;
 }
 textarea{resize:vertical;min-height:44px;max-height:100px}
 input[type="number"]{width:70px;flex-shrink:0}
 select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;
-  padding-right:28px;cursor:pointer;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+ background-repeat:no-repeat;background-position:right 10px center;
+ padding-right:28px;cursor:pointer;
 }
 select.small-select{
-  width:auto;min-width:64px;padding:10px 28px 10px 10px;
-  font-size:16px;text-align:left;
+ width:auto;min-width:64px;padding:10px 28px 10px 10px;
+ font-size:16px;text-align:left;
 }
 
 .remove-btn{
-  background:none;border:none;color:var(--text-light);cursor:pointer;
-  font-size:1.4rem;padding:10px;line-height:1;min-width:44px;min-height:44px;
-  display:flex;align-items:center;justify-content:center;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+ background:none;border:none;color:var(--text-light);cursor:pointer;
+ font-size:1.4rem;padding:10px;line-height:1;min-width:44px;min-height:44px;
+ display:flex;align-items:center;justify-content:center;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
 }
 .remove-btn:active{color:#c0392b}
 .btn-icon-small {
-  background:none;border:none;cursor:pointer;font-size:1.2rem;
-  padding:4px;border-radius:4px;display:flex;align-items:center;justify-content:center;
+ background:none;border:none;cursor:pointer;font-size:1.2rem;
+ padding:4px;border-radius:4px;display:flex;align-items:center;justify-content:center;
 }
 .btn-icon-small:hover { background: var(--bg); }
 .btn-icon-small.accept { color: #2ecc71; }
 .btn-icon-small.reject { color: #e74c3c; }
 
 .btn{
-  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
-  border:none;border-radius:var(--radius-sm);padding:14px 20px;
-  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  transition:all var(--transition);min-height:48px;
+ font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
+ border:none;border-radius:var(--radius-sm);padding:14px 20px;
+ cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+ transition:all var(--transition);min-height:48px;
 }
 .btn-add{
-  background:transparent;color:var(--accent);border:1px dashed var(--border);
-  width:100%;padding:14px;margin-top:4px;
+ background:transparent;color:var(--accent);border:1px dashed var(--border);
+ width:100%;padding:14px;margin-top:4px;
 }
 .btn-add:active{border-color:var(--accent);background:var(--accent-glow)}
 .btn-primary{background:var(--accent);color:#fff;padding:16px 32px;font-weight:600;border-radius:var(--radius)}
@@ -445,21 +445,21 @@ select.small-select{
 .toggle-row-label .trl-title{font-size:.9rem;font-weight:500}
 .toggle-row-label .trl-sub{font-size:.78rem;color:var(--text-muted);font-weight:300}
 .toggle-switch{
-  position:relative;width:52px;height:32px;flex-shrink:0;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+ position:relative;width:52px;height:32px;flex-shrink:0;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
 }
 .toggle-switch input{
-  position:absolute;opacity:0;width:100%;height:100%;
-  margin:0;padding:0;cursor:pointer;z-index:2;
+ position:absolute;opacity:0;width:100%;height:100%;
+ margin:0;padding:0;cursor:pointer;z-index:2;
 }
 .toggle-track{
-  position:absolute;inset:0;background:var(--border);border-radius:16px;
-  cursor:pointer;transition:background .2s;pointer-events:none;
+ position:absolute;inset:0;background:var(--border);border-radius:16px;
+ cursor:pointer;transition:background .2s;pointer-events:none;
 }
 .toggle-track::after{
-  content:'';position:absolute;top:4px;left:4px;width:24px;height:24px;
-  background:#fff;border-radius:50%;transition:transform .2s;
-  box-shadow:0 1px 3px rgba(0,0,0,.15);
+ content:'';position:absolute;top:4px;left:4px;width:24px;height:24px;
+ background:#fff;border-radius:50%;transition:transform .2s;
+ box-shadow:0 1px 3px rgba(0,0,0,.15);
 }
 .toggle-switch input:checked+.toggle-track{background:var(--accent)}
 .toggle-switch input:checked+.toggle-track::after{transform:translateX(20px)}
@@ -475,8 +475,8 @@ select.small-select{
 
 .checkbox-row{display:flex;align-items:center;gap:10px;padding:8px 0;min-height:44px}
 .checkbox-row input[type="checkbox"]{
-  width:22px;height:22px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;
-  -webkit-tap-highlight-color:transparent;
+ width:22px;height:22px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;
+ -webkit-tap-highlight-color:transparent;
 }
 .checkbox-row label{font-size:.9rem;cursor:pointer;-webkit-user-select:none;user-select:none}
 
@@ -498,8 +498,8 @@ select.small-select{
 
 .players-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .player-tag{
-  display:flex;align-items:center;gap:6px;background:var(--bg);
-  border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:.9rem;
+ display:flex;align-items:center;gap:6px;background:var(--bg);
+ border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:.9rem;
 }
 .player-tag .remove-btn{font-size:.9rem;padding:4px;min-width:32px;min-height:32px;margin:0}
 .player-input-row{display:flex;gap:8px;margin-top:12px}
@@ -508,8 +508,8 @@ select.small-select{
 
 .draw-screen{text-align:center}
 .draw-card{
-  background:var(--bg-card);border:2px solid var(--border);border-radius:16px;
-  padding:40px 24px;max-width:500px;margin:0 auto 24px;position:relative;overflow:hidden;
+ background:var(--bg-card);border:2px solid var(--border);border-radius:16px;
+ padding:40px 24px;max-width:500px;margin:0 auto 24px;position:relative;overflow:hidden;
 }
 .draw-card.type-main{border-color:var(--accent)}
 .draw-card.type-between{border-color:var(--complement)}
@@ -554,19 +554,19 @@ select.small-select{
 
 .history-section{margin-top:24px}
 .history-item{
-  display:flex;align-items:center;gap:8px;padding:12px 14px;
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:var(--radius-sm);margin-bottom:8px;font-size:.85rem;
-  flex-wrap:wrap;
+ display:flex;align-items:center;gap:8px;padding:12px 14px;
+ background:var(--bg-card);border:1px solid var(--border);
+ border-radius:var(--radius-sm);margin-bottom:8px;font-size:.85rem;
+ flex-wrap:wrap;
 }
 .history-num{font-weight:700;color:var(--text-light);width:20px;text-align:center;flex-shrink:0}
 .history-name{flex:1;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .history-winner{color:var(--accent);font-weight:600;flex-shrink:0}
 .history-undo{
-  background:none;border:none;color:var(--text-light);cursor:pointer;
-  font-size:.8rem;text-decoration:underline;padding:4px 8px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  min-height:36px;display:flex;align-items:center;
+ background:none;border:none;color:var(--text-light);cursor:pointer;
+ font-size:.8rem;text-decoration:underline;padding:4px 8px;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+ min-height:36px;display:flex;align-items:center;
 }
 
 .winner-screen{text-align:center;padding:40px 16px}
@@ -589,14 +589,14 @@ select.small-select{
 
 /* Proposals */
 .proposal-inbox {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--border);
+ margin-top: 16px;
+ padding-top: 16px;
+ border-top: 1px dashed var(--border);
 }
 .proposal-item {
-  display: flex; justify-content: space-between; align-items: center;
-  background: var(--bg); padding: 10px; border-radius: var(--radius-sm);
-  margin-bottom: 8px; font-size: 0.85rem; border: 1px solid var(--border);
+ display: flex; justify-content: space-between; align-items: center;
+ background: var(--bg); padding: 10px; border-radius: var(--radius-sm);
+ margin-bottom: 8px; font-size: 0.85rem; border: 1px solid var(--border);
 }
 .proposal-info { flex: 1; }
 .proposal-title { font-weight: 600; display: block; margin-bottom: 4px; }
@@ -604,617 +604,617 @@ select.small-select{
 .proposal-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
 .status-badge {
-  font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 600;
+ font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 600;
 }
 .status-pending { background: #f39c12; color: #fff; }
 .status-approved { background: #2ecc71; color: #fff; }
 .status-rejected { background: #e74c3c; color: #fff; }
 
 .host-disconnect-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  z-index: 500; color: white; text-align: center; padding: 20px;
+ position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ z-index: 500; color: white; text-align: center; padding: 20px;
 }
 .host-disconnect-overlay h2 { margin-top: 16px; color: #e74c3c; }
 
 @media(max-width:600px){
-  .container{padding:16px 12px 80px}
-  .header{padding:36px 0 28px}
-  .header h1{font-size:2rem}
-  .card{padding:18px}
-  .draw-card{padding:28px 18px}
-  .draw-card .game-name{font-size:1.4rem}
-  .input-row-meta{width:100%;margin-top:4px}
-  .prob-row{flex-wrap:wrap}
-  .prob-row .prob-label{min-width:auto}
-  .prob-bar-wrap{min-width:100%;order:10;margin-top:2px}
-  .option-inline{gap:8px}
-  .history-item{gap:6px;padding:10px 12px}
-  .btn-group{gap:8px}
-  .dancebreak-overlay h2{font-size:1.8rem;letter-spacing:2px}
-  
-  /* Responsive Modals */
-  .modal-content{margin: 10px; max-height: calc(100vh - 20px);}
-  .modal-header{padding: 16px; flex-direction: column; align-items: flex-start; gap: 8px;}
-  .modal-header h3{font-size: 1.2rem;}
-  .modal-close{position: absolute; top: 12px; right: 12px;}
-  .modal-body{padding: 16px;}
-  .lib-game-card{flex-direction: column; align-items: flex-start; gap: 12px;}
-  .lib-game-actions{width: 100%; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;}
-  .lib-filter-row{flex-direction: column; align-items: stretch;}
-  .lib-scope-toggle{margin-left: 0; align-self: flex-start; width: 100%; display: flex;}
-  .lib-scope-toggle button{flex: 1;}
-  .auth-tabs{flex-wrap: wrap;}
-  #landing-auth-screen .card {padding: 24px 16px;}
+ .container{padding:16px 12px 80px}
+ .header{padding:36px 0 28px}
+ .header h1{font-size:2rem}
+ .card{padding:18px}
+ .draw-card{padding:28px 18px}
+ .draw-card .game-name{font-size:1.4rem}
+ .input-row-meta{width:100%;margin-top:4px}
+ .prob-row{flex-wrap:wrap}
+ .prob-row .prob-label{min-width:auto}
+ .prob-bar-wrap{min-width:100%;order:10;margin-top:2px}
+ .option-inline{gap:8px}
+ .history-item{gap:6px;padding:10px 12px}
+ .btn-group{gap:8px}
+ .dancebreak-overlay h2{font-size:1.8rem;letter-spacing:2px}
+ 
+ /* Responsive Modals */
+ .modal-content{margin: 10px; max-height: calc(100vh - 20px);}
+ .modal-header{padding: 16px; flex-direction: column; align-items: flex-start; gap: 8px;}
+ .modal-header h3{font-size: 1.2rem;}
+ .modal-close{position: absolute; top: 12px; right: 12px;}
+ .modal-body{padding: 16px;}
+ .lib-game-card{flex-direction: column; align-items: flex-start; gap: 12px;}
+ .lib-game-actions{width: 100%; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;}
+ .lib-filter-row{flex-direction: column; align-items: stretch;}
+ .lib-scope-toggle{margin-left: 0; align-self: flex-start; width: 100%; display: flex;}
+ .lib-scope-toggle button{flex: 1;}
+ .auth-tabs{flex-wrap: wrap;}
+ #landing-auth-screen .card {padding: 24px 16px;}
 }
 @media(min-width:768px){
-  .header h1{font-size:3rem}
-  .card{padding:28px}
+ .header h1{font-size:3rem}
+ .card{padding:28px}
 }
 </style>
 </head>
 <body>
-<button class="darkmode-btn" id="darkmode-btn" type="button">🌙 Dark</button>
+<button class="darkmode-btn" id="darkmode-btn" type="button">Dark</button>
 <button class="auth-btn" id="auth-btn" type="button">
-  <span class="auth-avatar" id="auth-avatar-mini">👤</span>
-  <span id="auth-btn-label">Anmelden</span>
+ <span class="auth-avatar" id="auth-avatar-mini"></span>
+ <span id="auth-btn-label">Anmelden</span>
 </button>
 
 <!-- ==========================================
-     AUTH MODAL
-     ========================================== -->
+   AUTH MODAL
+   ========================================== -->
 <div class="modal-overlay hidden" id="auth-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="auth-modal-title">Konto</h3>
-      <button class="modal-close" id="auth-modal-close" type="button">×</button>
-    </div>
-    <div class="modal-body">
-
-      <!-- Logged-in view -->
-      <div id="auth-user-view" class="hidden">
-        <div class="user-info-panel">
-          <div class="user-avatar-large" id="auth-user-avatar">?</div>
-          <div class="user-displayname" id="auth-user-name">—</div>
-          <div class="user-meta">Spieletag-Konto</div>
-        </div>
-        <div class="user-stats">
-          <div class="user-stat">
-            <div class="user-stat-val" id="stat-private">0</div>
-            <div class="user-stat-label">Eigene Spiele</div>
-          </div>
-          <div class="user-stat">
-            <div class="user-stat-val" id="stat-global">0</div>
-            <div class="user-stat-label">Veröffentlicht</div>
-          </div>
-          <div class="user-stat">
-            <div class="user-stat-val" id="stat-favs">0</div>
-            <div class="user-stat-label">Favoriten</div>
-          </div>
-        </div>
-        <button class="btn btn-secondary" type="button" id="auth-logout-btn" style="width:100%;margin-top:8px;">🚪 Abmelden</button>
-      </div>
-
-      <!-- Guest view: Login / Register tabs -->
-      <div id="auth-guest-view">
-        <div class="auth-tabs">
-          <button class="auth-tab active" type="button" data-auth-tab="login">Anmelden</button>
-          <button class="auth-tab" type="button" data-auth-tab="register">Registrieren</button>
-        </div>
-
-        <div id="auth-error" class="auth-error"></div>
-        <div id="auth-success" class="auth-success"></div>
-
-        <!-- Login form -->
-        <div id="auth-form-login" class="auth-form">
-          <div class="auth-field">
-            <label for="login-username">Benutzername</label>
-            <input type="text" id="login-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none">
-          </div>
-          <div class="auth-field">
-            <label for="login-password">Passwort</label>
-            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
-          </div>
-          <button class="btn btn-primary" type="button" id="btn-login" style="width:100%">Anmelden →</button>
-        </div>
-
-        <!-- Register form -->
-        <div id="auth-form-register" class="auth-form hidden">
-          <div class="auth-field">
-            <label for="reg-username">Benutzername</label>
-            <input type="text" id="reg-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
-            <div class="auth-input-hint">Nur Buchstaben, Zahlen und Unterstriche. Einmal vergeben und dauerhaft!</div>
-          </div>
-          <div class="auth-field">
-            <label for="reg-password">Passwort</label>
-            <input type="password" id="reg-password" placeholder="Min. 6 Zeichen" autocomplete="new-password">
-          </div>
-          <div class="auth-field">
-            <label for="reg-password2">Passwort bestätigen</label>
-            <input type="password" id="reg-password2" placeholder="Nochmal eingeben" autocomplete="new-password">
-          </div>
-          <button class="btn btn-primary" type="button" id="btn-register" style="width:100%">Konto erstellen →</button>
-        </div>
-      </div>
-    </div>
+ <div class="modal-content">
+  <div class="modal-header">
+   <h3 id="auth-modal-title">Konto</h3>
+   <button class="modal-close" id="auth-modal-close" type="button">×</button>
   </div>
+  <div class="modal-body">
+
+   <!-- Logged-in view -->
+   <div id="auth-user-view" class="hidden">
+    <div class="user-info-panel">
+     <div class="user-avatar-large" id="auth-user-avatar">?</div>
+     <div class="user-displayname" id="auth-user-name">—</div>
+     <div class="user-meta">Spieletag-Konto</div>
+    </div>
+    <div class="user-stats">
+     <div class="user-stat">
+      <div class="user-stat-val" id="stat-private">0</div>
+      <div class="user-stat-label">Eigene Spiele</div>
+     </div>
+     <div class="user-stat">
+      <div class="user-stat-val" id="stat-global">0</div>
+      <div class="user-stat-label">Veröffentlicht</div>
+     </div>
+     <div class="user-stat">
+      <div class="user-stat-val" id="stat-favs">0</div>
+      <div class="user-stat-label">Favoriten</div>
+     </div>
+    </div>
+    <button class="btn btn-secondary" type="button" id="auth-logout-btn" style="width:100%;margin-top:8px;">Abmelden</button>
+   </div>
+
+   <!-- Guest view: Login / Register tabs -->
+   <div id="auth-guest-view">
+    <div class="auth-tabs">
+     <button class="auth-tab active" type="button" data-auth-tab="login">Anmelden</button>
+     <button class="auth-tab" type="button" data-auth-tab="register">Registrieren</button>
+    </div>
+
+    <div id="auth-error" class="auth-error"></div>
+    <div id="auth-success" class="auth-success"></div>
+
+    <!-- Login form -->
+    <div id="auth-form-login" class="auth-form">
+     <div class="auth-field">
+      <label for="login-username">Benutzername</label>
+      <input type="text" id="login-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none">
+     </div>
+     <div class="auth-field">
+      <label for="login-password">Passwort</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+     </div>
+     <button class="btn btn-primary" type="button" id="btn-login" style="width:100%">Anmelden →</button>
+    </div>
+
+    <!-- Register form -->
+    <div id="auth-form-register" class="auth-form hidden">
+     <div class="auth-field">
+      <label for="reg-username">Benutzername</label>
+      <input type="text" id="reg-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
+      <div class="auth-input-hint">Nur Buchstaben, Zahlen und Unterstriche. Einmal vergeben und dauerhaft!</div>
+     </div>
+     <div class="auth-field">
+      <label for="reg-password">Passwort</label>
+      <input type="password" id="reg-password" placeholder="Min. 6 Zeichen" autocomplete="new-password">
+     </div>
+     <div class="auth-field">
+      <label for="reg-password2">Passwort bestätigen</label>
+      <input type="password" id="reg-password2" placeholder="Nochmal eingeben" autocomplete="new-password">
+     </div>
+     <button class="btn btn-primary" type="button" id="btn-register" style="width:100%">Konto erstellen →</button>
+    </div>
+   </div>
+  </div>
+ </div>
 </div>
 
 <!-- ==========================================
-     LIBRARY MODAL
-     ========================================== -->
+   LIBRARY MODAL
+   ========================================== -->
 <div class="modal-overlay hidden lib-modal" id="library-modal">
-  <div class="modal-content" style="max-width:620px">
-    <div class="modal-header">
-      <h3>📚 Spiele-Bibliothek</h3>
-      <button class="modal-close" id="library-modal-close" type="button">×</button>
-    </div>
-    <div class="modal-body">
-      <!-- Login prompt when not logged in -->
-      <div id="lib-login-prompt" class="lib-login-prompt hidden">
-        <div style="font-size:2.5rem;margin-bottom:12px">🔒</div>
-        <p>Melde dich an, um die gemeinsame Spiele-Bibliothek zu nutzen!</p>
-        <button class="btn btn-primary" type="button" id="lib-goto-login">Jetzt anmelden</button>
-      </div>
-
-      <!-- Main library view -->
-      <div id="lib-main-view">
-        <div class="lib-filter-bar">
-          <div class="lib-search">
-            <span class="lib-search-icon">🔍</span>
-            <input type="text" id="lib-search-input" placeholder="Spiel suchen …" autocomplete="off">
-          </div>
-          <div class="lib-filter-row">
-            <div class="lib-tabs" id="lib-type-tabs">
-              <button class="lib-tab active" data-lib-type="all">Alle</button>
-              <button class="lib-tab tab-main" data-lib-type="main">🟣 Haupt</button>
-              <button class="lib-tab tab-between" data-lib-type="between">🟢 Zwischen</button>
-              <button class="lib-tab tab-penalty" data-lib-type="penalty">🟤 Strafe</button>
-            </div>
-            <div class="lib-scope-toggle">
-              <button class="lib-scope-btn active" data-lib-scope="global">🌐 Global</button>
-              <button class="lib-scope-btn" data-lib-scope="private">👤 Eigene</button>
-            </div>
-          </div>
-          <div class="lib-sort-row">
-            <span>Sortieren:</span>
-            <select id="lib-sort-select" class="small-select">
-              <option value="favs">⭐ Favoriten zuerst</option>
-              <option value="az">A → Z</option>
-              <option value="newest">Neueste zuerst</option>
-            </select>
-            <label style="margin-left:auto;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.8rem;">
-              <input type="checkbox" id="lib-fav-only" style="width:16px;height:16px;accent-color:var(--accent)"> Nur Favoriten
-            </label>
-          </div>
-        </div>
-
-        <div id="lib-games-container">
-          <div class="lib-empty">
-            <div class="lib-empty-icon">🎲</div>
-            <p>Keine Spiele gefunden.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <div style="font-size:.8rem;color:var(--text-muted)">
-        Spiele werden beim Starten eines Spieletags automatisch gespeichert.
-      </div>
-    </div>
+ <div class="modal-content" style="max-width:620px">
+  <div class="modal-header">
+   <h3>Spiele-Bibliothek</h3>
+   <button class="modal-close" id="library-modal-close" type="button">×</button>
   </div>
+  <div class="modal-body">
+   <!-- Login prompt when not logged in -->
+   <div id="lib-login-prompt" class="lib-login-prompt hidden">
+    <div style="font-size:2.5rem;margin-bottom:12px"></div>
+    <p>Melde dich an, um die gemeinsame Spiele-Bibliothek zu nutzen!</p>
+    <button class="btn btn-primary" type="button" id="lib-goto-login">Jetzt anmelden</button>
+   </div>
+
+   <!-- Main library view -->
+   <div id="lib-main-view">
+    <div class="lib-filter-bar">
+     <div class="lib-search">
+      <span class="lib-search-icon"></span>
+      <input type="text" id="lib-search-input" placeholder="Spiel suchen …" autocomplete="off">
+     </div>
+     <div class="lib-filter-row">
+      <div class="lib-tabs" id="lib-type-tabs">
+       <button class="lib-tab active" data-lib-type="all">Alle</button>
+       <button class="lib-tab tab-main" data-lib-type="main">• Haupt</button>
+       <button class="lib-tab tab-between" data-lib-type="between">• Zwischen</button>
+       <button class="lib-tab tab-penalty" data-lib-type="penalty">• Strafe</button>
+      </div>
+      <div class="lib-scope-toggle">
+       <button class="lib-scope-btn active" data-lib-scope="global">Global</button>
+       <button class="lib-scope-btn" data-lib-scope="private"> Eigene</button>
+      </div>
+     </div>
+     <div class="lib-sort-row">
+      <span>Sortieren:</span>
+      <select id="lib-sort-select" class="small-select">
+       <option value="favs">★ Favoriten zuerst</option>
+       <option value="az">A → Z</option>
+       <option value="newest">Neueste zuerst</option>
+      </select>
+      <label style="margin-left:auto;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.8rem;">
+       <input type="checkbox" id="lib-fav-only" style="width:16px;height:16px;accent-color:var(--accent)"> Nur Favoriten
+      </label>
+     </div>
+    </div>
+
+    <div id="lib-games-container">
+     <div class="lib-empty">
+      <div class="lib-empty-icon"></div>
+      <p>Keine Spiele gefunden.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="modal-footer">
+   <div style="font-size:.8rem;color:var(--text-muted)">
+    Spiele werden beim Starten eines Spieletags automatisch gespeichert.
+   </div>
+  </div>
+ </div>
 </div>
 
 <div id="session-banner" class="session-banner hidden">
-  <div class="connection-status" id="conn-status"></div>
-  <span id="banner-code">Code: ---</span>
-  <span class="role-badge" id="banner-role">GUEST</span>
+ <div class="connection-status" id="conn-status"></div>
+ <span id="banner-code">Code: ---</span>
+ <span class="role-badge" id="banner-role">GUEST</span>
 </div>
 
 <div class="host-disconnect-overlay hidden" id="host-disconnect">
-  <div style="font-size: 3rem;">⚠️</div>
-  <h2>Verbindung zum Host verloren</h2>
-  <p style="margin-top: 10px; color: #bbb;">Das Spiel pausiert, bis der Host wieder online ist.</p>
+ <div style="font-size: 3rem;"></div>
+ <h2>Verbindung zum Host verloren</h2>
+ <p style="margin-top: 10px; color: #bbb;">Das Spiel pausiert, bis der Host wieder online ist.</p>
 </div>
 
 <div class="container">
-  <div class="header"><h1>Spieletag</h1><p>Spiele vorbereiten, mischen und ziehen</p></div>
-  <div class="phase-bar hidden" id="main-phase-bar">
-    <div class="phase-dot active" data-phase="0"></div>
-    <div class="phase-dot" data-phase="1"></div>
-    <div class="phase-dot" data-phase="2"></div>
+ <div class="header"><h1>Spieletag</h1><p>Spiele vorbereiten, mischen und ziehen</p></div>
+ <div class="phase-bar hidden" id="main-phase-bar">
+  <div class="phase-dot active" data-phase="0"></div>
+  <div class="phase-dot" data-phase="1"></div>
+  <div class="phase-dot" data-phase="2"></div>
+ </div>
+
+ <!-- LOGIN LANDING (Phase 0) -->
+ <div id="phase-session">
+
+  <!-- Auth Screen (shown when not logged in) -->
+  <div id="landing-auth-screen">
+   <div class="card" style="max-width:420px;margin:0 auto;padding:36px 32px;">
+    <div style="text-align:center;margin-bottom:28px;">
+     <div style="font-size:3rem;margin-bottom:8px;"></div>
+     <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:6px;">Willkommen!</h2>
+     <p class="text-muted" style="font-size:.9rem;">Melde dich an oder erstelle ein Konto,<br>um die Spiele-Bibliothek zu nutzen.</p>
+    </div>
+
+    <div class="auth-tabs" style="margin-bottom:24px;">
+     <button class="auth-tab active" type="button" data-landing-tab="login">Anmelden</button>
+     <button class="auth-tab" type="button" data-landing-tab="register">Registrieren</button>
+    </div>
+
+    <div id="landing-auth-error" class="auth-error" style="margin-bottom:12px;"></div>
+    <div id="landing-auth-success" class="auth-success" style="margin-bottom:12px;"></div>
+
+    <!-- Landing Login form -->
+    <div id="landing-form-login" class="auth-form">
+     <div class="auth-field">
+      <label for="landing-login-username">Benutzername</label>
+      <input type="text" id="landing-login-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none">
+     </div>
+     <div class="auth-field">
+      <label for="landing-login-password">Passwort</label>
+      <input type="password" id="landing-login-password" placeholder="••••••••" autocomplete="current-password">
+     </div>
+     <button class="btn btn-primary" type="button" id="btn-landing-login" style="width:100%;margin-top:4px;">Anmelden →</button>
+    </div>
+
+    <!-- Landing Register form -->
+    <div id="landing-form-register" class="auth-form hidden">
+     <div class="auth-field">
+      <label for="landing-reg-username">Benutzername</label>
+      <input type="text" id="landing-reg-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
+      <div class="auth-input-hint">Nur Buchstaben, Zahlen, Unterstriche · Einmalig & dauerhaft</div>
+     </div>
+     <div class="auth-field">
+      <label for="landing-reg-password">Passwort</label>
+      <input type="password" id="landing-reg-password" placeholder="Min. 6 Zeichen" autocomplete="new-password">
+     </div>
+     <div class="auth-field">
+      <label for="landing-reg-password2">Passwort bestätigen</label>
+      <input type="password" id="landing-reg-password2" placeholder="Nochmal eingeben" autocomplete="new-password">
+     </div>
+     <button class="btn btn-primary" type="button" id="btn-landing-register" style="width:100%;margin-top:4px;">Konto erstellen →</button>
+    </div>
+   </div>
   </div>
 
-  <!-- LOGIN LANDING (Phase 0) -->
-  <div id="phase-session">
-
-    <!-- Auth Screen (shown when not logged in) -->
-    <div id="landing-auth-screen">
-      <div class="card" style="max-width:420px;margin:0 auto;padding:36px 32px;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style="font-size:3rem;margin-bottom:8px;">🎲</div>
-          <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:6px;">Willkommen!</h2>
-          <p class="text-muted" style="font-size:.9rem;">Melde dich an oder erstelle ein Konto,<br>um die Spiele-Bibliothek zu nutzen.</p>
-        </div>
-
-        <div class="auth-tabs" style="margin-bottom:24px;">
-          <button class="auth-tab active" type="button" data-landing-tab="login">Anmelden</button>
-          <button class="auth-tab" type="button" data-landing-tab="register">Registrieren</button>
-        </div>
-
-        <div id="landing-auth-error" class="auth-error" style="margin-bottom:12px;"></div>
-        <div id="landing-auth-success" class="auth-success" style="margin-bottom:12px;"></div>
-
-        <!-- Landing Login form -->
-        <div id="landing-form-login" class="auth-form">
-          <div class="auth-field">
-            <label for="landing-login-username">Benutzername</label>
-            <input type="text" id="landing-login-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none">
-          </div>
-          <div class="auth-field">
-            <label for="landing-login-password">Passwort</label>
-            <input type="password" id="landing-login-password" placeholder="••••••••" autocomplete="current-password">
-          </div>
-          <button class="btn btn-primary" type="button" id="btn-landing-login" style="width:100%;margin-top:4px;">Anmelden →</button>
-        </div>
-
-        <!-- Landing Register form -->
-        <div id="landing-form-register" class="auth-form hidden">
-          <div class="auth-field">
-            <label for="landing-reg-username">Benutzername</label>
-            <input type="text" id="landing-reg-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
-            <div class="auth-input-hint">Nur Buchstaben, Zahlen, Unterstriche · Einmalig & dauerhaft</div>
-          </div>
-          <div class="auth-field">
-            <label for="landing-reg-password">Passwort</label>
-            <input type="password" id="landing-reg-password" placeholder="Min. 6 Zeichen" autocomplete="new-password">
-          </div>
-          <div class="auth-field">
-            <label for="landing-reg-password2">Passwort bestätigen</label>
-            <input type="password" id="landing-reg-password2" placeholder="Nochmal eingeben" autocomplete="new-password">
-          </div>
-          <button class="btn btn-primary" type="button" id="btn-landing-register" style="width:100%;margin-top:4px;">Konto erstellen →</button>
-        </div>
-      </div>
+  <!-- Session Screen (shown when logged in) -->
+  <div id="landing-session-screen" class="hidden">
+   <div class="card" style="text-align: center; padding: 40px 20px;">
+    <div style="margin-bottom:20px;">
+     <div style="font-size:2rem;font-weight:700;color:var(--accent);" id="landing-welcome-name">Hallo!</div>
+     <p class="text-muted" style="margin-top:6px;font-size:.9rem;">Bereit für den nächsten Spieleabend? </p>
     </div>
 
-    <!-- Session Screen (shown when logged in) -->
-    <div id="landing-session-screen" class="hidden">
-      <div class="card" style="text-align: center; padding: 40px 20px;">
-        <div style="margin-bottom:20px;">
-          <div style="font-size:2rem;font-weight:700;color:var(--accent);" id="landing-welcome-name">Hallo!</div>
-          <p class="text-muted" style="margin-top:6px;font-size:.9rem;">Bereit für den nächsten Spieleabend? 🎲</p>
-        </div>
+    <h2 style="margin-bottom:8px;">Gemeinsam spielen</h2>
+    <p class="text-muted" style="margin: 8px 0 28px;">Starte eine neue Session oder trete einer bestehenden bei.</p>
 
-        <h2 style="margin-bottom:8px;">Gemeinsam spielen</h2>
-        <p class="text-muted" style="margin: 8px 0 28px;">Starte eine neue Session oder trete einer bestehenden bei.</p>
+    <div style="max-width: 300px; margin: 0 auto;">
+     <!-- Name auto-filled from username, hidden but still functional for existing logic -->
+     <input type="text" id="landing-name" style="display:none;">
 
-        <div style="max-width: 300px; margin: 0 auto;">
-          <!-- Name auto-filled from username, hidden but still functional for existing logic -->
-          <input type="text" id="landing-name" style="display:none;">
+     <button class="btn btn-primary" type="button" id="btn-create-session" style="width: 100%; margin-bottom: 16px;">Neue Session erstellen</button>
 
-          <button class="btn btn-primary" type="button" id="btn-create-session" style="width: 100%; margin-bottom: 16px;">🎮 Neue Session erstellen</button>
+     <div style="position: relative; text-align: center; margin-bottom: 16px;">
+      <hr style="border: 0; border-top: 1px solid var(--border);">
+      <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
+     </div>
 
-          <div style="position: relative; text-align: center; margin-bottom: 16px;">
-            <hr style="border: 0; border-top: 1px solid var(--border);">
-            <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
-          </div>
+     <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px;">
+     <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%; margin-bottom: 24px;">Session beitreten</button>
 
-          <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px;">
-          <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%; margin-bottom: 24px;">📱 Session beitreten</button>
+     <div style="position: relative; text-align: center; margin-bottom: 16px;">
+      <hr style="border: 0; border-top: 1px solid var(--border);">
+      <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
+     </div>
 
-          <div style="position: relative; text-align: center; margin-bottom: 16px;">
-            <hr style="border: 0; border-top: 1px solid var(--border);">
-            <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
-          </div>
-
-          <button class="btn btn-secondary" type="button" id="btn-local-mode" style="font-size: 0.85rem; padding: 10px 16px; width:100%;">🖥️ Alleine / lokal spielen</button>
-        </div>
-
-        <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
-          <button class="btn" type="button" id="btn-open-library-landing" style="font-size:.85rem;color:var(--complement);background:none;padding:8px 16px;border:1px solid var(--complement);border-radius:20px;">📚 Spiele-Bibliothek öffnen</button>
-        </div>
-      </div>
+     <button class="btn btn-secondary" type="button" id="btn-local-mode" style="font-size: 0.85rem; padding: 10px 16px; width:100%;">Alleine / lokal spielen</button>
     </div>
+
+    <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
+     <button class="btn" type="button" id="btn-open-library-landing" style="font-size:.85rem;color:var(--complement);background:none;padding:8px 16px;border:1px solid var(--complement);border-radius:20px;">Spiele-Bibliothek öffnen</button>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- LOBBY -->
+ <div id="phase-lobby" class="hidden">
+  <div class="card" style="text-align: center;">
+   <div class="card-title" style="justify-content: center;">Session-Code</div>
+   <div style="font-family: monospace; font-size: 3rem; font-weight: 800; letter-spacing: 8px; color: var(--accent); margin: 20px 0;" id="lobby-code-display">ABCDEF</div>
+   <p class="text-muted">Teile diesen Code mit anderen, damit sie beitreten können.</p>
   </div>
 
-  <!-- LOBBY -->
-  <div id="phase-lobby" class="hidden">
-    <div class="card" style="text-align: center;">
-      <div class="card-title" style="justify-content: center;">Session-Code</div>
-      <div style="font-family: monospace; font-size: 3rem; font-weight: 800; letter-spacing: 8px; color: var(--accent); margin: 20px 0;" id="lobby-code-display">ABCDEF</div>
-      <p class="text-muted">Teile diesen Code mit anderen, damit sie beitreten können.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Spieler in der Lobby (<span id="lobby-player-count">1</span>)</div>
-      <div class="players-grid" id="lobby-players-grid">
-        <!-- populated by JS -->
-      </div>
-    </div>
-
-    <div class="btn-group" id="lobby-host-actions">
-      <button class="btn btn-primary" type="button" id="btn-go-setup">Spieletag einrichten →</button>
-    </div>
-    <div class="btn-group hidden" id="lobby-guest-actions">
-      <p class="text-muted">Warte auf den Host, um das Setup zu starten...</p>
-    </div>
+  <div class="card">
+   <div class="card-title">Spieler in der Lobby (<span id="lobby-player-count">1</span>)</div>
+   <div class="players-grid" id="lobby-players-grid">
+    <!-- populated by JS -->
+   </div>
   </div>
 
-  <!-- SETUP -->
-  <div id="phase-setup" class="hidden">
-    
-    <!-- HOST VIEW -->
-    <div id="setup-host-view">
-      <div class="card">
-        <div class="card-title">Spieler</div>
-        <div class="card-subtitle">Wer ist heute dabei?</div>
-        <div class="players-grid" id="players-grid"></div>
-        <div class="player-input-row">
-          <input type="text" id="player-name-input" placeholder="Name eingeben …" autocomplete="off" autocorrect="off" autocapitalize="words">
-          <button class="btn btn-secondary" type="button" id="add-player-btn">＋</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">⚙️ Optionen</div>
-        <div class="card-subtitle">Spieletag-Einstellungen</div>
-
-        <div class="option-section">
-          <div class="option-section-title">Hauptspiel-Punkte</div>
-          <div class="option-inline">
-            <label>Start bei</label>
-            <input type="number" id="main-pts-start" value="3" min="1" max="50" inputmode="numeric" pattern="[0-9]*">
-            <label>Pkt</label>
-            <label>+</label>
-            <input type="number" id="main-pts-step" value="1" min="0" max="20" inputmode="numeric" pattern="[0-9]*">
-            <label>pro Spiel</label>
-          </div>
-          <div class="points-preview" id="points-preview"></div>
-          <div class="option-hint">Vorschau: Punkte für die ersten Hauptspiele</div>
-        </div>
-
-        <div class="option-section">
-          <div class="option-section-title">Wann endet der Spieletag?</div>
-          <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Endet wenn alle Spiele der gewählten Kategorien aus dem Pool sind.</div>
-          <div class="checkbox-row">
-            <input type="checkbox" id="end-main" checked>
-            <label for="end-main">Hauptspiele</label>
-          </div>
-          <div class="checkbox-row">
-            <input type="checkbox" id="end-between">
-            <label for="end-between">Zwischenspiele</label>
-          </div>
-          <div class="checkbox-row">
-            <input type="checkbox" id="end-penalty">
-            <label for="end-penalty">Strafspiele</label>
-          </div>
-        </div>
-
-        <div class="option-section">
-          <div class="option-section-title">Zieh-Wahrscheinlichkeiten</div>
-          <div class="checkbox-row">
-            <input type="checkbox" id="prob-random" checked>
-            <label for="prob-random">Komplett zufällig (Urne)</label>
-          </div>
-          <div id="prob-custom" class="hidden" style="margin-top:12px;">
-            <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Fixiere nur die Kategorien die dir wichtig sind. Nicht-fixierte Spiele teilen sich den Rest wie in einer Urne.</div>
-            <div class="prob-grid">
-              <div class="prob-row">
-                <span class="prob-label"><span class="badge badge-main">H</span> Haupt</span>
-                <input type="number" id="prob-main" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
-                <span class="prob-auto" id="prob-main-auto"></span>
-                <div class="prob-bar-wrap"><div class="prob-bar bar-main" id="prob-bar-main" style="width:33%"></div></div>
-              </div>
-              <div class="prob-row">
-                <span class="prob-label"><span class="badge badge-between">Z</span> Zwischen</span>
-                <input type="number" id="prob-between" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
-                <span class="prob-auto" id="prob-between-auto"></span>
-                <div class="prob-bar-wrap"><div class="prob-bar bar-between" id="prob-bar-between" style="width:33%"></div></div>
-              </div>
-              <div class="prob-row">
-                <span class="prob-label"><span class="badge badge-penalty">S</span> Strafe</span>
-                <input type="number" id="prob-penalty" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
-                <span class="prob-auto" id="prob-penalty-auto"></span>
-                <div class="prob-bar-wrap"><div class="prob-bar bar-penalty" id="prob-bar-penalty" style="width:33%"></div></div>
-              </div>
-            </div>
-            <div class="prob-total" id="prob-total">Gesamt: 100%</div>
-          </div>
-        </div>
-
-        <div class="option-section">
-          <div class="toggle-row">
-            <div class="toggle-row-label">
-              <div class="trl-title">Dancebreak</div>
-              <div class="trl-sub">Zufällige Tanzpause beim Ziehen</div>
-            </div>
-            <div class="toggle-switch">
-              <input type="checkbox" id="dancebreak-toggle" checked>
-              <label class="toggle-track" for="dancebreak-toggle"></label>
-            </div>
-          </div>
-          <div class="option-inline" id="dancebreak-options">
-            <label>Dauer</label>
-            <input type="number" id="dancebreak-duration" value="60" min="10" max="300" inputmode="numeric" pattern="[0-9]*">
-            <label>Sek.</label>
-            <label style="margin-left:4px;">Chance</label>
-            <select id="dancebreak-chance" class="small-select">
-              <option value="0.1">10%</option>
-              <option value="0.2" selected>20%</option>
-              <option value="0.3">30%</option>
-              <option value="0.4">40%</option>
-              <option value="0.5">50%</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title"><span class="badge badge-main">Haupt</span> Hauptspiele</div>
-        <div class="card-subtitle">Progressive Punkte · Wiederholungen wählbar</div>
-        <div id="main-games-list"></div>
-        <button class="btn btn-add" type="button" id="add-main-btn">＋ Hauptspiel</button>
-        <button class="btn-lib" type="button" id="lib-main-btn">📚 Aus Bibliothek hinzufügen</button>
-        <div class="proposal-inbox hidden" id="inbox-main">
-          <div class="option-section-title">📬 Vorschläge von Gästen</div>
-          <div id="proposals-main-list"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title"><span class="badge badge-between">Zwischen</span> Zwischenspiele</div>
-        <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
-        <div id="between-games-list"></div>
-        <button class="btn btn-add" type="button" id="add-between-btn">＋ Zwischenspiel</button>
-        <button class="btn-lib" type="button" id="lib-between-btn">📚 Aus Bibliothek hinzufügen</button>
-        <div class="proposal-inbox hidden" id="inbox-between">
-          <div class="option-section-title">📬 Vorschläge von Gästen</div>
-          <div id="proposals-between-list"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title"><span class="badge badge-penalty">Strafe</span> Strafspiele</div>
-        <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
-        <div id="penalty-games-list"></div>
-        <button class="btn btn-add" type="button" id="add-penalty-btn">＋ Strafspiel</button>
-        <button class="btn-lib" type="button" id="lib-penalty-btn">📚 Aus Bibliothek hinzufügen</button>
-        <div class="proposal-inbox hidden" id="inbox-penalty">
-          <div class="option-section-title">📬 Vorschläge von Gästen</div>
-          <div id="proposals-penalty-list"></div>
-        </div>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn btn-primary" type="button" id="start-btn">Spieletag starten →</button>
-      </div>
-    </div>
-    
-    <!-- GUEST VIEW -->
-    <div id="setup-guest-view" class="hidden">
-      <div class="card">
-        <div class="card-title">Spielvorschlag einreichen</div>
-        <div class="card-subtitle">Schlage Spiele vor. Der Host entscheidet, was aufgenommen wird!</div>
-        
-        <div class="input-group">
-          <label class="option-section-title">Kategorie</label>
-          <select id="guest-prop-type" style="margin-bottom: 12px;">
-            <option value="main">🟣 Hauptspiel (Punkte steigen)</option>
-            <option value="between">🟢 Zwischenspiel (Feste Punkte)</option>
-            <option value="penalty">🟤 Strafspiel (Feste Punkte)</option>
-          </select>
-          
-          <input type="text" id="guest-prop-name" placeholder="Spielname" style="margin-bottom: 8px;">
-          <textarea id="guest-prop-desc" placeholder="Beschreibung (optional)" rows="2" style="margin-bottom: 8px;"></textarea>
-          
-          <div class="input-row" id="guest-prop-pts-row" style="display:none; margin-bottom: 16px;">
-            <div style="flex: 1;">
-              <label class="option-section-title" style="display:block; margin-bottom:4px;">Punkte</label>
-              <input type="number" id="guest-prop-pts" value="2" min="1" style="width: 100%;">
-            </div>
-            <div style="flex: 1;">
-              <label class="option-section-title" style="display:block; margin-bottom:4px;">Wie oft?</label>
-              <select id="guest-prop-rep" style="width: 100%;">
-                <option value="1" selected>1×</option>
-                <option value="2">2×</option>
-                <option value="3">3×</option>
-                <option value="0">Unbegrenzt (∞)</option>
-              </select>
-            </div>
-          </div>
-          
-          <button class="btn btn-primary" type="button" id="btn-submit-proposal" style="width: 100%;">📤 Vorschlagen</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Meine Vorschläge</div>
-        <div id="guest-my-proposals">
-          <p class="text-muted text-sm">Noch keine Vorschläge eingereicht.</p>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 32px;">
-        <p class="text-muted">Warte auf den Host... das Spiel beginnt gleich!</p>
-      </div>
-    </div>
+  <div class="btn-group" id="lobby-host-actions">
+   <button class="btn btn-primary" type="button" id="btn-go-setup">Spieletag einrichten →</button>
   </div>
+  <div class="btn-group hidden" id="lobby-guest-actions">
+   <p class="text-muted">Warte auf den Host, um das Setup zu starten...</p>
+  </div>
+ </div>
 
-  <!-- PLAYING -->
-  <div id="phase-play" class="hidden">
-    <div class="scoreboard" id="scoreboard"></div>
-    
-    <div class="draw-screen">
-      <div id="draw-prompt">
-        <p class="text-muted text-sm" style="margin-bottom:20px;">
-          Noch <strong id="remaining-count">0</strong> Ziehungen übrig
-        </p>
-        <!-- Host only -->
-        <button class="btn btn-primary" type="button" id="draw-btn">🎲 Spiel ziehen</button>
-        <!-- Guest only -->
-        <p class="text-muted hidden" id="guest-wait-draw">Warte auf Host...</p>
-      </div>
-      
-      <div id="current-game" class="hidden">
-        <div class="draw-card" id="draw-card">
-          <div class="game-number" id="game-number"></div>
-          <div class="game-name" id="game-name"></div>
-          <div class="game-desc" id="game-desc"></div>
-          <div class="game-points" id="game-points"></div>
-          <div class="game-repeat-info" id="game-repeat-info"></div>
-        </div>
-        
-        <!-- Host only -->
-        <div class="results-section" id="host-results-section">
-          <div class="results-title">Ergebnis eintragen</div>
-          <div id="results-rows"></div>
-          <div class="btn-group" style="margin-top:16px;">
-            <button class="btn btn-complement" type="button" id="submit-btn">Ergebnis bestätigen</button>
-          </div>
-        </div>
-      </div>
+ <!-- SETUP -->
+ <div id="phase-setup" class="hidden">
+  
+  <!-- HOST VIEW -->
+  <div id="setup-host-view">
+   <div class="card">
+    <div class="card-title">Spieler</div>
+    <div class="card-subtitle">Wer ist heute dabei?</div>
+    <div class="players-grid" id="players-grid"></div>
+    <div class="player-input-row">
+     <input type="text" id="player-name-input" placeholder="Name eingeben …" autocomplete="off" autocorrect="off" autocapitalize="words">
+     <button class="btn btn-secondary" type="button" id="add-player-btn">+</button>
     </div>
-    
-    <div class="end-game-btn" id="end-game-wrap" style="display:none;">
-      <!-- Host only -->
-      <button class="btn btn-primary" type="button" id="end-game-btn" style="background:var(--complement);">🏁 Spieletag beenden</button>
+   </div>
+
+   <div class="card">
+    <div class="card-title">Optionen</div>
+    <div class="card-subtitle">Spieletag-Einstellungen</div>
+
+    <div class="option-section">
+     <div class="option-section-title">Hauptspiel-Punkte</div>
+     <div class="option-inline">
+      <label>Start bei</label>
+      <input type="number" id="main-pts-start" value="3" min="1" max="50" inputmode="numeric" pattern="[0-9]*">
+      <label>Pkt</label>
+      <label>+</label>
+      <input type="number" id="main-pts-step" value="1" min="0" max="20" inputmode="numeric" pattern="[0-9]*">
+      <label>pro Spiel</label>
+     </div>
+     <div class="points-preview" id="points-preview"></div>
+     <div class="option-hint">Vorschau: Punkte für die ersten Hauptspiele</div>
     </div>
+
+    <div class="option-section">
+     <div class="option-section-title">Wann endet der Spieletag?</div>
+     <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Endet wenn alle Spiele der gewählten Kategorien aus dem Pool sind.</div>
+     <div class="checkbox-row">
+      <input type="checkbox" id="end-main" checked>
+      <label for="end-main">Hauptspiele</label>
+     </div>
+     <div class="checkbox-row">
+      <input type="checkbox" id="end-between">
+      <label for="end-between">Zwischenspiele</label>
+     </div>
+     <div class="checkbox-row">
+      <input type="checkbox" id="end-penalty">
+      <label for="end-penalty">Strafspiele</label>
+     </div>
+    </div>
+
+    <div class="option-section">
+     <div class="option-section-title">Zieh-Wahrscheinlichkeiten</div>
+     <div class="checkbox-row">
+      <input type="checkbox" id="prob-random" checked>
+      <label for="prob-random">Komplett zufällig (Urne)</label>
+     </div>
+     <div id="prob-custom" class="hidden" style="margin-top:12px;">
+      <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Fixiere nur die Kategorien die dir wichtig sind. Nicht-fixierte Spiele teilen sich den Rest wie in einer Urne.</div>
+      <div class="prob-grid">
+       <div class="prob-row">
+        <span class="prob-label"><span class="badge badge-main">H</span> Haupt</span>
+        <input type="number" id="prob-main" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
+        <span class="prob-auto" id="prob-main-auto"></span>
+        <div class="prob-bar-wrap"><div class="prob-bar bar-main" id="prob-bar-main" style="width:33%"></div></div>
+       </div>
+       <div class="prob-row">
+        <span class="prob-label"><span class="badge badge-between">Z</span> Zwischen</span>
+        <input type="number" id="prob-between" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
+        <span class="prob-auto" id="prob-between-auto"></span>
+        <div class="prob-bar-wrap"><div class="prob-bar bar-between" id="prob-bar-between" style="width:33%"></div></div>
+       </div>
+       <div class="prob-row">
+        <span class="prob-label"><span class="badge badge-penalty">S</span> Strafe</span>
+        <input type="number" id="prob-penalty" placeholder="—" min="1" max="99" inputmode="numeric" pattern="[0-9]*">
+        <span class="prob-auto" id="prob-penalty-auto"></span>
+        <div class="prob-bar-wrap"><div class="prob-bar bar-penalty" id="prob-bar-penalty" style="width:33%"></div></div>
+       </div>
+      </div>
+      <div class="prob-total" id="prob-total">Gesamt: 100%</div>
+     </div>
+    </div>
+
+    <div class="option-section">
+     <div class="toggle-row">
+      <div class="toggle-row-label">
+       <div class="trl-title">Dancebreak</div>
+       <div class="trl-sub">Zufällige Tanzpause beim Ziehen</div>
+      </div>
+      <div class="toggle-switch">
+       <input type="checkbox" id="dancebreak-toggle" checked>
+       <label class="toggle-track" for="dancebreak-toggle"></label>
+      </div>
+     </div>
+     <div class="option-inline" id="dancebreak-options">
+      <label>Dauer</label>
+      <input type="number" id="dancebreak-duration" value="60" min="10" max="300" inputmode="numeric" pattern="[0-9]*">
+      <label>Sek.</label>
+      <label style="margin-left:4px;">Chance</label>
+      <select id="dancebreak-chance" class="small-select">
+       <option value="0.1">10%</option>
+       <option value="0.2" selected>20%</option>
+       <option value="0.3">30%</option>
+       <option value="0.4">40%</option>
+       <option value="0.5">50%</option>
+      </select>
+     </div>
+    </div>
+   </div>
+
+   <div class="card">
+    <div class="card-title"><span class="badge badge-main">Haupt</span> Hauptspiele</div>
+    <div class="card-subtitle">Progressive Punkte · Wiederholungen wählbar</div>
+    <div id="main-games-list"></div>
+    <button class="btn btn-add" type="button" id="add-main-btn">+ Hauptspiel</button>
+    <button class="btn-lib" type="button" id="lib-main-btn">Aus Bibliothek hinzufügen</button>
+    <div class="proposal-inbox hidden" id="inbox-main">
+     <div class="option-section-title">Vorschläge von Gästen</div>
+     <div id="proposals-main-list"></div>
+    </div>
+   </div>
+
+   <div class="card">
+    <div class="card-title"><span class="badge badge-between">Zwischen</span> Zwischenspiele</div>
+    <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
+    <div id="between-games-list"></div>
+    <button class="btn btn-add" type="button" id="add-between-btn">+ Zwischenspiel</button>
+    <button class="btn-lib" type="button" id="lib-between-btn">Aus Bibliothek hinzufügen</button>
+    <div class="proposal-inbox hidden" id="inbox-between">
+     <div class="option-section-title">Vorschläge von Gästen</div>
+     <div id="proposals-between-list"></div>
+    </div>
+   </div>
+
+   <div class="card">
+    <div class="card-title"><span class="badge badge-penalty">Strafe</span> Strafspiele</div>
+    <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
+    <div id="penalty-games-list"></div>
+    <button class="btn btn-add" type="button" id="add-penalty-btn">+ Strafspiel</button>
+    <button class="btn-lib" type="button" id="lib-penalty-btn">Aus Bibliothek hinzufügen</button>
+    <div class="proposal-inbox hidden" id="inbox-penalty">
+     <div class="option-section-title">Vorschläge von Gästen</div>
+     <div id="proposals-penalty-list"></div>
+    </div>
+   </div>
+
+   <div class="btn-group">
+    <button class="btn btn-primary" type="button" id="start-btn">Spieletag starten →</button>
+   </div>
+  </div>
+  
+  <!-- GUEST VIEW -->
+  <div id="setup-guest-view" class="hidden">
+   <div class="card">
+    <div class="card-title">Spielvorschlag einreichen</div>
+    <div class="card-subtitle">Schlage Spiele vor. Der Host entscheidet, was aufgenommen wird!</div>
     
-    <div class="history-section">
-      <div class="card-subtitle" style="margin-bottom:12px;">Spielverlauf</div>
-      <div id="history-list"></div>
+    <div class="input-group">
+     <label class="option-section-title">Kategorie</label>
+     <select id="guest-prop-type" style="margin-bottom: 12px;">
+      <option value="main">• Hauptspiel (Punkte steigen)</option>
+      <option value="between">• Zwischenspiel (Feste Punkte)</option>
+      <option value="penalty">• Strafspiel (Feste Punkte)</option>
+     </select>
+     
+     <input type="text" id="guest-prop-name" placeholder="Spielname" style="margin-bottom: 8px;">
+     <textarea id="guest-prop-desc" placeholder="Beschreibung (optional)" rows="2" style="margin-bottom: 8px;"></textarea>
+     
+     <div class="input-row" id="guest-prop-pts-row" style="display:none; margin-bottom: 16px;">
+      <div style="flex: 1;">
+       <label class="option-section-title" style="display:block; margin-bottom:4px;">Punkte</label>
+       <input type="number" id="guest-prop-pts" value="2" min="1" style="width: 100%;">
+      </div>
+      <div style="flex: 1;">
+       <label class="option-section-title" style="display:block; margin-bottom:4px;">Wie oft?</label>
+       <select id="guest-prop-rep" style="width: 100%;">
+        <option value="1" selected>1×</option>
+        <option value="2">2×</option>
+        <option value="3">3×</option>
+        <option value="0">Unbegrenzt (∞)</option>
+       </select>
+      </div>
+     </div>
+     
+     <button class="btn btn-primary" type="button" id="btn-submit-proposal" style="width: 100%;">📤 Vorschlagen</button>
+    </div>
+   </div>
+
+   <div class="card">
+    <div class="card-title">Meine Vorschläge</div>
+    <div id="guest-my-proposals">
+     <p class="text-muted text-sm">Noch keine Vorschläge eingereicht.</p>
+    </div>
+   </div>
+
+   <div style="text-align: center; margin-top: 32px;">
+    <p class="text-muted">Warte auf den Host... das Spiel beginnt gleich!</p>
+   </div>
+  </div>
+ </div>
+
+ <!-- PLAYING -->
+ <div id="phase-play" class="hidden">
+  <div class="scoreboard" id="scoreboard"></div>
+  
+  <div class="draw-screen">
+   <div id="draw-prompt">
+    <p class="text-muted text-sm" style="margin-bottom:20px;">
+     Noch <strong id="remaining-count">0</strong> Ziehungen übrig
+    </p>
+    <!-- Host only -->
+    <button class="btn btn-primary" type="button" id="draw-btn"> Spiel ziehen</button>
+    <!-- Guest only -->
+    <p class="text-muted hidden" id="guest-wait-draw">Warte auf Host...</p>
+   </div>
+   
+   <div id="current-game" class="hidden">
+    <div class="draw-card" id="draw-card">
+     <div class="game-number" id="game-number"></div>
+     <div class="game-name" id="game-name"></div>
+     <div class="game-desc" id="game-desc"></div>
+     <div class="game-points" id="game-points"></div>
+     <div class="game-repeat-info" id="game-repeat-info"></div>
     </div>
     
     <!-- Host only -->
-    <div class="btn-group" id="host-restart-actions" style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);">
-      <button class="btn btn-secondary" type="button" id="restart-same-btn" style="font-size:14px;">🔄 Neustart</button>
-      <button class="btn btn-secondary" type="button" id="restart-edit-btn" style="font-size:14px;">✏️ Anpassen</button>
-      <button class="btn btn-secondary" type="button" id="restart-full-btn" style="font-size:14px;">🗑 Komplett neu</button>
+    <div class="results-section" id="host-results-section">
+     <div class="results-title">Ergebnis eintragen</div>
+     <div id="results-rows"></div>
+     <div class="btn-group" style="margin-top:16px;">
+      <button class="btn btn-complement" type="button" id="submit-btn">Ergebnis bestätigen</button>
+     </div>
     </div>
+   </div>
   </div>
+  
+  <div class="end-game-btn" id="end-game-wrap" style="display:none;">
+   <!-- Host only -->
+   <button class="btn btn-primary" type="button" id="end-game-btn" style="background:var(--complement);">🏁 Spieletag beenden</button>
+  </div>
+  
+  <div class="history-section">
+   <div class="card-subtitle" style="margin-bottom:12px;">Spielverlauf</div>
+   <div id="history-list"></div>
+  </div>
+  
+  <!-- Host only -->
+  <div class="btn-group" id="host-restart-actions" style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);">
+   <button class="btn btn-secondary" type="button" id="restart-same-btn" style="font-size:14px;"> Neustart</button>
+   <button class="btn btn-secondary" type="button" id="restart-edit-btn" style="font-size:14px;">✏️ Anpassen</button>
+   <button class="btn btn-secondary" type="button" id="restart-full-btn" style="font-size:14px;">🗑 Komplett neu</button>
+  </div>
+ </div>
 
-  <!-- WINNER -->
-  <div id="phase-winner" class="hidden">
-    <div id="winner-content"></div>
-    <!-- Host only -->
-    <div class="btn-group hidden" id="host-win-actions" style="margin-top:40px;">
-      <button class="btn btn-primary" type="button" id="win-restart-btn">🔄 Nochmal spielen</button>
-      <button class="btn btn-complement" type="button" id="win-edit-btn">✏️ Anpassen</button>
-      <button class="btn btn-secondary" type="button" id="win-new-btn">Komplett neu</button>
-    </div>
+ <!-- WINNER -->
+ <div id="phase-winner" class="hidden">
+  <div id="winner-content"></div>
+  <!-- Host only -->
+  <div class="btn-group hidden" id="host-win-actions" style="margin-top:40px;">
+   <button class="btn btn-primary" type="button" id="win-restart-btn"> Nochmal spielen</button>
+   <button class="btn btn-complement" type="button" id="win-edit-btn">✏️ Anpassen</button>
+   <button class="btn btn-secondary" type="button" id="win-new-btn">Komplett neu</button>
   </div>
+ </div>
 </div>
 
 <div class="shuffle-overlay hidden" id="shuffle-overlay">
-  <div style="position:relative">
-    <div class="shuffle-cards">
-      <div class="shuffle-card" style="transform:rotate(-5deg)">?</div>
-      <div class="shuffle-card" style="transform:rotate(3deg) translate(8px,-4px)">?</div>
-      <div class="shuffle-card" style="transform:rotate(-2deg) translate(-4px,6px)">?</div>
-    </div>
-    <div class="shuffle-text">Mische Spiele …</div>
+ <div style="position:relative">
+  <div class="shuffle-cards">
+   <div class="shuffle-card" style="transform:rotate(-5deg)">?</div>
+   <div class="shuffle-card" style="transform:rotate(3deg) translate(8px,-4px)">?</div>
+   <div class="shuffle-card" style="transform:rotate(-2deg) translate(-4px,6px)">?</div>
   </div>
+  <div class="shuffle-text">Mische Spiele …</div>
+ </div>
 </div>
 
 <script>
@@ -1224,14 +1224,14 @@ select.small-select{
 // Firebase Project Credentials!
 // ==========================================
 const firebaseConfig = {
-  apiKey: "AIzaSyDzkeSZmIbrlGh-ypDxKIdjzYH0whBguTw",
-  authDomain: "spieletag-4f0f6.firebaseapp.com",
-  databaseURL: "https://spieletag-4f0f6-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "spieletag-4f0f6",
-  storageBucket: "spieletag-4f0f6.firebasestorage.app",
-  messagingSenderId: "339485272006",
-  appId: "1:339485272006:web:115b365019728a8983b4c7",
-  measurementId: "G-DWVGNQ454Q"
+ apiKey: "AIzaSyDzkeSZmIbrlGh-ypDxKIdjzYH0whBguTw",
+ authDomain: "spieletag-4f0f6.firebaseapp.com",
+ databaseURL: "https://spieletag-4f0f6-default-rtdb.europe-west1.firebasedatabase.app",
+ projectId: "spieletag-4f0f6",
+ storageBucket: "spieletag-4f0f6.firebasestorage.app",
+ messagingSenderId: "339485272006",
+ appId: "1:339485272006:web:115b365019728a8983b4c7",
+ measurementId: "G-DWVGNQ454Q"
 };
 
 // Initialisiere Firebase nur, wenn der Key geändert wurde, ansonsten nutze lokalen Modus
@@ -1239,14 +1239,14 @@ let useFirebase = firebaseConfig.apiKey !== "DEIN_API_KEY";
 let db = null;
 let auth = null;
 if (useFirebase) {
-  try {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.database();
-    auth = firebase.auth();
-  } catch (e) {
-    console.warn("Firebase Init Fehler:", e);
-    useFirebase = false;
-  }
+ try {
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+  auth = firebase.auth();
+ } catch (e) {
+  console.warn("Firebase Init Fehler:", e);
+  useFirebase = false;
+ }
 }
 
 // ==========================================
@@ -1258,12 +1258,12 @@ let gameFieldCounters={main:0,between:0,penalty:0};
 let savedGames=[], savedPlayers=[];
 let dancebreakTimer=null, dancebreakActive=false;
 let settings={
-  dancebreak:true, dancebreakDuration:60, dancebreakChance:0.2,
-  mainPtsStart:3, mainPtsStep:1,
-  endConditions:{main:true, between:false, penalty:false},
-  probRandom:true,
-  probWeights:{main:null, between:null, penalty:null},
-  probUserSet:{main:false, between:false, penalty:false}
+ dancebreak:true, dancebreakDuration:60, dancebreakChance:0.2,
+ mainPtsStart:3, mainPtsStep:1,
+ endConditions:{main:true, between:false, penalty:false},
+ probRandom:true,
+ probWeights:{main:null, between:null, penalty:null},
+ probUserSet:{main:false, between:false, penalty:false}
 };
 
 // ==========================================
@@ -1272,12 +1272,12 @@ let settings={
 let currentUser = null;
 let currentUsername = null;
 let libraryCache = { private: {}, global: {}, favorites: {} };
-let libFilterType = 'all';   // 'all'|'main'|'between'|'penalty'
+let libFilterType = 'all';  // 'all'|'main'|'between'|'penalty'
 let libFilterScope = 'global'; // 'global'|'private'
-let libFilterSort = 'favs';   // 'favs'|'az'|'newest'
+let libFilterSort = 'favs';  // 'favs'|'az'|'newest'
 let libFilterFavOnly = false;
 let libSearchQuery = '';
-let libOpenForType = null;    // pre-filter when opened from category button
+let libOpenForType = null;  // pre-filter when opened from category button
 
 // Multiplayer State
 let sessionCode = null;
@@ -1291,15 +1291,15 @@ let phaseRef, gameStateRef, playersRef, proposalsRef;
 
 // Utils
 function esc(s){
-  if (!s) return "";
-  const d=document.createElement('div');
-  d.textContent=s;
-  return d.innerHTML;
+ if (!s) return "";
+ const d=document.createElement('div');
+ d.textContent=s;
+ return d.innerHTML;
 }
 function getDeviceId() {
-  let id = localStorage.getItem('spieletag-device-id');
-  if (!id) { id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2); localStorage.setItem('spieletag-device-id', id); }
-  return id;
+ let id = localStorage.getItem('spieletag-device-id');
+ if (!id) { id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2); localStorage.setItem('spieletag-device-id', id); }
+ return id;
 }
 
 // ==========================================
@@ -1308,277 +1308,277 @@ function getDeviceId() {
 
 // --- Auth State Observer ---
 function showLandingForUser(user) {
-  const authScreen = document.getElementById('landing-auth-screen');
-  const sessionScreen = document.getElementById('landing-session-screen');
-  if (user) {
-    authScreen.classList.add('hidden');
-    sessionScreen.classList.remove('hidden');
-    // Auto-fill hidden name field so existing multiplayer logic works
-    const nameField = document.getElementById('landing-name');
-    if (nameField) nameField.value = user.displayName || '';
-    // Update welcome message
-    const wn = document.getElementById('landing-welcome-name');
-    if (wn) wn.textContent = `Hallo, ${user.displayName || 'Spieler'}! 👋`;
-  } else {
-    authScreen.classList.remove('hidden');
-    sessionScreen.classList.add('hidden');
-  }
+ const authScreen = document.getElementById('landing-auth-screen');
+ const sessionScreen = document.getElementById('landing-session-screen');
+ if (user) {
+  authScreen.classList.add('hidden');
+  sessionScreen.classList.remove('hidden');
+  // Auto-fill hidden name field so existing multiplayer logic works
+  const nameField = document.getElementById('landing-name');
+  if (nameField) nameField.value = user.displayName || '';
+  // Update welcome message
+  const wn = document.getElementById('landing-welcome-name');
+  if (wn) wn.textContent = `Hallo, ${user.displayName || 'Spieler'}! `;
+ } else {
+  authScreen.classList.remove('hidden');
+  sessionScreen.classList.add('hidden');
+ }
 }
 
 if (auth) {
-  auth.onAuthStateChanged(user => {
-    currentUser = user;
-    currentUsername = user ? user.displayName : null;
-    updateAuthButton();
-    // Control landing page view
-    if (document.getElementById('phase-session') &&
-        !document.getElementById('phase-session').classList.contains('hidden')) {
-      showLandingForUser(user);
-    }
-    if (user) {
-      loadLibrary();
-    } else {
-      libraryCache = { private: {}, global: {}, favorites: {} };
-    }
-  });
+ auth.onAuthStateChanged(user => {
+  currentUser = user;
+  currentUsername = user ? user.displayName : null;
+  updateAuthButton();
+  // Control landing page view
+  if (document.getElementById('phase-session') &&
+    !document.getElementById('phase-session').classList.contains('hidden')) {
+   showLandingForUser(user);
+  }
+  if (user) {
+   loadLibrary();
+  } else {
+   libraryCache = { private: {}, global: {}, favorites: {} };
+  }
+ });
 }
 
 // Landing page tab switching
 function setLandingTab(tab) {
-  document.querySelectorAll('[data-landing-tab]').forEach(t =>
-    t.classList.toggle('active', t.dataset.landingTab === tab)
-  );
-  document.getElementById('landing-form-login').classList.toggle('hidden', tab !== 'login');
-  document.getElementById('landing-form-register').classList.toggle('hidden', tab !== 'register');
-  document.getElementById('landing-auth-error').classList.remove('visible');
-  document.getElementById('landing-auth-success').classList.remove('visible');
+ document.querySelectorAll('[data-landing-tab]').forEach(t =>
+  t.classList.toggle('active', t.dataset.landingTab === tab)
+ );
+ document.getElementById('landing-form-login').classList.toggle('hidden', tab !== 'login');
+ document.getElementById('landing-form-register').classList.toggle('hidden', tab !== 'register');
+ document.getElementById('landing-auth-error').classList.remove('visible');
+ document.getElementById('landing-auth-success').classList.remove('visible');
 }
 
 function showLandingError(msg) {
-  const el = document.getElementById('landing-auth-error');
-  el.textContent = msg; el.classList.add('visible');
-  document.getElementById('landing-auth-success').classList.remove('visible');
+ const el = document.getElementById('landing-auth-error');
+ el.textContent = msg; el.classList.add('visible');
+ document.getElementById('landing-auth-success').classList.remove('visible');
 }
 function showLandingSuccess(msg) {
-  const el = document.getElementById('landing-auth-success');
-  el.textContent = msg; el.classList.add('visible');
-  document.getElementById('landing-auth-error').classList.remove('visible');
+ const el = document.getElementById('landing-auth-success');
+ el.textContent = msg; el.classList.add('visible');
+ document.getElementById('landing-auth-error').classList.remove('visible');
 }
 
 async function landingLogin() {
-  const username = document.getElementById('landing-login-username').value.trim();
-  const password = document.getElementById('landing-login-password').value;
-  if (!username || !password) return showLandingError('Bitte Benutzername und Passwort eingeben.');
-  if (!useFirebase) return showLandingError('Firebase nicht konfiguriert.');
-  const btn = document.getElementById('btn-landing-login');
-  btn.disabled = true; btn.textContent = 'Anmelden …';
-  try {
-    await auth.signInWithEmailAndPassword(`${username.toLowerCase()}@spieletag.local`, password);
-    // onAuthStateChanged handles the rest
-  } catch(e) {
-    let msg = 'Anmeldung fehlgeschlagen.';
-    if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
-      msg = 'Benutzername oder Passwort falsch.';
-    }
-    showLandingError(msg);
-    btn.disabled = false; btn.textContent = 'Anmelden →';
+ const username = document.getElementById('landing-login-username').value.trim();
+ const password = document.getElementById('landing-login-password').value;
+ if (!username || !password) return showLandingError('Bitte Benutzername und Passwort eingeben.');
+ if (!useFirebase) return showLandingError('Firebase nicht konfiguriert.');
+ const btn = document.getElementById('btn-landing-login');
+ btn.disabled = true; btn.textContent = 'Anmelden …';
+ try {
+  await auth.signInWithEmailAndPassword(`${username.toLowerCase()}@spieletag.local`, password);
+  // onAuthStateChanged handles the rest
+ } catch(e) {
+  let msg = 'Anmeldung fehlgeschlagen.';
+  if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
+   msg = 'Benutzername oder Passwort falsch.';
   }
+  showLandingError(msg);
+  btn.disabled = false; btn.textContent = 'Anmelden →';
+ }
 }
 
 async function landingRegister() {
-  const username = document.getElementById('landing-reg-username').value.trim();
-  const password = document.getElementById('landing-reg-password').value;
-  const password2 = document.getElementById('landing-reg-password2').value;
-  if (!username) return showLandingError('Bitte einen Benutzernamen eingeben.');
-  if (!/^[a-zA-Z0-9_]{2,20}$/.test(username)) return showLandingError('Nur Buchstaben, Zahlen und Unterstriche (2–20 Zeichen).');
-  if (password.length < 6) return showLandingError('Passwort muss mindestens 6 Zeichen haben.');
-  if (password !== password2) return showLandingError('Passwörter stimmen nicht überein.');
-  if (!useFirebase) return showLandingError('Firebase nicht konfiguriert.');
-  const usernameLower = username.toLowerCase();
-  const btn = document.getElementById('btn-landing-register');
-  btn.disabled = true; btn.textContent = 'Prüfe …';
-  try {
-    const snap = await db.ref(`usernames/${usernameLower}`).once('value');
-    if (snap.exists()) {
-      showLandingError('Dieser Benutzername ist bereits vergeben.');
-      btn.disabled = false; btn.textContent = 'Konto erstellen →'; return;
-    }
-    const cred = await auth.createUserWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
-    await cred.user.updateProfile({ displayName: username });
-    currentUsername = username;
-    updateAuthButton();
-    if (document.getElementById('phase-session') && !document.getElementById('phase-session').classList.contains('hidden')) {
-      showLandingForUser(cred.user);
-    }
-    await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
-    showLandingSuccess('Konto erstellt! Willkommen 🎉');
-  } catch(e) {
-    let msg = 'Fehler beim Registrieren.';
-    if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
-    showLandingError(msg);
-    btn.disabled = false; btn.textContent = 'Konto erstellen →';
+ const username = document.getElementById('landing-reg-username').value.trim();
+ const password = document.getElementById('landing-reg-password').value;
+ const password2 = document.getElementById('landing-reg-password2').value;
+ if (!username) return showLandingError('Bitte einen Benutzernamen eingeben.');
+ if (!/^[a-zA-Z0-9_]{2,20}$/.test(username)) return showLandingError('Nur Buchstaben, Zahlen und Unterstriche (2–20 Zeichen).');
+ if (password.length < 6) return showLandingError('Passwort muss mindestens 6 Zeichen haben.');
+ if (password !== password2) return showLandingError('Passwörter stimmen nicht überein.');
+ if (!useFirebase) return showLandingError('Firebase nicht konfiguriert.');
+ const usernameLower = username.toLowerCase();
+ const btn = document.getElementById('btn-landing-register');
+ btn.disabled = true; btn.textContent = 'Prüfe …';
+ try {
+  const snap = await db.ref(`usernames/${usernameLower}`).once('value');
+  if (snap.exists()) {
+   showLandingError('Dieser Benutzername ist bereits vergeben.');
+   btn.disabled = false; btn.textContent = 'Konto erstellen →'; return;
   }
+  const cred = await auth.createUserWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
+  await cred.user.updateProfile({ displayName: username });
+  currentUsername = username;
+  updateAuthButton();
+  if (document.getElementById('phase-session') && !document.getElementById('phase-session').classList.contains('hidden')) {
+   showLandingForUser(cred.user);
+  }
+  await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
+  showLandingSuccess('Konto erstellt! Willkommen ');
+ } catch(e) {
+  let msg = 'Fehler beim Registrieren.';
+  if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
+  showLandingError(msg);
+  btn.disabled = false; btn.textContent = 'Konto erstellen →';
+ }
 }
 
 
 // --- Auth UI ---
 function updateAuthButton() {
-  const btn = document.getElementById('auth-btn');
-  const label = document.getElementById('auth-btn-label');
-  const mini = document.getElementById('auth-avatar-mini');
-  if (currentUser && currentUsername) {
-    label.textContent = currentUsername;
-    mini.textContent = currentUsername.charAt(0).toUpperCase();
-    mini.style.display = 'flex';
-  } else {
-    label.textContent = 'Anmelden';
-    mini.textContent = '👤';
-    mini.style.display = 'flex';
-  }
+ const btn = document.getElementById('auth-btn');
+ const label = document.getElementById('auth-btn-label');
+ const mini = document.getElementById('auth-avatar-mini');
+ if (currentUser && currentUsername) {
+  label.textContent = currentUsername;
+  mini.textContent = currentUsername.charAt(0).toUpperCase();
+  mini.style.display = 'flex';
+ } else {
+  label.textContent = 'Anmelden';
+  mini.textContent = '';
+  mini.style.display = 'flex';
+ }
 }
 
 function openAuthModal() {
-  const modal = document.getElementById('auth-modal');
-  modal.classList.remove('hidden');
-  if (currentUser) {
-    showAuthUserView();
-  } else {
-    showAuthGuestView();
-  }
+ const modal = document.getElementById('auth-modal');
+ modal.classList.remove('hidden');
+ if (currentUser) {
+  showAuthUserView();
+ } else {
+  showAuthGuestView();
+ }
 }
 
 function closeAuthModal() {
-  document.getElementById('auth-modal').classList.add('hidden');
+ document.getElementById('auth-modal').classList.add('hidden');
 }
 
 function showAuthUserView() {
-  document.getElementById('auth-user-view').classList.remove('hidden');
-  document.getElementById('auth-guest-view').classList.add('hidden');
-  document.getElementById('auth-user-name').textContent = currentUsername || '—';
-  document.getElementById('auth-user-avatar').textContent = currentUsername ? currentUsername.charAt(0).toUpperCase() : '?';
-  updateUserStats();
+ document.getElementById('auth-user-view').classList.remove('hidden');
+ document.getElementById('auth-guest-view').classList.add('hidden');
+ document.getElementById('auth-user-name').textContent = currentUsername || '—';
+ document.getElementById('auth-user-avatar').textContent = currentUsername ? currentUsername.charAt(0).toUpperCase() : '?';
+ updateUserStats();
 }
 
 function showAuthGuestView() {
-  document.getElementById('auth-user-view').classList.add('hidden');
-  document.getElementById('auth-guest-view').classList.remove('hidden');
+ document.getElementById('auth-user-view').classList.add('hidden');
+ document.getElementById('auth-guest-view').classList.remove('hidden');
 }
 
 function updateUserStats() {
-  const privCount = Object.keys(libraryCache.private).length;
-  const globalCount = Object.values(libraryCache.global).filter(g => g.creatorUid === currentUser?.uid).length;
-  const favCount = Object.keys(libraryCache.favorites).length;
-  document.getElementById('stat-private').textContent = privCount;
-  document.getElementById('stat-global').textContent = globalCount;
-  document.getElementById('stat-favs').textContent = favCount;
+ const privCount = Object.keys(libraryCache.private).length;
+ const globalCount = Object.values(libraryCache.global).filter(g => g.creatorUid === currentUser?.uid).length;
+ const favCount = Object.keys(libraryCache.favorites).length;
+ document.getElementById('stat-private').textContent = privCount;
+ document.getElementById('stat-global').textContent = globalCount;
+ document.getElementById('stat-favs').textContent = favCount;
 }
 
 function setAuthTab(tab) {
-  document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.authTab === tab));
-  document.getElementById('auth-form-login').classList.toggle('hidden', tab !== 'login');
-  document.getElementById('auth-form-register').classList.toggle('hidden', tab !== 'register');
-  clearAuthMessages();
+ document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.authTab === tab));
+ document.getElementById('auth-form-login').classList.toggle('hidden', tab !== 'login');
+ document.getElementById('auth-form-register').classList.toggle('hidden', tab !== 'register');
+ clearAuthMessages();
 }
 
 function showAuthError(msg) {
-  const el = document.getElementById('auth-error');
-  el.textContent = msg;
-  el.classList.add('visible');
-  document.getElementById('auth-success').classList.remove('visible');
+ const el = document.getElementById('auth-error');
+ el.textContent = msg;
+ el.classList.add('visible');
+ document.getElementById('auth-success').classList.remove('visible');
 }
 
 function showAuthSuccess(msg) {
-  const el = document.getElementById('auth-success');
-  el.textContent = msg;
-  el.classList.add('visible');
-  document.getElementById('auth-error').classList.remove('visible');
+ const el = document.getElementById('auth-success');
+ el.textContent = msg;
+ el.classList.add('visible');
+ document.getElementById('auth-error').classList.remove('visible');
 }
 
 function clearAuthMessages() {
-  document.getElementById('auth-error').classList.remove('visible');
-  document.getElementById('auth-success').classList.remove('visible');
+ document.getElementById('auth-error').classList.remove('visible');
+ document.getElementById('auth-success').classList.remove('visible');
 }
 
 // --- Registration ---
 async function registerUser() {
-  const username = document.getElementById('reg-username').value.trim();
-  const password = document.getElementById('reg-password').value;
-  const password2 = document.getElementById('reg-password2').value;
+ const username = document.getElementById('reg-username').value.trim();
+ const password = document.getElementById('reg-password').value;
+ const password2 = document.getElementById('reg-password2').value;
 
-  if (!username) return showAuthError('Bitte einen Benutzernamen eingeben.');
-  if (!/^[a-zA-Z0-9_]{2,20}$/.test(username)) return showAuthError('Nur Buchstaben, Zahlen und Unterstriche (2–20 Zeichen).');
-  if (password.length < 6) return showAuthError('Passwort muss mindestens 6 Zeichen haben.');
-  if (password !== password2) return showAuthError('Passwörter stimmen nicht überein.');
-  if (!useFirebase) return showAuthError('Firebase nicht konfiguriert.');
+ if (!username) return showAuthError('Bitte einen Benutzernamen eingeben.');
+ if (!/^[a-zA-Z0-9_]{2,20}$/.test(username)) return showAuthError('Nur Buchstaben, Zahlen und Unterstriche (2–20 Zeichen).');
+ if (password.length < 6) return showAuthError('Passwort muss mindestens 6 Zeichen haben.');
+ if (password !== password2) return showAuthError('Passwörter stimmen nicht überein.');
+ if (!useFirebase) return showAuthError('Firebase nicht konfiguriert.');
 
-  const usernameLower = username.toLowerCase();
-  const btn = document.getElementById('btn-register');
-  btn.disabled = true;
-  btn.textContent = 'Prüfe …';
+ const usernameLower = username.toLowerCase();
+ const btn = document.getElementById('btn-register');
+ btn.disabled = true;
+ btn.textContent = 'Prüfe …';
 
-  try {
-    // Check if username is taken
-    const snap = await db.ref(`usernames/${usernameLower}`).once('value');
-    if (snap.exists()) {
-      showAuthError('Dieser Benutzername ist bereits vergeben.');
-      btn.disabled = false; btn.textContent = 'Konto erstellen →';
-      return;
-    }
-
-    // Create Firebase Auth account
-    const cred = await auth.createUserWithEmailAndPassword(
-      `${usernameLower}@spieletag.local`, password
-    );
-
-    // Set display name
-    await cred.user.updateProfile({ displayName: username });
-    currentUsername = username;
-    updateAuthButton();
-
-    // Reserve username in DB
-    await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
-
-    showAuthSuccess('Konto erstellt! Du bist jetzt angemeldet.');
-    setTimeout(() => closeAuthModal(), 1500);
-
-  } catch(e) {
-    let msg = 'Fehler beim Registrieren.';
-    if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
-    if (e.code === 'auth/weak-password') msg = 'Passwort ist zu schwach (min. 6 Zeichen).';
-    showAuthError(msg);
-    btn.disabled = false; btn.textContent = 'Konto erstellen →';
+ try {
+  // Check if username is taken
+  const snap = await db.ref(`usernames/${usernameLower}`).once('value');
+  if (snap.exists()) {
+   showAuthError('Dieser Benutzername ist bereits vergeben.');
+   btn.disabled = false; btn.textContent = 'Konto erstellen →';
+   return;
   }
+
+  // Create Firebase Auth account
+  const cred = await auth.createUserWithEmailAndPassword(
+   `${usernameLower}@spieletag.local`, password
+  );
+
+  // Set display name
+  await cred.user.updateProfile({ displayName: username });
+  currentUsername = username;
+  updateAuthButton();
+
+  // Reserve username in DB
+  await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
+
+  showAuthSuccess('Konto erstellt! Du bist jetzt angemeldet.');
+  setTimeout(() => closeAuthModal(), 1500);
+
+ } catch(e) {
+  let msg = 'Fehler beim Registrieren.';
+  if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
+  if (e.code === 'auth/weak-password') msg = 'Passwort ist zu schwach (min. 6 Zeichen).';
+  showAuthError(msg);
+  btn.disabled = false; btn.textContent = 'Konto erstellen →';
+ }
 }
 
 // --- Login ---
 async function loginUser() {
-  const username = document.getElementById('login-username').value.trim();
-  const password = document.getElementById('login-password').value;
+ const username = document.getElementById('login-username').value.trim();
+ const password = document.getElementById('login-password').value;
 
-  if (!username || !password) return showAuthError('Bitte Benutzername und Passwort eingeben.');
-  if (!useFirebase) return showAuthError('Firebase nicht konfiguriert.');
+ if (!username || !password) return showAuthError('Bitte Benutzername und Passwort eingeben.');
+ if (!useFirebase) return showAuthError('Firebase nicht konfiguriert.');
 
-  const usernameLower = username.toLowerCase();
-  const btn = document.getElementById('btn-login');
-  btn.disabled = true; btn.textContent = 'Anmelden …';
+ const usernameLower = username.toLowerCase();
+ const btn = document.getElementById('btn-login');
+ btn.disabled = true; btn.textContent = 'Anmelden …';
 
-  try {
-    await auth.signInWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
-    closeAuthModal();
-  } catch(e) {
-    let msg = 'Anmeldung fehlgeschlagen.';
-    if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
-      msg = 'Benutzername oder Passwort falsch.';
-    }
-    showAuthError(msg);
-    btn.disabled = false; btn.textContent = 'Anmelden →';
+ try {
+  await auth.signInWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
+  closeAuthModal();
+ } catch(e) {
+  let msg = 'Anmeldung fehlgeschlagen.';
+  if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
+   msg = 'Benutzername oder Passwort falsch.';
   }
+  showAuthError(msg);
+  btn.disabled = false; btn.textContent = 'Anmelden →';
+ }
 }
 
 // --- Logout ---
 async function logoutUser() {
-  if (auth) await auth.signOut();
-  closeAuthModal();
+ if (auth) await auth.signOut();
+ closeAuthModal();
 }
 
 // ==========================================
@@ -1588,131 +1588,131 @@ async function logoutUser() {
 const LIB_CACHE_KEY = 'spieletag-lib-cache';
 
 function saveLibraryToLocalStorage() {
-  try {
-    localStorage.setItem(LIB_CACHE_KEY, JSON.stringify(libraryCache));
-  } catch(e) {}
+ try {
+  localStorage.setItem(LIB_CACHE_KEY, JSON.stringify(libraryCache));
+ } catch(e) {}
 }
 
 function loadLibraryFromLocalStorage() {
-  try {
-    const raw = localStorage.getItem(LIB_CACHE_KEY);
-    if (raw) libraryCache = JSON.parse(raw);
-  } catch(e) {}
+ try {
+  const raw = localStorage.getItem(LIB_CACHE_KEY);
+  if (raw) libraryCache = JSON.parse(raw);
+ } catch(e) {}
 }
 
 async function loadLibrary() {
-  if (!currentUser || !useFirebase) {
-    loadLibraryFromLocalStorage();
-    return;
-  }
-  try {
-    // Load private games
-    const privSnap = await db.ref(`library_games/private/${currentUser.uid}`).once('value');
-    libraryCache.private = privSnap.val() || {};
+ if (!currentUser || !useFirebase) {
+  loadLibraryFromLocalStorage();
+  return;
+ }
+ try {
+  // Load private games
+  const privSnap = await db.ref(`library_games/private/${currentUser.uid}`).once('value');
+  libraryCache.private = privSnap.val() || {};
 
-    // Load global games
-    const globalSnap = await db.ref('library_games/global').once('value');
-    libraryCache.global = globalSnap.val() || {};
+  // Load global games
+  const globalSnap = await db.ref('library_games/global').once('value');
+  libraryCache.global = globalSnap.val() || {};
 
-    // Load favorites
-    const favSnap = await db.ref(`library_favorites/${currentUser.uid}`).once('value');
-    libraryCache.favorites = favSnap.val() || {};
+  // Load favorites
+  const favSnap = await db.ref(`library_favorites/${currentUser.uid}`).once('value');
+  libraryCache.favorites = favSnap.val() || {};
 
-    saveLibraryToLocalStorage();
-    updateUserStats();
-  } catch(e) {
-    console.warn('Library load error, using cache:', e);
-    loadLibraryFromLocalStorage();
-  }
+  saveLibraryToLocalStorage();
+  updateUserStats();
+ } catch(e) {
+  console.warn('Library load error, using cache:', e);
+  loadLibraryFromLocalStorage();
+ }
 }
 
 async function saveGameToLibrary(gameData) {
-  if (!currentUser || !useFirebase) return null;
-  const { name, type, desc, points, maxRepeats } = gameData;
-  const newRef = db.ref(`library_games/private/${currentUser.uid}`).push();
-  const gameId = newRef.key;
-  const entry = { id: gameId, name, type, desc: desc||'', points: points||0, maxRepeats: maxRepeats||1, createdAt: Date.now() };
-  await newRef.set(entry);
-  libraryCache.private[gameId] = entry;
-  saveLibraryToLocalStorage();
-  return gameId;
+ if (!currentUser || !useFirebase) return null;
+ const { name, type, desc, points, maxRepeats } = gameData;
+ const newRef = db.ref(`library_games/private/${currentUser.uid}`).push();
+ const gameId = newRef.key;
+ const entry = { id: gameId, name, type, desc: desc||'', points: points||0, maxRepeats: maxRepeats||1, createdAt: Date.now() };
+ await newRef.set(entry);
+ libraryCache.private[gameId] = entry;
+ saveLibraryToLocalStorage();
+ return gameId;
 }
 
 async function updateLibraryGame(gameId, scope, data) {
-  if (!currentUser || !useFirebase) return;
-  const path = scope === 'global'
-    ? `library_games/global/${gameId}`
-    : `library_games/private/${currentUser.uid}/${gameId}`;
-  const allowed = ['name','desc','points','maxRepeats'];
-  const update = {};
-  allowed.forEach(k => { if(data[k] !== undefined) update[k] = data[k]; });
-  await db.ref(path).update(update);
-  if (scope === 'global') Object.assign(libraryCache.global[gameId], update);
-  else Object.assign(libraryCache.private[gameId], update);
-  saveLibraryToLocalStorage();
+ if (!currentUser || !useFirebase) return;
+ const path = scope === 'global'
+  ? `library_games/global/${gameId}`
+  : `library_games/private/${currentUser.uid}/${gameId}`;
+ const allowed = ['name','desc','points','maxRepeats'];
+ const update = {};
+ allowed.forEach(k => { if(data[k] !== undefined) update[k] = data[k]; });
+ await db.ref(path).update(update);
+ if (scope === 'global') Object.assign(libraryCache.global[gameId], update);
+ else Object.assign(libraryCache.private[gameId], update);
+ saveLibraryToLocalStorage();
 }
 
 async function deleteLibraryGame(gameId, scope) {
-  if (!currentUser || !useFirebase) return;
-  if (scope === 'global') {
-    await db.ref(`library_games/global/${gameId}`).remove();
-    delete libraryCache.global[gameId];
-    // also remove from favorites for this user
-    if (libraryCache.favorites[gameId]) {
-      await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).remove();
-      delete libraryCache.favorites[gameId];
-    }
-  } else {
-    await db.ref(`library_games/private/${currentUser.uid}/${gameId}`).remove();
-    delete libraryCache.private[gameId];
+ if (!currentUser || !useFirebase) return;
+ if (scope === 'global') {
+  await db.ref(`library_games/global/${gameId}`).remove();
+  delete libraryCache.global[gameId];
+  // also remove from favorites for this user
+  if (libraryCache.favorites[gameId]) {
+   await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).remove();
+   delete libraryCache.favorites[gameId];
   }
-  saveLibraryToLocalStorage();
-  renderLibraryModal();
+ } else {
+  await db.ref(`library_games/private/${currentUser.uid}/${gameId}`).remove();
+  delete libraryCache.private[gameId];
+ }
+ saveLibraryToLocalStorage();
+ renderLibraryModal();
 }
 
 async function publishGame(gameId) {
-  if (!currentUser || !useFirebase) return;
-  const game = libraryCache.private[gameId];
-  if (!game) return;
-  const globalRef = db.ref(`library_games/global`).push();
-  const globalId = globalRef.key;
-  const entry = {
-    ...game, id: globalId,
-    creatorUid: currentUser.uid,
-    creatorName: currentUsername || 'Anonym',
-    publishedAt: Date.now()
-  };
-  await globalRef.set(entry);
-  libraryCache.global[globalId] = entry;
-  saveLibraryToLocalStorage();
-  renderLibraryModal();
-  alert(`"${game.name}" wurde veröffentlicht! 🌐`);
+ if (!currentUser || !useFirebase) return;
+ const game = libraryCache.private[gameId];
+ if (!game) return;
+ const globalRef = db.ref(`library_games/global`).push();
+ const globalId = globalRef.key;
+ const entry = {
+  ...game, id: globalId,
+  creatorUid: currentUser.uid,
+  creatorName: currentUsername || 'Anonym',
+  publishedAt: Date.now()
+ };
+ await globalRef.set(entry);
+ libraryCache.global[globalId] = entry;
+ saveLibraryToLocalStorage();
+ renderLibraryModal();
+ alert(`"${game.name}" wurde veröffentlicht! 🌐`);
 }
 
 async function toggleFavorite(gameId) {
-  if (!currentUser || !useFirebase) return;
-  const isFav = !!libraryCache.favorites[gameId];
-  if (isFav) {
-    await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).remove();
-    delete libraryCache.favorites[gameId];
-  } else {
-    await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).set(true);
-    libraryCache.favorites[gameId] = true;
-  }
-  saveLibraryToLocalStorage();
-  renderLibraryModal();
+ if (!currentUser || !useFirebase) return;
+ const isFav = !!libraryCache.favorites[gameId];
+ if (isFav) {
+  await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).remove();
+  delete libraryCache.favorites[gameId];
+ } else {
+  await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).set(true);
+  libraryCache.favorites[gameId] = true;
+ }
+ saveLibraryToLocalStorage();
+ renderLibraryModal();
 }
 
 // Autosave all games in current setup to private library
 async function autosaveGamesOnStart() {
-  if (!currentUser || !useFirebase) return;
-  const existingNames = Object.values(libraryCache.private).map(g => g.name.toLowerCase());
-  for (const game of allGames) {
-    if (!existingNames.includes(game.name.toLowerCase())) {
-      await saveGameToLibrary(game);
-    }
+ if (!currentUser || !useFirebase) return;
+ const existingNames = Object.values(libraryCache.private).map(g => g.name.toLowerCase());
+ for (const game of allGames) {
+  if (!existingNames.includes(game.name.toLowerCase())) {
+   await saveGameToLibrary(game);
   }
-  updateUserStats();
+ }
+ updateUserStats();
 }
 
 // ==========================================
@@ -1720,159 +1720,159 @@ async function autosaveGamesOnStart() {
 // ==========================================
 
 function openLibraryModal(preFilterType) {
-  if (!useFirebase) {
-    alert('Die Spiele-Bibliothek erfordert eine Firebase-Verbindung.');
-    return;
-  }
-  libOpenForType = preFilterType || null;
-  if (preFilterType && preFilterType !== 'all') {
-    libFilterType = preFilterType;
-    document.querySelectorAll('[data-lib-type]').forEach(t => {
-      t.classList.toggle('active', t.dataset.libType === preFilterType);
-    });
-  }
-  const modal = document.getElementById('library-modal');
-  modal.classList.remove('hidden');
+ if (!useFirebase) {
+  alert('Die Spiele-Bibliothek erfordert eine Firebase-Verbindung.');
+  return;
+ }
+ libOpenForType = preFilterType || null;
+ if (preFilterType && preFilterType !== 'all') {
+  libFilterType = preFilterType;
+  document.querySelectorAll('[data-lib-type]').forEach(t => {
+   t.classList.toggle('active', t.dataset.libType === preFilterType);
+  });
+ }
+ const modal = document.getElementById('library-modal');
+ modal.classList.remove('hidden');
 
-  if (!currentUser) {
-    document.getElementById('lib-login-prompt').classList.remove('hidden');
-    document.getElementById('lib-main-view').classList.add('hidden');
-  } else {
-    document.getElementById('lib-login-prompt').classList.add('hidden');
-    document.getElementById('lib-main-view').classList.remove('hidden');
-    renderLibraryModal();
-  }
+ if (!currentUser) {
+  document.getElementById('lib-login-prompt').classList.remove('hidden');
+  document.getElementById('lib-main-view').classList.add('hidden');
+ } else {
+  document.getElementById('lib-login-prompt').classList.add('hidden');
+  document.getElementById('lib-main-view').classList.remove('hidden');
+  renderLibraryModal();
+ }
 }
 
 function closeLibraryModal() {
-  document.getElementById('library-modal').classList.add('hidden');
+ document.getElementById('library-modal').classList.add('hidden');
 }
 
 function getFilteredLibraryGames() {
-  let games = [];
-  if (libFilterScope === 'global') {
-    games = Object.values(libraryCache.global);
-  } else {
-    games = Object.values(libraryCache.private);
-  }
+ let games = [];
+ if (libFilterScope === 'global') {
+  games = Object.values(libraryCache.global);
+ } else {
+  games = Object.values(libraryCache.private);
+ }
 
-  // Filter by type
-  if (libFilterType !== 'all') {
-    games = games.filter(g => g.type === libFilterType);
-  }
+ // Filter by type
+ if (libFilterType !== 'all') {
+  games = games.filter(g => g.type === libFilterType);
+ }
 
-  // Filter by search
-  if (libSearchQuery) {
-    const q = libSearchQuery.toLowerCase();
-    games = games.filter(g => g.name.toLowerCase().includes(q) || (g.desc||'').toLowerCase().includes(q));
-  }
+ // Filter by search
+ if (libSearchQuery) {
+  const q = libSearchQuery.toLowerCase();
+  games = games.filter(g => g.name.toLowerCase().includes(q) || (g.desc||'').toLowerCase().includes(q));
+ }
 
-  // Filter by favorites only
-  if (libFilterFavOnly) {
-    games = games.filter(g => libraryCache.favorites[g.id]);
-  }
+ // Filter by favorites only
+ if (libFilterFavOnly) {
+  games = games.filter(g => libraryCache.favorites[g.id]);
+ }
 
-  // Sort
-  if (libFilterSort === 'favs') {
-    games.sort((a, b) => {
-      const af = libraryCache.favorites[a.id] ? 1 : 0;
-      const bf = libraryCache.favorites[b.id] ? 1 : 0;
-      if (bf !== af) return bf - af;
-      return a.name.localeCompare(b.name);
-    });
-  } else if (libFilterSort === 'az') {
-    games.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (libFilterSort === 'newest') {
-    games.sort((a, b) => (b.createdAt||b.publishedAt||0) - (a.createdAt||a.publishedAt||0));
-  }
+ // Sort
+ if (libFilterSort === 'favs') {
+  games.sort((a, b) => {
+   const af = libraryCache.favorites[a.id] ? 1 : 0;
+   const bf = libraryCache.favorites[b.id] ? 1 : 0;
+   if (bf !== af) return bf - af;
+   return a.name.localeCompare(b.name);
+  });
+ } else if (libFilterSort === 'az') {
+  games.sort((a, b) => a.name.localeCompare(b.name));
+ } else if (libFilterSort === 'newest') {
+  games.sort((a, b) => (b.createdAt||b.publishedAt||0) - (a.createdAt||a.publishedAt||0));
+ }
 
-  return games;
+ return games;
 }
 
 function renderLibraryModal() {
-  if (!currentUser) return;
-  const games = getFilteredLibraryGames();
-  const container = document.getElementById('lib-games-container');
+ if (!currentUser) return;
+ const games = getFilteredLibraryGames();
+ const container = document.getElementById('lib-games-container');
 
-  if (games.length === 0) {
-    container.innerHTML = `<div class="lib-empty"><div class="lib-empty-icon">🎲</div><p>Keine Spiele gefunden.</p>${libFilterScope==='private'&&libFilterType!=='all'?'<p style="font-size:.8rem;margin-top:8px;color:var(--text-light)">Starte einen Spieletag – deine Spiele werden dann automatisch gespeichert!</p>':''}</div>`;
-    return;
-  }
+ if (games.length === 0) {
+  container.innerHTML = `<div class="lib-empty"><div class="lib-empty-icon"></div><p>Keine Spiele gefunden.</p>${libFilterScope==='private'&&libFilterType!=='all'?'<p style="font-size:.8rem;margin-top:8px;color:var(--text-light)">Starte einen Spieletag – deine Spiele werden dann automatisch gespeichert!</p>':''}</div>`;
+  return;
+ }
 
-  const typeBadge = {main:'<span class="badge badge-main">H</span>',between:'<span class="badge badge-between">Z</span>',penalty:'<span class="badge badge-penalty">S</span>'};
-  const typeLabel = {main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
+ const typeBadge = {main:'<span class="badge badge-main">H</span>',between:'<span class="badge badge-between">Z</span>',penalty:'<span class="badge badge-penalty">S</span>'};
+ const typeLabel = {main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
 
-  container.innerHTML = `<div class="lib-games-list">${games.map(g => {
-    const isFav = !!libraryCache.favorites[g.id];
-    const isOwn = libFilterScope === 'private' || g.creatorUid === currentUser.uid;
-    const isGlobal = !!g.creatorUid; // has creatorUid = is in global collection
-    const ptsInfo = g.type !== 'main' ? `· ${g.points} Pkt` : '';
-    const repInfo = g.maxRepeats === 0 ? '· ∞×' : `· ${g.maxRepeats}×`;
+ container.innerHTML = `<div class="lib-games-list">${games.map(g => {
+  const isFav = !!libraryCache.favorites[g.id];
+  const isOwn = libFilterScope === 'private' || g.creatorUid === currentUser.uid;
+  const isGlobal = !!g.creatorUid; // has creatorUid = is in global collection
+  const ptsInfo = g.type !== 'main' ? `· ${g.points} Pkt` : '';
+  const repInfo = g.maxRepeats === 0 ? '· ∞×' : `· ${g.maxRepeats}×`;
 
-    return `<div class="lib-game-card" data-game-id="${g.id}">
-      ${typeBadge[g.type]||''}
-      <div class="lib-game-info">
-        <div class="lib-game-name">${esc(g.name)} ${isGlobal && libFilterScope==='private'?'<span class="lib-global-badge">global</span>':''}</div>
-        <div class="lib-game-meta">
-          <span>${typeLabel[g.type]||''}</span>
-          ${ptsInfo ? `<span>${ptsInfo}</span>` : ''}
-          <span>${repInfo}</span>
-          ${g.desc ? `<span style="color:var(--text-light)">${esc(g.desc.substring(0,40))}${g.desc.length>40?'…':''}</span>` : ''}
-        </div>
-        ${libFilterScope==='global' && g.creatorName ? `<div class="lib-game-creator">von ${esc(g.creatorName)}</div>` : ''}
-      </div>
-      <div class="lib-game-actions">
-        <button class="lib-btn star-btn ${isFav?'active':''}" data-lib-star="${g.id}" title="${isFav?'Aus Favoriten entfernen':'Zu Favoriten hinzufügen'}">${isFav?'⭐':'☆'}</button>
-        ${isOwn && !isGlobal ? `<button class="lib-btn publish-btn" data-lib-publish="${g.id}" title="Global veröffentlichen">🌐</button>` : ''}
-        ${isOwn ? `<button class="lib-btn edit-btn" data-lib-edit="${g.id}" title="Bearbeiten">✏️</button>` : ''}
-        ${isOwn ? `<button class="lib-btn delete-btn" data-lib-delete="${g.id}" data-lib-delete-scope="${libFilterScope}" title="Löschen">🗑</button>` : ''}
-        <button class="lib-btn add-btn" data-lib-add="${g.id}" title="Zum Spieletag hinzufügen">+ Add</button>
-      </div>
+  return `<div class="lib-game-card" data-game-id="${g.id}">
+   ${typeBadge[g.type]||''}
+   <div class="lib-game-info">
+    <div class="lib-game-name">${esc(g.name)} ${isGlobal && libFilterScope==='private'?'<span class="lib-global-badge">global</span>':''}</div>
+    <div class="lib-game-meta">
+     <span>${typeLabel[g.type]||''}</span>
+     ${ptsInfo ? `<span>${ptsInfo}</span>` : ''}
+     <span>${repInfo}</span>
+     ${g.desc ? `<span style="color:var(--text-light)">${esc(g.desc.substring(0,40))}${g.desc.length>40?'…':''}</span>` : ''}
     </div>
-    <div id="lib-edit-${g.id}" class="lib-edit-form hidden"></div>`;
-  }).join('')}</div>`;
+    ${libFilterScope==='global' && g.creatorName ? `<div class="lib-game-creator">von ${esc(g.creatorName)}</div>` : ''}
+   </div>
+   <div class="lib-game-actions">
+    <button class="lib-btn star-btn ${isFav?'active':''}" data-lib-star="${g.id}" title="${isFav?'Aus Favoriten entfernen':'Zu Favoriten hinzufügen'}">${isFav?'★':'☆'}</button>
+    ${isOwn && !isGlobal ? `<button class="lib-btn publish-btn" data-lib-publish="${g.id}" title="Global veröffentlichen">🌐</button>` : ''}
+    ${isOwn ? `<button class="lib-btn edit-btn" data-lib-edit="${g.id}" title="Bearbeiten">✏️</button>` : ''}
+    ${isOwn ? `<button class="lib-btn delete-btn" data-lib-delete="${g.id}" data-lib-delete-scope="${libFilterScope}" title="Löschen">🗑</button>` : ''}
+    <button class="lib-btn add-btn" data-lib-add="${g.id}" title="Zum Spieletag hinzufügen">+ Add</button>
+   </div>
+  </div>
+  <div id="lib-edit-${g.id}" class="lib-edit-form hidden"></div>`;
+ }).join('')}</div>`;
 }
 
 function openLibraryEditForm(gameId) {
-  // close any other open edit forms
-  document.querySelectorAll('.lib-edit-form').forEach(f => {
-    if (f.id !== `lib-edit-${gameId}`) { f.classList.add('hidden'); f.innerHTML = ''; }
-  });
+ // close any other open edit forms
+ document.querySelectorAll('.lib-edit-form').forEach(f => {
+  if (f.id !== `lib-edit-${gameId}`) { f.classList.add('hidden'); f.innerHTML = ''; }
+ });
 
-  const game = libraryCache.private[gameId] || libraryCache.global[gameId];
-  if (!game) return;
-  const scope = libraryCache.global[gameId] ? 'global' : 'private';
-  const showPts = game.type !== 'main';
-  const editDiv = document.getElementById(`lib-edit-${gameId}`);
-  editDiv.innerHTML = `
-    <input type="text" id="lib-edit-name-${gameId}" value="${esc(game.name)}" placeholder="Name">
-    <textarea id="lib-edit-desc-${gameId}" rows="2" placeholder="Beschreibung">${esc(game.desc||'')}</textarea>
-    ${showPts ? `<div style="display:flex;gap:8px;align-items:center"><label style="font-size:.8rem">Punkte</label><input type="number" id="lib-edit-pts-${gameId}" value="${game.points||2}" style="width:70px" min="1"></div>` : ''}
-    <div class="lib-edit-actions">
-      <button class="btn btn-secondary" type="button" data-lib-cancel="${gameId}" style="padding:8px 16px;font-size:.85rem">Abbrechen</button>
-      <button class="btn btn-primary" type="button" data-lib-save="${gameId}" data-lib-save-scope="${scope}" style="padding:8px 16px;font-size:.85rem">Speichern</button>
-    </div>`;
-  editDiv.classList.remove('hidden');
+ const game = libraryCache.private[gameId] || libraryCache.global[gameId];
+ if (!game) return;
+ const scope = libraryCache.global[gameId] ? 'global' : 'private';
+ const showPts = game.type !== 'main';
+ const editDiv = document.getElementById(`lib-edit-${gameId}`);
+ editDiv.innerHTML = `
+  <input type="text" id="lib-edit-name-${gameId}" value="${esc(game.name)}" placeholder="Name">
+  <textarea id="lib-edit-desc-${gameId}" rows="2" placeholder="Beschreibung">${esc(game.desc||'')}</textarea>
+  ${showPts ? `<div style="display:flex;gap:8px;align-items:center"><label style="font-size:.8rem">Punkte</label><input type="number" id="lib-edit-pts-${gameId}" value="${game.points||2}" style="width:70px" min="1"></div>` : ''}
+  <div class="lib-edit-actions">
+   <button class="btn btn-secondary" type="button" data-lib-cancel="${gameId}" style="padding:8px 16px;font-size:.85rem">Abbrechen</button>
+   <button class="btn btn-primary" type="button" data-lib-save="${gameId}" data-lib-save-scope="${scope}" style="padding:8px 16px;font-size:.85rem">Speichern</button>
+  </div>`;
+ editDiv.classList.remove('hidden');
 }
 
 async function saveLibraryEdit(gameId, scope) {
-  const nameEl = document.getElementById(`lib-edit-name-${gameId}`);
-  const descEl = document.getElementById(`lib-edit-desc-${gameId}`);
-  const ptsEl = document.getElementById(`lib-edit-pts-${gameId}`);
-  if (!nameEl) return;
-  const data = { name: nameEl.value.trim(), desc: descEl ? descEl.value.trim() : '' };
-  if (ptsEl) data.points = parseInt(ptsEl.value)||2;
-  if (!data.name) return alert('Name darf nicht leer sein.');
-  await updateLibraryGame(gameId, scope, data);
-  document.getElementById(`lib-edit-${gameId}`).classList.add('hidden');
-  renderLibraryModal();
+ const nameEl = document.getElementById(`lib-edit-name-${gameId}`);
+ const descEl = document.getElementById(`lib-edit-desc-${gameId}`);
+ const ptsEl = document.getElementById(`lib-edit-pts-${gameId}`);
+ if (!nameEl) return;
+ const data = { name: nameEl.value.trim(), desc: descEl ? descEl.value.trim() : '' };
+ if (ptsEl) data.points = parseInt(ptsEl.value)||2;
+ if (!data.name) return alert('Name darf nicht leer sein.');
+ await updateLibraryGame(gameId, scope, data);
+ document.getElementById(`lib-edit-${gameId}`).classList.add('hidden');
+ renderLibraryModal();
 }
 
 function addGameFromLibrary(gameId) {
-  const game = libraryCache.global[gameId] || libraryCache.private[gameId];
-  if (!game) return;
-  addGameField(game.type, game);
-  closeLibraryModal();
+ const game = libraryCache.global[gameId] || libraryCache.private[gameId];
+ if (!game) return;
+ addGameField(game.type, game);
+ closeLibraryModal();
 }
 
 // Library modal event delegation (click handler in main click handler below)
@@ -1882,423 +1882,423 @@ function addGameFromLibrary(gameId) {
 // ==========================================
 
 function toggleDarkMode(){
-  document.documentElement.classList.toggle('dark');
-  const isDark=document.documentElement.classList.contains('dark');
-  document.getElementById('darkmode-btn').textContent=isDark?'☀️ Light':'🌙 Dark';
-  try{localStorage.setItem('gameday-dark',isDark?'1':'0')}catch(e){}
+ document.documentElement.classList.toggle('dark');
+ const isDark=document.documentElement.classList.contains('dark');
+ document.getElementById('darkmode-btn').textContent=isDark?'☀️ Light':'Dark';
+ try{localStorage.setItem('gameday-dark',isDark?'1':'0')}catch(e){}
 }
 function initDarkMode(){
-  try{
-    const s=localStorage.getItem('gameday-dark');
-    if(s==='1'||(s===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
-      document.documentElement.classList.add('dark');
-      document.getElementById('darkmode-btn').textContent='☀️ Light';
-    }
-  }catch(e){}
+ try{
+  const s=localStorage.getItem('gameday-dark');
+  if(s==='1'||(s===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+   document.documentElement.classList.add('dark');
+   document.getElementById('darkmode-btn').textContent='☀️ Light';
+  }
+ }catch(e){}
 }
 
 function showPhase(phaseId) {
-  const phases = ['phase-session', 'phase-lobby', 'phase-setup', 'phase-play', 'phase-winner'];
-  phases.forEach(p => document.getElementById(p).classList.add('hidden'));
-  document.getElementById(phaseId).classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'smooth'});
+ const phases = ['phase-session', 'phase-lobby', 'phase-setup', 'phase-play', 'phase-winner'];
+ phases.forEach(p => document.getElementById(p).classList.add('hidden'));
+ document.getElementById(phaseId).classList.remove('hidden');
+ window.scrollTo({top:0,behavior:'smooth'});
 
-  // Update dots
-  const pb = document.getElementById('main-phase-bar');
-  if (phaseId === 'phase-session' || phaseId === 'phase-lobby') {
-    pb.classList.add('hidden');
-  } else {
-    pb.classList.remove('hidden');
-    let idx = 0;
-    if (phaseId === 'phase-play') idx = 1;
-    if (phaseId === 'phase-winner') idx = 2;
-    document.querySelectorAll('.phase-dot').forEach((d,i)=>{
-      d.classList.toggle('active',i===idx);
-      d.classList.toggle('done',i<idx);
-    });
-  }
+ // Update dots
+ const pb = document.getElementById('main-phase-bar');
+ if (phaseId === 'phase-session' || phaseId === 'phase-lobby') {
+  pb.classList.add('hidden');
+ } else {
+  pb.classList.remove('hidden');
+  let idx = 0;
+  if (phaseId === 'phase-play') idx = 1;
+  if (phaseId === 'phase-winner') idx = 2;
+  document.querySelectorAll('.phase-dot').forEach((d,i)=>{
+   d.classList.toggle('active',i===idx);
+   d.classList.toggle('done',i<idx);
+  });
+ }
 }
 
 // ==========================================
 // 4. MULTIPLAYER: SESSION MANAGEMENT
 // ==========================================
 function generateSessionCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  return Array.from({length: 6}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+ const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+ return Array.from({length: 6}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
 
 async function createSession() {
-  if (!useFirebase) return alert("Firebase nicht konfiguriert. Bitte lokalen Modus nutzen.");
-  const nameInp = document.getElementById('landing-name').value.trim();
-  if (!nameInp) return alert("Bitte gib deinen Namen ein.");
-  myPlayerName = nameInp;
+ if (!useFirebase) return alert("Firebase nicht konfiguriert. Bitte lokalen Modus nutzen.");
+ const nameInp = document.getElementById('landing-name').value.trim();
+ if (!nameInp) return alert("Bitte gib deinen Namen ein.");
+ myPlayerName = nameInp;
 
-  const code = generateSessionCode();
-  sessionCode = code;
-  isHost = true;
-  isLocalMode = false;
+ const code = generateSessionCode();
+ sessionCode = code;
+ isHost = true;
+ isLocalMode = false;
 
-  const sessionRef = db.ref(`sessions/${code}`);
-  await sessionRef.set({
-    meta: {
-      hostId: deviceId,
-      hostName: myPlayerName,
-      phase: 'lobby', // 'lobby', 'setup', 'play', 'winner'
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      sessionActive: true
-    },
-    gameState: {
-      scores: { [myPlayerName]: 0 },
-      history: [],
-      currentGame: null,
-      mainGameCounter: 0,
-      dancebreakActive: false
-    }
-  });
-
-  // Host in Lobby aufnehmen
-  db.ref(`sessions/${code}/players/${deviceId}`).set({
-    name: myPlayerName,
-    isHost: true,
-    joinedAt: firebase.database.ServerValue.TIMESTAMP
-  });
-  
-  // Host disconnect hook
-  db.ref('.info/connected').on('value', function(snap) {
-    if (snap.val() === true) {
-      db.ref(`sessions/${code}/meta/hostConnected`).onDisconnect().set(false);
-      db.ref(`sessions/${code}/meta/hostConnected`).set(true);
-    }
-  });
-
-  setupHostListeners();
-  updateBanner();
-  document.getElementById('lobby-code-display').textContent = code;
-  
-  // Add host to players list locally initially
-  if (!players.includes(myPlayerName)) {
-    players.push(myPlayerName);
-    renderPlayers();
+ const sessionRef = db.ref(`sessions/${code}`);
+ await sessionRef.set({
+  meta: {
+   hostId: deviceId,
+   hostName: myPlayerName,
+   phase: 'lobby', // 'lobby', 'setup', 'play', 'winner'
+   createdAt: firebase.database.ServerValue.TIMESTAMP,
+   sessionActive: true
+  },
+  gameState: {
+   scores: { [myPlayerName]: 0 },
+   history: [],
+   currentGame: null,
+   mainGameCounter: 0,
+   dancebreakActive: false
   }
-  
-  showPhase('phase-lobby');
+ });
+
+ // Host in Lobby aufnehmen
+ db.ref(`sessions/${code}/players/${deviceId}`).set({
+  name: myPlayerName,
+  isHost: true,
+  joinedAt: firebase.database.ServerValue.TIMESTAMP
+ });
+ 
+ // Host disconnect hook
+ db.ref('.info/connected').on('value', function(snap) {
+  if (snap.val() === true) {
+   db.ref(`sessions/${code}/meta/hostConnected`).onDisconnect().set(false);
+   db.ref(`sessions/${code}/meta/hostConnected`).set(true);
+  }
+ });
+
+ setupHostListeners();
+ updateBanner();
+ document.getElementById('lobby-code-display').textContent = code;
+ 
+ // Add host to players list locally initially
+ if (!players.includes(myPlayerName)) {
+  players.push(myPlayerName);
+  renderPlayers();
+ }
+ 
+ showPhase('phase-lobby');
 }
 
 async function joinSession() {
-  if (!useFirebase) return alert("Firebase nicht konfiguriert.");
-  const nameInp = document.getElementById('landing-name').value.trim();
-  const codeInp = document.getElementById('landing-code').value.trim().toUpperCase();
-  if (!nameInp) return alert("Bitte gib deinen Namen ein.");
-  if (codeInp.length !== 6) return alert("Code muss 6 Zeichen lang sein.");
-  
-  myPlayerName = nameInp;
-  sessionCode = codeInp;
-  isHost = false;
-  isLocalMode = false;
+ if (!useFirebase) return alert("Firebase nicht konfiguriert.");
+ const nameInp = document.getElementById('landing-name').value.trim();
+ const codeInp = document.getElementById('landing-code').value.trim().toUpperCase();
+ if (!nameInp) return alert("Bitte gib deinen Namen ein.");
+ if (codeInp.length !== 6) return alert("Code muss 6 Zeichen lang sein.");
+ 
+ myPlayerName = nameInp;
+ sessionCode = codeInp;
+ isHost = false;
+ isLocalMode = false;
 
-  const snap = await db.ref(`sessions/${codeInp}/meta`).once('value');
-  if (!snap.exists() || !snap.val().sessionActive) {
-    return alert("Session nicht gefunden oder bereits beendet.");
-  }
+ const snap = await db.ref(`sessions/${codeInp}/meta`).once('value');
+ if (!snap.exists() || !snap.val().sessionActive) {
+  return alert("Session nicht gefunden oder bereits beendet.");
+ }
 
-  // Guest in Lobby aufnehmen
-  db.ref(`sessions/${codeInp}/players/${deviceId}`).set({
-    name: myPlayerName,
-    isHost: false,
-    joinedAt: firebase.database.ServerValue.TIMESTAMP
-  });
-  db.ref(`sessions/${codeInp}/players/${deviceId}`).onDisconnect().remove();
+ // Guest in Lobby aufnehmen
+ db.ref(`sessions/${codeInp}/players/${deviceId}`).set({
+  name: myPlayerName,
+  isHost: false,
+  joinedAt: firebase.database.ServerValue.TIMESTAMP
+ });
+ db.ref(`sessions/${codeInp}/players/${deviceId}`).onDisconnect().remove();
 
-  setupGuestListeners();
-  updateBanner();
-  
-  // Setup View Toggle
-  document.getElementById('setup-host-view').classList.add('hidden');
-  document.getElementById('setup-guest-view').classList.remove('hidden');
-  
-  // Play View Toggle
-  document.getElementById('draw-btn').classList.add('hidden');
-  document.getElementById('guest-wait-draw').classList.remove('hidden');
-  document.getElementById('host-results-section').classList.add('hidden');
-  document.getElementById('host-restart-actions').classList.add('hidden');
-  document.getElementById('host-win-actions').classList.add('hidden');
-  
-  document.getElementById('lobby-code-display').textContent = codeInp;
-  showPhase('phase-lobby');
+ setupGuestListeners();
+ updateBanner();
+ 
+ // Setup View Toggle
+ document.getElementById('setup-host-view').classList.add('hidden');
+ document.getElementById('setup-guest-view').classList.remove('hidden');
+ 
+ // Play View Toggle
+ document.getElementById('draw-btn').classList.add('hidden');
+ document.getElementById('guest-wait-draw').classList.remove('hidden');
+ document.getElementById('host-results-section').classList.add('hidden');
+ document.getElementById('host-restart-actions').classList.add('hidden');
+ document.getElementById('host-win-actions').classList.add('hidden');
+ 
+ document.getElementById('lobby-code-display').textContent = codeInp;
+ showPhase('phase-lobby');
 }
 
 function startLocalMode() {
-  isLocalMode = true;
-  isHost = true;
-  document.getElementById('session-banner').classList.add('hidden');
-  
-  // Add first empty game fields
-  addGameField('main'); addGameField('between'); addGameField('penalty');
-  updatePointsPreview();
-  
-  showPhase('phase-setup');
+ isLocalMode = true;
+ isHost = true;
+ document.getElementById('session-banner').classList.add('hidden');
+ 
+ // Add first empty game fields
+ addGameField('main'); addGameField('between'); addGameField('penalty');
+ updatePointsPreview();
+ 
+ showPhase('phase-setup');
 }
 
 function updateBanner() {
-  const banner = document.getElementById('session-banner');
-  banner.classList.remove('hidden');
-  document.getElementById('banner-code').textContent = `Code: ${sessionCode}`;
-  const rBadge = document.getElementById('banner-role');
-  rBadge.textContent = isHost ? "HOST" : "GUEST";
-  rBadge.style.background = isHost ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.2)";
+ const banner = document.getElementById('session-banner');
+ banner.classList.remove('hidden');
+ document.getElementById('banner-code').textContent = `Code: ${sessionCode}`;
+ const rBadge = document.getElementById('banner-role');
+ rBadge.textContent = isHost ? "HOST" : "GUEST";
+ rBadge.style.background = isHost ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.2)";
 }
 
 // ==========================================
 // 5. FIREBASE LISTENERS (HOST & GUEST)
 // ==========================================
 function setupHostListeners() {
-  // Listen to players joining
-  playersRef = db.ref(`sessions/${sessionCode}/players`);
-  playersRef.on('value', snap => {
-    const pData = snap.val() || {};
-    const count = Object.keys(pData).length;
-    document.getElementById('lobby-player-count').textContent = count;
-    
-    // Sync players array with actual connections
-    const newPlayers = [];
-    let html = '';
-    Object.values(pData).forEach(p => {
-      html += `<div class="player-tag">${esc(p.name)} ${p.isHost ? '(Host)' : ''}</div>`;
-      if (!newPlayers.includes(p.name)) newPlayers.push(p.name);
-    });
-    document.getElementById('lobby-players-grid').innerHTML = html;
-    
-    // Auto-update setup player list if not started yet
-    if (document.getElementById('phase-setup').classList.contains('hidden') === false || 
-        document.getElementById('phase-lobby').classList.contains('hidden') === false) {
-      // Add missing players to local state
-      newPlayers.forEach(p => {
-        if (!players.includes(p)) players.push(p);
-      });
-      renderPlayers();
-    }
+ // Listen to players joining
+ playersRef = db.ref(`sessions/${sessionCode}/players`);
+ playersRef.on('value', snap => {
+  const pData = snap.val() || {};
+  const count = Object.keys(pData).length;
+  document.getElementById('lobby-player-count').textContent = count;
+  
+  // Sync players array with actual connections
+  const newPlayers = [];
+  let html = '';
+  Object.values(pData).forEach(p => {
+   html += `<div class="player-tag">${esc(p.name)} ${p.isHost ? '(Host)' : ''}</div>`;
+   if (!newPlayers.includes(p.name)) newPlayers.push(p.name);
   });
+  document.getElementById('lobby-players-grid').innerHTML = html;
+  
+  // Auto-update setup player list if not started yet
+  if (document.getElementById('phase-setup').classList.contains('hidden') === false || 
+    document.getElementById('phase-lobby').classList.contains('hidden') === false) {
+   // Add missing players to local state
+   newPlayers.forEach(p => {
+    if (!players.includes(p)) players.push(p);
+   });
+   renderPlayers();
+  }
+ });
 
-  // Listen to proposals
-  proposalsRef = db.ref(`sessions/${sessionCode}/proposals`);
-  proposalsRef.on('value', snap => {
-    const props = snap.val() || {};
-    renderProposalsInbox(props);
-  });
+ // Listen to proposals
+ proposalsRef = db.ref(`sessions/${sessionCode}/proposals`);
+ proposalsRef.on('value', snap => {
+  const props = snap.val() || {};
+  renderProposalsInbox(props);
+ });
 }
 
 function setupGuestListeners() {
-  // Phase Sync
-  phaseRef = db.ref(`sessions/${sessionCode}/meta/phase`);
-  phaseRef.on('value', snap => {
-    const phase = snap.val();
-    if (phase === 'setup') showPhase('phase-setup');
-    if (phase === 'play') showPhase('phase-play');
-    if (phase === 'winner') showPhase('phase-winner');
-  });
+ // Phase Sync
+ phaseRef = db.ref(`sessions/${sessionCode}/meta/phase`);
+ phaseRef.on('value', snap => {
+  const phase = snap.val();
+  if (phase === 'setup') showPhase('phase-setup');
+  if (phase === 'play') showPhase('phase-play');
+  if (phase === 'winner') showPhase('phase-winner');
+ });
 
-  // Host Connection Monitor
-  db.ref(`sessions/${sessionCode}/meta/hostConnected`).on('value', snap => {
-    const isConn = snap.val();
-    document.getElementById('conn-status').className = 'connection-status ' + (isConn ? '' : 'offline');
-    
-    const discOverlay = document.getElementById('host-disconnect');
-    if (!isConn && document.getElementById('phase-play').classList.contains('hidden') === false) {
-      discOverlay.classList.remove('hidden');
-    } else {
-      discOverlay.classList.add('hidden');
-    }
-  });
+ // Host Connection Monitor
+ db.ref(`sessions/${sessionCode}/meta/hostConnected`).on('value', snap => {
+  const isConn = snap.val();
+  document.getElementById('conn-status').className = 'connection-status ' + (isConn ? '' : 'offline');
+  
+  const discOverlay = document.getElementById('host-disconnect');
+  if (!isConn && document.getElementById('phase-play').classList.contains('hidden') === false) {
+   discOverlay.classList.remove('hidden');
+  } else {
+   discOverlay.classList.add('hidden');
+  }
+ });
 
-  // Lobby Sync
-  playersRef = db.ref(`sessions/${sessionCode}/players`);
-  playersRef.on('value', snap => {
-    const pData = snap.val() || {};
-    const count = Object.keys(pData).length;
-    document.getElementById('lobby-player-count').textContent = count;
-    let html = '';
-    Object.values(pData).forEach(p => {
-      html += `<div class="player-tag">${esc(p.name)} ${p.isHost ? '(Host)' : ''}</div>`;
-    });
-    document.getElementById('lobby-players-grid').innerHTML = html;
+ // Lobby Sync
+ playersRef = db.ref(`sessions/${sessionCode}/players`);
+ playersRef.on('value', snap => {
+  const pData = snap.val() || {};
+  const count = Object.keys(pData).length;
+  document.getElementById('lobby-player-count').textContent = count;
+  let html = '';
+  Object.values(pData).forEach(p => {
+   html += `<div class="player-tag">${esc(p.name)} ${p.isHost ? '(Host)' : ''}</div>`;
   });
+  document.getElementById('lobby-players-grid').innerHTML = html;
+ });
 
-  // GameState Sync
-  gameStateRef = db.ref(`sessions/${sessionCode}/gameState`);
-  gameStateRef.on('value', snap => {
-    const state = snap.val();
-    if (!state) return;
-    
-    scores = state.scores || {};
-    history = state.history || [];
-    players = Object.keys(scores);
-    
-    if (document.getElementById('phase-play').classList.contains('hidden') === false) {
-      renderScoreboard();
-      renderHistory();
-    }
+ // GameState Sync
+ gameStateRef = db.ref(`sessions/${sessionCode}/gameState`);
+ gameStateRef.on('value', snap => {
+  const state = snap.val();
+  if (!state) return;
+  
+  scores = state.scores || {};
+  history = state.history || [];
+  players = Object.keys(scores);
+  
+  if (document.getElementById('phase-play').classList.contains('hidden') === false) {
+   renderScoreboard();
+   renderHistory();
+  }
 
-    if (state.currentGame) {
-      currentGame = state.currentGame;
-      document.getElementById('draw-prompt').classList.add('hidden');
-      document.getElementById('current-game').classList.remove('hidden');
-      
-      const card = document.getElementById('draw-card');
-      card.className='draw-card'; 
-      card.classList.add('type-' + currentGame.type);
-      
-      const tl={main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
-      const pc={main:'',between:'complement',penalty:'penalty-color'};
-      
-      document.getElementById('game-number').textContent=`Runde ${history.length+1} · ${tl[currentGame.type]}`;
-      document.getElementById('game-name').textContent=currentGame.name;
-      document.getElementById('game-desc').textContent=currentGame.desc;
-      document.getElementById('game-points').className='game-points '+pc[currentGame.type];
-      document.getElementById('game-points').textContent=currentGame._drawPoints+(currentGame._drawPoints===1?' Punkt':' Punkte');
-      
-      // Guest doesn't see detailed repeats info properly sync'd without more complex state, so keep simple
-      document.getElementById('game-repeat-info').textContent = ""; 
-    } else {
-      document.getElementById('current-game').classList.add('hidden');
-      document.getElementById('draw-prompt').classList.remove('hidden');
-    }
-    
-    if (state.dancebreakActive && !dancebreakActive) {
-      showDancebreak(null); // Guest just watches
-    }
-    
-    if (state.isWinnerPhase) {
-      renderWinnerScreenGuest();
-    }
-  });
+  if (state.currentGame) {
+   currentGame = state.currentGame;
+   document.getElementById('draw-prompt').classList.add('hidden');
+   document.getElementById('current-game').classList.remove('hidden');
+   
+   const card = document.getElementById('draw-card');
+   card.className='draw-card'; 
+   card.classList.add('type-' + currentGame.type);
+   
+   const tl={main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
+   const pc={main:'',between:'complement',penalty:'penalty-color'};
+   
+   document.getElementById('game-number').textContent=`Runde ${history.length+1} · ${tl[currentGame.type]}`;
+   document.getElementById('game-name').textContent=currentGame.name;
+   document.getElementById('game-desc').textContent=currentGame.desc;
+   document.getElementById('game-points').className='game-points '+pc[currentGame.type];
+   document.getElementById('game-points').textContent=currentGame._drawPoints+(currentGame._drawPoints===1?' Punkt':' Punkte');
+   
+   // Guest doesn't see detailed repeats info properly sync'd without more complex state, so keep simple
+   document.getElementById('game-repeat-info').textContent = ""; 
+  } else {
+   document.getElementById('current-game').classList.add('hidden');
+   document.getElementById('draw-prompt').classList.remove('hidden');
+  }
+  
+  if (state.dancebreakActive && !dancebreakActive) {
+   showDancebreak(null); // Guest just watches
+  }
+  
+  if (state.isWinnerPhase) {
+   renderWinnerScreenGuest();
+  }
+ });
 
-  // My Proposals Status
-  db.ref(`sessions/${sessionCode}/proposals`).orderByChild('submittedById').equalTo(deviceId).on('value', snap => {
-    renderGuestMyProposals(snap.val() || {});
-  });
+ // My Proposals Status
+ db.ref(`sessions/${sessionCode}/proposals`).orderByChild('submittedById').equalTo(deviceId).on('value', snap => {
+  renderGuestMyProposals(snap.val() || {});
+ });
 }
 
 async function syncGameState() {
-  if (isLocalMode || !isHost) return;
-  await db.ref(`sessions/${sessionCode}/gameState`).update({
-    scores,
-    history,
-    currentGame,
-    mainGameCounter,
-    dancebreakActive
-  });
+ if (isLocalMode || !isHost) return;
+ await db.ref(`sessions/${sessionCode}/gameState`).update({
+  scores,
+  history,
+  currentGame,
+  mainGameCounter,
+  dancebreakActive
+ });
 }
 
 // ==========================================
 // 6. PROPOSAL SYSTEM
 // ==========================================
 function submitProposal() {
-  const type = document.getElementById('guest-prop-type').value;
-  const name = document.getElementById('guest-prop-name').value.trim();
-  const desc = document.getElementById('guest-prop-desc').value.trim();
-  const pts = parseInt(document.getElementById('guest-prop-pts').value) || 2;
-  const rep = parseInt(document.getElementById('guest-prop-rep').value) || 1;
-  
-  if (!name) return alert("Bitte einen Spielnamen eingeben.");
-  
-  db.ref(`sessions/${sessionCode}/proposals`).push({
-    type, name, desc, points: pts, maxRepeats: rep,
-    submittedBy: myPlayerName,
-    submittedById: deviceId,
-    status: 'pending',
-    timestamp: firebase.database.ServerValue.TIMESTAMP
-  });
-  
-  document.getElementById('guest-prop-name').value = '';
-  document.getElementById('guest-prop-desc').value = '';
+ const type = document.getElementById('guest-prop-type').value;
+ const name = document.getElementById('guest-prop-name').value.trim();
+ const desc = document.getElementById('guest-prop-desc').value.trim();
+ const pts = parseInt(document.getElementById('guest-prop-pts').value) || 2;
+ const rep = parseInt(document.getElementById('guest-prop-rep').value) || 1;
+ 
+ if (!name) return alert("Bitte einen Spielnamen eingeben.");
+ 
+ db.ref(`sessions/${sessionCode}/proposals`).push({
+  type, name, desc, points: pts, maxRepeats: rep,
+  submittedBy: myPlayerName,
+  submittedById: deviceId,
+  status: 'pending',
+  timestamp: firebase.database.ServerValue.TIMESTAMP
+ });
+ 
+ document.getElementById('guest-prop-name').value = '';
+ document.getElementById('guest-prop-desc').value = '';
 }
 
 function renderGuestMyProposals(propsData) {
-  const list = document.getElementById('guest-my-proposals');
-  const props = Object.keys(propsData).map(k => ({id:k, ...propsData[k]})).sort((a,b)=> b.timestamp - a.timestamp);
+ const list = document.getElementById('guest-my-proposals');
+ const props = Object.keys(propsData).map(k => ({id:k, ...propsData[k]})).sort((a,b)=> b.timestamp - a.timestamp);
+ 
+ if (props.length === 0) {
+  list.innerHTML = '<p class="text-muted text-sm">Noch keine Vorschläge eingereicht.</p>';
+  return;
+ }
+ 
+ let html = '';
+ props.forEach(p => {
+  let badge = '';
+  if (p.status === 'pending') badge = '<span class="status-badge status-pending">Ausstehend</span>';
+  if (p.status === 'approved') badge = '<span class="status-badge status-approved">Angenommen</span>';
+  if (p.status === 'rejected') badge = '<span class="status-badge status-rejected">Abgelehnt</span>';
   
-  if (props.length === 0) {
-    list.innerHTML = '<p class="text-muted text-sm">Noch keine Vorschläge eingereicht.</p>';
-    return;
-  }
-  
-  let html = '';
-  props.forEach(p => {
-    let badge = '';
-    if (p.status === 'pending') badge = '<span class="status-badge status-pending">Ausstehend</span>';
-    if (p.status === 'approved') badge = '<span class="status-badge status-approved">Angenommen</span>';
-    if (p.status === 'rejected') badge = '<span class="status-badge status-rejected">Abgelehnt</span>';
-    
-    html += `
-      <div class="proposal-item">
-        <div class="proposal-info">
-          <span class="proposal-title">${esc(p.name)}</span>
-          <span class="proposal-meta">${p.type==='main'?'Hauptspiel':(p.type==='between'?'Zwischenspiel':'Strafspiel')}</span>
-        </div>
-        <div>${badge}</div>
-      </div>
-    `;
-  });
-  list.innerHTML = html;
+  html += `
+   <div class="proposal-item">
+    <div class="proposal-info">
+     <span class="proposal-title">${esc(p.name)}</span>
+     <span class="proposal-meta">${p.type==='main'?'Hauptspiel':(p.type==='between'?'Zwischenspiel':'Strafspiel')}</span>
+    </div>
+    <div>${badge}</div>
+   </div>
+  `;
+ });
+ list.innerHTML = html;
 }
 
 function renderProposalsInbox(propsData) {
-  const mainList = document.getElementById('proposals-main-list');
-  const betweenList = document.getElementById('proposals-between-list');
-  const penaltyList = document.getElementById('proposals-penalty-list');
+ const mainList = document.getElementById('proposals-main-list');
+ const betweenList = document.getElementById('proposals-between-list');
+ const penaltyList = document.getElementById('proposals-penalty-list');
+ 
+ let mHTML = '', bHTML = '', pHTML = '';
+ let mC=0, bC=0, pC=0;
+ 
+ Object.keys(propsData).forEach(k => {
+  const p = propsData[k];
+  if (p.status !== 'pending') return;
   
-  let mHTML = '', bHTML = '', pHTML = '';
-  let mC=0, bC=0, pC=0;
+  const html = `
+   <div class="proposal-item">
+    <div class="proposal-info">
+     <span class="proposal-title">${esc(p.name)} <span style="font-weight:normal;color:var(--text-light)">von ${esc(p.submittedBy)}</span></span>
+     <span class="proposal-meta">${esc(p.desc)} ${p.type!=='main' ? `· ${p.points} Pkt` : ''} · ${p.maxRepeats===0?'∞':p.maxRepeats+'×'}</span>
+    </div>
+    <div class="proposal-actions">
+     <button class="btn-icon-small accept" type="button" data-prop-accept="${k}" title="Übernehmen">✓</button>
+     <button class="btn-icon-small reject" type="button" data-prop-reject="${k}" title="Ablehnen">✕</button>
+    </div>
+   </div>
+  `;
   
-  Object.keys(propsData).forEach(k => {
-    const p = propsData[k];
-    if (p.status !== 'pending') return;
-    
-    const html = `
-      <div class="proposal-item">
-        <div class="proposal-info">
-          <span class="proposal-title">${esc(p.name)} <span style="font-weight:normal;color:var(--text-light)">von ${esc(p.submittedBy)}</span></span>
-          <span class="proposal-meta">${esc(p.desc)} ${p.type!=='main' ? `· ${p.points} Pkt` : ''} · ${p.maxRepeats===0?'∞':p.maxRepeats+'×'}</span>
-        </div>
-        <div class="proposal-actions">
-          <button class="btn-icon-small accept" type="button" data-prop-accept="${k}" title="Übernehmen">✓</button>
-          <button class="btn-icon-small reject" type="button" data-prop-reject="${k}" title="Ablehnen">✕</button>
-        </div>
-      </div>
-    `;
-    
-    if (p.type === 'main') { mHTML += html; mC++; }
-    if (p.type === 'between') { bHTML += html; bC++; }
-    if (p.type === 'penalty') { pHTML += html; pC++; }
-  });
-  
-  mainList.innerHTML = mHTML;
-  betweenList.innerHTML = bHTML;
-  penaltyList.innerHTML = pHTML;
-  
-  document.getElementById('inbox-main').classList.toggle('hidden', mC === 0);
-  document.getElementById('inbox-between').classList.toggle('hidden', bC === 0);
-  document.getElementById('inbox-penalty').classList.toggle('hidden', pC === 0);
+  if (p.type === 'main') { mHTML += html; mC++; }
+  if (p.type === 'between') { bHTML += html; bC++; }
+  if (p.type === 'penalty') { pHTML += html; pC++; }
+ });
+ 
+ mainList.innerHTML = mHTML;
+ betweenList.innerHTML = bHTML;
+ penaltyList.innerHTML = pHTML;
+ 
+ document.getElementById('inbox-main').classList.toggle('hidden', mC === 0);
+ document.getElementById('inbox-between').classList.toggle('hidden', bC === 0);
+ document.getElementById('inbox-penalty').classList.toggle('hidden', pC === 0);
 }
 
 function handleProposalAction(id, action) {
-  if (action === 'accept') {
-    db.ref(`sessions/${sessionCode}/proposals/${id}`).once('value', snap => {
-      const p = snap.val();
-      if (p) {
-        addGameField(p.type, p);
-        db.ref(`sessions/${sessionCode}/proposals/${id}/status`).set('approved');
-      }
-    });
-  } else {
-    db.ref(`sessions/${sessionCode}/proposals/${id}/status`).set('rejected');
-  }
+ if (action === 'accept') {
+  db.ref(`sessions/${sessionCode}/proposals/${id}`).once('value', snap => {
+   const p = snap.val();
+   if (p) {
+    addGameField(p.type, p);
+    db.ref(`sessions/${sessionCode}/proposals/${id}/status`).set('approved');
+   }
+  });
+ } else {
+  db.ref(`sessions/${sessionCode}/proposals/${id}/status`).set('rejected');
+ }
 }
 
 // Guest UI logic
 document.getElementById('guest-prop-type').addEventListener('change', function() {
-  const isPts = this.value !== 'main';
-  document.getElementById('guest-prop-pts-row').style.display = isPts ? 'flex' : 'none';
+ const isPts = this.value !== 'main';
+ document.getElementById('guest-prop-pts-row').style.display = isPts ? 'flex' : 'none';
 });
 
 // ==========================================
@@ -2307,357 +2307,357 @@ document.getElementById('guest-prop-type').addEventListener('change', function()
 
 // Players
 function addPlayer(){
-  const inp=document.getElementById('player-name-input');
-  const n=inp.value.trim();
-  if(!n||players.includes(n)){inp.value='';return}
-  players.push(n);inp.value='';renderPlayers();inp.focus();
+ const inp=document.getElementById('player-name-input');
+ const n=inp.value.trim();
+ if(!n||players.includes(n)){inp.value='';return}
+ players.push(n);inp.value='';renderPlayers();inp.focus();
 }
 function removePlayer(n){players=players.filter(p=>p!==n);renderPlayers()}
 function renderPlayers(){
-  document.getElementById('players-grid').innerHTML=players.map(p=>
-    `<div class="player-tag">${esc(p)}<button class="remove-btn" type="button" data-remove-player="${esc(p)}" title="Entfernen">×</button></div>`
-  ).join('');
+ document.getElementById('players-grid').innerHTML=players.map(p=>
+  `<div class="player-tag">${esc(p)}<button class="remove-btn" type="button" data-remove-player="${esc(p)}" title="Entfernen">×</button></div>`
+ ).join('');
 }
 
 // Points preview
 function updatePointsPreview(){
-  const start=parseInt(document.getElementById('main-pts-start').value)||1;
-  const step=parseInt(document.getElementById('main-pts-step').value)||0;
-  const prev=document.getElementById('points-preview');
-  let html='';
-  for(let i=0;i<6;i++) html+=`<span class="pp">${i+1}. → ${start+step*i}P</span>`;
-  html+='<span class="pp" style="background:none;color:var(--text-light);">…</span>';
-  prev.innerHTML=html;
+ const start=parseInt(document.getElementById('main-pts-start').value)||1;
+ const step=parseInt(document.getElementById('main-pts-step').value)||0;
+ const prev=document.getElementById('points-preview');
+ let html='';
+ for(let i=0;i<6;i++) html+=`<span class="pp">${i+1}. → ${start+step*i}P</span>`;
+ html+='<span class="pp" style="background:none;color:var(--text-light);">…</span>';
+ prev.innerHTML=html;
 }
 
 // Fields
 function addGameField(type,prefill){
-  gameFieldCounters[type]++;
-  const list=document.getElementById(type+'-games-list');
-  const id=type+'-'+gameFieldCounters[type];
-  const div=document.createElement('div');
-  div.className='input-group';div.id='field-'+id;
-  const showPts=(type==='between'||type==='penalty');
-  const defPts=prefill?prefill.points:(type==='penalty'?3:2);
-  const defRep=prefill?prefill.maxRepeats:1;
-  const ptsField=showPts?`<input type="number" placeholder="Pkt" min="1" value="${defPts}" id="pts-${id}" title="Punkte" inputmode="numeric" pattern="[0-9]*" style="width:60px;">`:'';
-  let repOpts='';
-  for(let r=1;r<=9;r++) repOpts+=`<option value="${r}" ${defRep===r?'selected':''}>${r}×</option>`;
-  repOpts+=`<option value="0" ${defRep===0?'selected':''}>∞</option>`;
-  div.innerHTML=`
-    <div class="input-row">
-      <div class="input-row-fields">
-        <input type="text" placeholder="Spielname" id="name-${id}" value="${prefill?esc(prefill.name):''}" autocomplete="off" autocorrect="off">
-        <textarea placeholder="Beschreibung (optional)" id="desc-${id}" rows="1">${prefill?esc(prefill.desc):''}</textarea>
-      </div>
-      <div class="input-row-meta">
-        ${ptsField}
-        <select class="small-select" id="rep-${id}" title="Wie oft spielbar">${repOpts}</select>
-        <button class="remove-btn" type="button" data-remove-field="${id}" title="Entfernen">×</button>
-      </div>
-    </div>`;
-  list.appendChild(div);
-  if(!prefill){const nameInp=document.getElementById('name-'+id);if(nameInp)nameInp.focus();}
+ gameFieldCounters[type]++;
+ const list=document.getElementById(type+'-games-list');
+ const id=type+'-'+gameFieldCounters[type];
+ const div=document.createElement('div');
+ div.className='input-group';div.id='field-'+id;
+ const showPts=(type==='between'||type==='penalty');
+ const defPts=prefill?prefill.points:(type==='penalty'?3:2);
+ const defRep=prefill?prefill.maxRepeats:1;
+ const ptsField=showPts?`<input type="number" placeholder="Pkt" min="1" value="${defPts}" id="pts-${id}" title="Punkte" inputmode="numeric" pattern="[0-9]*" style="width:60px;">`:'';
+ let repOpts='';
+ for(let r=1;r<=9;r++) repOpts+=`<option value="${r}" ${defRep===r?'selected':''}>${r}×</option>`;
+ repOpts+=`<option value="0" ${defRep===0?'selected':''}>∞</option>`;
+ div.innerHTML=`
+  <div class="input-row">
+   <div class="input-row-fields">
+    <input type="text" placeholder="Spielname" id="name-${id}" value="${prefill?esc(prefill.name):''}" autocomplete="off" autocorrect="off">
+    <textarea placeholder="Beschreibung (optional)" id="desc-${id}" rows="1">${prefill?esc(prefill.desc):''}</textarea>
+   </div>
+   <div class="input-row-meta">
+    ${ptsField}
+    <select class="small-select" id="rep-${id}" title="Wie oft spielbar">${repOpts}</select>
+    <button class="remove-btn" type="button" data-remove-field="${id}" title="Entfernen">×</button>
+   </div>
+  </div>`;
+ list.appendChild(div);
+ if(!prefill){const nameInp=document.getElementById('name-'+id);if(nameInp)nameInp.focus();}
 }
 function removeField(id){const el=document.getElementById('field-'+id);if(el)el.remove()}
 
 function collectGames(){
-  allGames=[];let uid=0;
-  ['main','between','penalty'].forEach(type=>{
-    const list=document.getElementById(type+'-games-list');
-    list.querySelectorAll('.input-group').forEach(group=>{
-      const id=group.id.replace('field-','');
-      const name=document.getElementById('name-'+id)?.value.trim();
-      const desc=document.getElementById('desc-'+id)?.value.trim()||'';
-      const showPts=(type==='between'||type==='penalty');
-      const pts=showPts?(parseInt(document.getElementById('pts-'+id)?.value)||2):0;
-      const maxRep=parseInt(document.getElementById('rep-'+id)?.value);
-      if(name) allGames.push({type,name,desc,points:pts,maxRepeats:maxRep,timesPlayed:0,uid:'g'+(uid++)});
-    });
+ allGames=[];let uid=0;
+ ['main','between','penalty'].forEach(type=>{
+  const list=document.getElementById(type+'-games-list');
+  list.querySelectorAll('.input-group').forEach(group=>{
+   const id=group.id.replace('field-','');
+   const name=document.getElementById('name-'+id)?.value.trim();
+   const desc=document.getElementById('desc-'+id)?.value.trim()||'';
+   const showPts=(type==='between'||type==='penalty');
+   const pts=showPts?(parseInt(document.getElementById('pts-'+id)?.value)||2):0;
+   const maxRep=parseInt(document.getElementById('rep-'+id)?.value);
+   if(name) allGames.push({type,name,desc,points:pts,maxRepeats:maxRep,timesPlayed:0,uid:'g'+(uid++)});
   });
+ });
 }
 
 function collectSettings(){
-  settings.dancebreak=document.getElementById('dancebreak-toggle').checked;
-  settings.dancebreakDuration=parseInt(document.getElementById('dancebreak-duration').value)||60;
-  settings.dancebreakChance=parseFloat(document.getElementById('dancebreak-chance').value)||0.2;
-  settings.mainPtsStart=parseInt(document.getElementById('main-pts-start').value)||1;
-  settings.mainPtsStep=parseInt(document.getElementById('main-pts-step').value)||0;
-  settings.endConditions={main:document.getElementById('end-main').checked,between:document.getElementById('end-between').checked,penalty:document.getElementById('end-penalty').checked};
-  settings.probRandom=document.getElementById('prob-random').checked;
-  if(!settings.probRandom){
-    const {probs}=calcProbabilities();
-    settings.probWeights=probs;
-    settings.probUserSet={};
-    ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);settings.probUserSet[t]=inp&&inp.value.trim()!=='';});
-  }
+ settings.dancebreak=document.getElementById('dancebreak-toggle').checked;
+ settings.dancebreakDuration=parseInt(document.getElementById('dancebreak-duration').value)||60;
+ settings.dancebreakChance=parseFloat(document.getElementById('dancebreak-chance').value)||0.2;
+ settings.mainPtsStart=parseInt(document.getElementById('main-pts-start').value)||1;
+ settings.mainPtsStep=parseInt(document.getElementById('main-pts-step').value)||0;
+ settings.endConditions={main:document.getElementById('end-main').checked,between:document.getElementById('end-between').checked,penalty:document.getElementById('end-penalty').checked};
+ settings.probRandom=document.getElementById('prob-random').checked;
+ if(!settings.probRandom){
+  const {probs}=calcProbabilities();
+  settings.probWeights=probs;
+  settings.probUserSet={};
+  ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);settings.probUserSet[t]=inp&&inp.value.trim()!=='';});
+ }
 }
 
 function calcProbabilities(){
-  const types=['main','between','penalty'];
-  const vals={};const locked=[];let lockedSum=0;
-  types.forEach(t=>{const inp=document.getElementById('prob-'+t);const v=inp&&inp.value.trim()!==''?parseInt(inp.value):null;vals[t]=v;if(v!==null&&!isNaN(v)){locked.push(t);lockedSum+=v}});
-  const result={};
-  if(lockedSum>100){types.forEach(t=>result[t]=vals[t]||0);return{probs:result,over:true}}
-  const unlocked=types.filter(t=>!locked.includes(t));
-  const remainder=100-lockedSum;
-  const autoEach=unlocked.length>0?remainder/unlocked.length:0;
-  types.forEach(t=>{result[t]=locked.includes(t)?vals[t]:Math.round(autoEach*10)/10});
-  return{probs:result,over:false};
+ const types=['main','between','penalty'];
+ const vals={};const locked=[];let lockedSum=0;
+ types.forEach(t=>{const inp=document.getElementById('prob-'+t);const v=inp&&inp.value.trim()!==''?parseInt(inp.value):null;vals[t]=v;if(v!==null&&!isNaN(v)){locked.push(t);lockedSum+=v}});
+ const result={};
+ if(lockedSum>100){types.forEach(t=>result[t]=vals[t]||0);return{probs:result,over:true}}
+ const unlocked=types.filter(t=>!locked.includes(t));
+ const remainder=100-lockedSum;
+ const autoEach=unlocked.length>0?remainder/unlocked.length:0;
+ types.forEach(t=>{result[t]=locked.includes(t)?vals[t]:Math.round(autoEach*10)/10});
+ return{probs:result,over:false};
 }
 
 function buildDrawPool(){
-  remainingGames=allGames.filter(g=>g.maxRepeats===0||g.timesPlayed<g.maxRepeats);
-  remainingGames.sort(()=>Math.random()-0.5);
+ remainingGames=allGames.filter(g=>g.maxRepeats===0||g.timesPlayed<g.maxRepeats);
+ remainingGames.sort(()=>Math.random()-0.5);
 }
 
 function startGame(){
-  if (!isHost) return;
-  collectGames();collectSettings();
-  if(players.length<2)return alert('Mindestens 2 Spieler benötigt.');
-  if(allGames.length<1)return alert('Mindestens 1 Spiel benötigt.');
-  
-  // Autosave new games to private library (fire & forget, non-blocking)
-  autosaveGamesOnStart();
-  
-  savedGames=JSON.parse(JSON.stringify(allGames));
-  savedPlayers=[...players];
-  scores={};players.forEach(p=>scores[p]=0);
-  mainGameCounter=0;history=[];
-  buildDrawPool();
-  
-  if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('play');
-  
-  showShuffleAnimation(()=>{
-    showPhase('phase-play');
-    renderScoreboard();
-    renderHistory();
-    updateRemaining();
-    syncGameState();
-  });
+ if (!isHost) return;
+ collectGames();collectSettings();
+ if(players.length<2)return alert('Mindestens 2 Spieler benötigt.');
+ if(allGames.length<1)return alert('Mindestens 1 Spiel benötigt.');
+ 
+ // Autosave new games to private library (fire & forget, non-blocking)
+ autosaveGamesOnStart();
+ 
+ savedGames=JSON.parse(JSON.stringify(allGames));
+ savedPlayers=[...players];
+ scores={};players.forEach(p=>scores[p]=0);
+ mainGameCounter=0;history=[];
+ buildDrawPool();
+ 
+ if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('play');
+ 
+ showShuffleAnimation(()=>{
+  showPhase('phase-play');
+  renderScoreboard();
+  renderHistory();
+  updateRemaining();
+  syncGameState();
+ });
 }
 
 function drawGame(){
-  if (!isHost) return;
-  buildDrawPool();if(!remainingGames.length)return;
-  if(settings.dancebreak&&!dancebreakActive&&Math.random()<settings.dancebreakChance){
-    showDancebreak(()=>actuallyDrawGame());
-    return;
-  }
-  actuallyDrawGame();
+ if (!isHost) return;
+ buildDrawPool();if(!remainingGames.length)return;
+ if(settings.dancebreak&&!dancebreakActive&&Math.random()<settings.dancebreakChance){
+  showDancebreak(()=>actuallyDrawGame());
+  return;
+ }
+ actuallyDrawGame();
 }
 
 function actuallyDrawGame(){
-  let pool=remainingGames;
-  // Simplified Random for snippet - full weighted random logic applies here as before
-  currentGame=pool[Math.floor(Math.random()*pool.length)];
-  
-  let drawPoints=currentGame.points;
-  if(currentGame.type==='main'){mainGameCounter++;drawPoints=settings.mainPtsStart+settings.mainPtsStep*(mainGameCounter-1)}
-  currentGame._drawPoints=drawPoints;
-  
-  syncGameState(); // Sync that we drew a game
+ let pool=remainingGames;
+ // Simplified Random for snippet - full weighted random logic applies here as before
+ currentGame=pool[Math.floor(Math.random()*pool.length)];
+ 
+ let drawPoints=currentGame.points;
+ if(currentGame.type==='main'){mainGameCounter++;drawPoints=settings.mainPtsStart+settings.mainPtsStep*(mainGameCounter-1)}
+ currentGame._drawPoints=drawPoints;
+ 
+ syncGameState(); // Sync that we drew a game
 
-  const card=document.getElementById('draw-card');
-  document.getElementById('draw-prompt').classList.add('hidden');
-  document.getElementById('current-game').classList.remove('hidden');
-  card.className='draw-card';card.style.opacity='0';card.style.transform='scale(0.8) rotateY(90deg)';card.style.transition='none';
-  
-  const tl={main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
-  const tc={main:'type-main',between:'type-between',penalty:'type-penalty'};
-  const pc={main:'',between:'complement',penalty:'penalty-color'};
-  
-  document.getElementById('game-number').textContent=`Runde ${history.length+1} · ${tl[currentGame.type]}`;
-  document.getElementById('game-name').textContent=currentGame.name;
-  document.getElementById('game-desc').textContent=currentGame.desc;
-  document.getElementById('game-points').className='game-points '+pc[currentGame.type];
-  document.getElementById('game-points').textContent=drawPoints+(drawPoints===1?' Punkt':' Punkte');
-  
-  const ri=document.getElementById('game-repeat-info');
-  if(currentGame.maxRepeats===0)ri.textContent='Bereits '+currentGame.timesPlayed+'× gespielt · Unbegrenzt';
-  else if(currentGame.maxRepeats>1)ri.textContent=currentGame.timesPlayed+' von '+currentGame.maxRepeats+'× gespielt';
-  else ri.textContent='';
+ const card=document.getElementById('draw-card');
+ document.getElementById('draw-prompt').classList.add('hidden');
+ document.getElementById('current-game').classList.remove('hidden');
+ card.className='draw-card';card.style.opacity='0';card.style.transform='scale(0.8) rotateY(90deg)';card.style.transition='none';
+ 
+ const tl={main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
+ const tc={main:'type-main',between:'type-between',penalty:'type-penalty'};
+ const pc={main:'',between:'complement',penalty:'penalty-color'};
+ 
+ document.getElementById('game-number').textContent=`Runde ${history.length+1} · ${tl[currentGame.type]}`;
+ document.getElementById('game-name').textContent=currentGame.name;
+ document.getElementById('game-desc').textContent=currentGame.desc;
+ document.getElementById('game-points').className='game-points '+pc[currentGame.type];
+ document.getElementById('game-points').textContent=drawPoints+(drawPoints===1?' Punkt':' Punkte');
+ 
+ const ri=document.getElementById('game-repeat-info');
+ if(currentGame.maxRepeats===0)ri.textContent='Bereits '+currentGame.timesPlayed+'× gespielt · Unbegrenzt';
+ else if(currentGame.maxRepeats>1)ri.textContent=currentGame.timesPlayed+' von '+currentGame.maxRepeats+'× gespielt';
+ else ri.textContent='';
 
-  requestAnimationFrame(()=>{card.style.transition='.5s cubic-bezier(.34,1.56,.64,1)';card.style.opacity='1';card.style.transform='scale(1) rotateY(0deg)';card.classList.add(tc[currentGame.type])});
-  renderResultRows();updateRemaining();
+ requestAnimationFrame(()=>{card.style.transition='.5s cubic-bezier(.34,1.56,.64,1)';card.style.opacity='1';card.style.transform='scale(1) rotateY(0deg)';card.classList.add(tc[currentGame.type])});
+ renderResultRows();updateRemaining();
 }
 
 function renderResultRows(){
-  document.getElementById('results-rows').innerHTML=players.map((p,i)=>
-    `<div class="result-row"><label>${esc(p)}</label><select id="result-sel-${i}"><option value="0">Nicht gewonnen</option><option value="1">🏆 Gewonnen</option></select></div>`
-  ).join('');
+ document.getElementById('results-rows').innerHTML=players.map((p,i)=>
+  `<div class="result-row"><label>${esc(p)}</label><select id="result-sel-${i}"><option value="0">Nicht gewonnen</option><option value="1"> Gewonnen</option></select></div>`
+ ).join('');
 }
 
 function submitResults(){
-  if (!isHost) return;
-  const winners=[];
-  const pts=currentGame._drawPoints||currentGame.points;
-  players.forEach((p,i)=>{const sel=document.getElementById('result-sel-'+i);if(sel&&sel.value==='1'){winners.push(p);scores[p]+=pts}});
-  
-  currentGame.timesPlayed++;
-  history.push({game:{...currentGame},winners:[...winners],pointsAwarded:pts});
-  
-  // Clear current game
-  currentGame = null;
-  syncGameState();
+ if (!isHost) return;
+ const winners=[];
+ const pts=currentGame._drawPoints||currentGame.points;
+ players.forEach((p,i)=>{const sel=document.getElementById('result-sel-'+i);if(sel&&sel.value==='1'){winners.push(p);scores[p]+=pts}});
+ 
+ currentGame.timesPlayed++;
+ history.push({game:{...currentGame},winners:[...winners],pointsAwarded:pts});
+ 
+ // Clear current game
+ currentGame = null;
+ syncGameState();
 
-  renderScoreboard();renderHistory();
-  document.getElementById('current-game').classList.add('hidden');
-  document.getElementById('draw-prompt').classList.remove('hidden');
-  document.getElementById('draw-btn').textContent='🎲 Nächstes Spiel ziehen';
-  
-  updateRemaining();
+ renderScoreboard();renderHistory();
+ document.getElementById('current-game').classList.add('hidden');
+ document.getElementById('draw-prompt').classList.remove('hidden');
+ document.getElementById('draw-btn').textContent=' Nächstes Spiel ziehen';
+ 
+ updateRemaining();
 }
 
 // Undo
 function undoResult(idx){
-  if (!isHost) return;
-  const e=history[idx];if(!e)return;
-  e.winners.forEach(w=>{scores[w]-=e.pointsAwarded});
-  if(e.game.type==='main')mainGameCounter--;
-  const orig=allGames.find(g=>g.uid===e.game.uid);if(orig)orig.timesPlayed--;
-  history.splice(idx,1);
-  
-  currentGame = null;
-  syncGameState();
+ if (!isHost) return;
+ const e=history[idx];if(!e)return;
+ e.winners.forEach(w=>{scores[w]-=e.pointsAwarded});
+ if(e.game.type==='main')mainGameCounter--;
+ const orig=allGames.find(g=>g.uid===e.game.uid);if(orig)orig.timesPlayed--;
+ history.splice(idx,1);
+ 
+ currentGame = null;
+ syncGameState();
 
-  renderScoreboard();renderHistory();updateRemaining();
-  document.getElementById('current-game').classList.add('hidden');
-  document.getElementById('draw-prompt').classList.remove('hidden');
+ renderScoreboard();renderHistory();updateRemaining();
+ document.getElementById('current-game').classList.add('hidden');
+ document.getElementById('draw-prompt').classList.remove('hidden');
 }
 
 function renderScoreboard(){
-  const s=[...players].sort((a,b)=>scores[b]-scores[a]);
-  document.getElementById('scoreboard').innerHTML=`<div class="scoreboard-title">Punktestand</div>${s.map((p,i)=>`<div class="score-row"><span class="score-rank">${i+1}.</span><span class="score-name">${esc(p)}</span><span class="score-pts">${scores[p]}</span></div>`).join('')}`;
+ const s=[...players].sort((a,b)=>scores[b]-scores[a]);
+ document.getElementById('scoreboard').innerHTML=`<div class="scoreboard-title">Punktestand</div>${s.map((p,i)=>`<div class="score-row"><span class="score-rank">${i+1}.</span><span class="score-name">${esc(p)}</span><span class="score-pts">${scores[p]}</span></div>`).join('')}`;
 }
 
 function renderHistory(){
-  const l=document.getElementById('history-list');
-  if(!history.length){l.innerHTML='<p class="text-muted text-sm" style="padding:8px 0;">Noch keine Spiele gespielt.</p>';return}
-  const bt=t=>t==='main'?'main':t==='between'?'between':'penalty';
-  const bl=t=>t==='main'?'H':t==='between'?'Z':'S';
-  l.innerHTML=history.map((h,i)=>`<div class="history-item"><span class="history-num">${i+1}</span><span class="badge badge-${bt(h.game.type)}" style="font-size:.6rem;">${bl(h.game.type)}</span><span class="history-name">${esc(h.game.name)}</span><span class="history-winner">${h.winners.length?h.winners.map(esc).join(', '):'—'}</span>${isHost?`<button class="history-undo" type="button" data-undo="${i}">↩</button>`:''}</div>`).join('');
+ const l=document.getElementById('history-list');
+ if(!history.length){l.innerHTML='<p class="text-muted text-sm" style="padding:8px 0;">Noch keine Spiele gespielt.</p>';return}
+ const bt=t=>t==='main'?'main':t==='between'?'between':'penalty';
+ const bl=t=>t==='main'?'H':t==='between'?'Z':'S';
+ l.innerHTML=history.map((h,i)=>`<div class="history-item"><span class="history-num">${i+1}</span><span class="badge badge-${bt(h.game.type)}" style="font-size:.6rem;">${bl(h.game.type)}</span><span class="history-name">${esc(h.game.name)}</span><span class="history-winner">${h.winners.length?h.winners.map(esc).join(', '):'—'}</span>${isHost?`<button class="history-undo" type="button" data-undo="${i}">↩</button>`:''}</div>`).join('');
 }
 
 function updateRemaining(){
-  if (!isHost) return;
-  let count=0;
-  allGames.forEach(g=>{if(g.maxRepeats!==0) count+=Math.max(0,g.maxRepeats-g.timesPlayed)});
-  const el=document.getElementById('remaining-count');
-  if(el)el.textContent=count;
-  
-  const w=document.getElementById('end-game-wrap');
-  w.style.display=(count===0 && history.length>0)?'block':'none';
+ if (!isHost) return;
+ let count=0;
+ allGames.forEach(g=>{if(g.maxRepeats!==0) count+=Math.max(0,g.maxRepeats-g.timesPlayed)});
+ const el=document.getElementById('remaining-count');
+ if(el)el.textContent=count;
+ 
+ const w=document.getElementById('end-game-wrap');
+ w.style.display=(count===0 && history.length>0)?'block':'none';
 }
 
 function showWinnerScreen(){
-  if (!isHost) return;
-  if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('winner');
-  if (!isLocalMode) db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(true);
-  showPhase('phase-winner');
-  renderWinnerScreenGuest();
+ if (!isHost) return;
+ if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('winner');
+ if (!isLocalMode) db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(true);
+ showPhase('phase-winner');
+ renderWinnerScreenGuest();
 }
 
 function renderWinnerScreenGuest() {
-  const s=[...players].sort((a,b)=>scores[b]-scores[a]);const w=s[0];
-  document.getElementById('winner-content').innerHTML=`<div class="winner-screen"><div class="crown">👑</div><h2>${esc(w)}</h2><p class="subtitle">gewinnt den Spieletag mit ${scores[w]} Punkten!</p><div class="final-scores">${s.map((p,i)=>`<div class="final-row ${i===0?'first':''}"><span class="rank">${i===0?'👑':i+1+'.'}</span><span class="name">${esc(p)}</span><span class="pts">${scores[p]} Pkt</span></div>`).join('')}</div></div>`;
-  if (isHost) document.getElementById('host-win-actions').classList.remove('hidden');
+ const s=[...players].sort((a,b)=>scores[b]-scores[a]);const w=s[0];
+ document.getElementById('winner-content').innerHTML=`<div class="winner-screen"><div class="crown"></div><h2>${esc(w)}</h2><p class="subtitle">gewinnt den Spieletag mit ${scores[w]} Punkten!</p><div class="final-scores">${s.map((p,i)=>`<div class="final-row ${i===0?'first':''}"><span class="rank">${i===0?'':i+1+'.'}</span><span class="name">${esc(p)}</span><span class="pts">${scores[p]} Pkt</span></div>`).join('')}</div></div>`;
+ if (isHost) document.getElementById('host-win-actions').classList.remove('hidden');
 }
 
 // Dancebreak
 function showDancebreak(cb){
-  dancebreakActive=true;
-  if(isHost) syncGameState();
-  
-  window._dbCb=cb;let rem=isHost ? settings.dancebreakDuration : 60; // fallback duration for guest
-  const total=rem;
-  const ov=document.createElement('div');ov.className='dancebreak-overlay';ov.id='dancebreak-overlay';
-  ov.innerHTML=`<div class="dance-emoji">💃🕺</div><h2>Dancebreak!</h2><p class="dance-sub">Alle tanzen — keine Ausnahmen!</p><div class="dance-timer" id="dance-countdown">${rem}</div><div class="dance-bar"><div class="dance-bar-fill" id="dance-bar-fill" style="width:100%"></div></div>${isHost?`<button class="dance-skip" type="button" id="dance-skip-btn">Überspringen</button>`:''}`;
-  document.body.appendChild(ov);
-  
-  dancebreakTimer=setInterval(()=>{
-    rem--;
-    document.getElementById('dance-countdown').textContent=rem;
-    document.getElementById('dance-bar-fill').style.width=((rem/total)*100)+'%';
-    if(rem<=0 && isHost) endDancebreak(cb);
-  },1000);
+ dancebreakActive=true;
+ if(isHost) syncGameState();
+ 
+ window._dbCb=cb;let rem=isHost ? settings.dancebreakDuration : 60; // fallback duration for guest
+ const total=rem;
+ const ov=document.createElement('div');ov.className='dancebreak-overlay';ov.id='dancebreak-overlay';
+ ov.innerHTML=`<div class="dance-emoji">💃🕺</div><h2>Dancebreak!</h2><p class="dance-sub">Alle tanzen — keine Ausnahmen!</p><div class="dance-timer" id="dance-countdown">${rem}</div><div class="dance-bar"><div class="dance-bar-fill" id="dance-bar-fill" style="width:100%"></div></div>${isHost?`<button class="dance-skip" type="button" id="dance-skip-btn">Überspringen</button>`:''}`;
+ document.body.appendChild(ov);
+ 
+ dancebreakTimer=setInterval(()=>{
+  rem--;
+  document.getElementById('dance-countdown').textContent=rem;
+  document.getElementById('dance-bar-fill').style.width=((rem/total)*100)+'%';
+  if(rem<=0 && isHost) endDancebreak(cb);
+ },1000);
 }
 function endDancebreak(cb){
-  clearInterval(dancebreakTimer);dancebreakActive=false;
-  if(isHost) syncGameState();
-  const ov=document.getElementById('dancebreak-overlay');
-  if(ov){ov.style.transition='opacity .4s';ov.style.opacity='0';setTimeout(()=>ov.remove(),400)}
-  if(cb)cb();
+ clearInterval(dancebreakTimer);dancebreakActive=false;
+ if(isHost) syncGameState();
+ const ov=document.getElementById('dancebreak-overlay');
+ if(ov){ov.style.transition='opacity .4s';ov.style.opacity='0';setTimeout(()=>ov.remove(),400)}
+ if(cb)cb();
 }
 
 // UI Event Binding
 document.addEventListener('click',function(e){
-  const t=e.target.closest('[data-remove-player],[data-remove-field],[data-undo],[data-prop-accept],[data-prop-reject],[data-auth-tab],[data-landing-tab],[data-lib-type],[data-lib-scope],[data-lib-star],[data-lib-publish],[data-lib-edit],[data-lib-delete],[data-lib-add],[data-lib-cancel],[data-lib-save]') || e.target;
+ const t=e.target.closest('[data-remove-player],[data-remove-field],[data-undo],[data-prop-accept],[data-prop-reject],[data-auth-tab],[data-landing-tab],[data-lib-type],[data-lib-scope],[data-lib-star],[data-lib-publish],[data-lib-edit],[data-lib-delete],[data-lib-add],[data-lib-cancel],[data-lib-save]') || e.target;
 
-  if(t.dataset.removePlayer){removePlayer(t.dataset.removePlayer);return}
-  if(t.dataset.removeField){removeField(t.dataset.removeField);return}
-  if(t.dataset.undo!==undefined){undoResult(parseInt(t.dataset.undo));return}
-  if(t.dataset.propAccept){handleProposalAction(t.dataset.propAccept, 'accept');return}
-  if(t.dataset.propReject){handleProposalAction(t.dataset.propReject, 'reject');return}
+ if(t.dataset.removePlayer){removePlayer(t.dataset.removePlayer);return}
+ if(t.dataset.removeField){removeField(t.dataset.removeField);return}
+ if(t.dataset.undo!==undefined){undoResult(parseInt(t.dataset.undo));return}
+ if(t.dataset.propAccept){handleProposalAction(t.dataset.propAccept, 'accept');return}
+ if(t.dataset.propReject){handleProposalAction(t.dataset.propReject, 'reject');return}
 
-  // Auth tab switching (in auth modal)
-  if(t.dataset.authTab){setAuthTab(t.dataset.authTab);return}
+ // Auth tab switching (in auth modal)
+ if(t.dataset.authTab){setAuthTab(t.dataset.authTab);return}
 
-  // Landing page tab switching
-  if(t.dataset.landingTab){setLandingTab(t.dataset.landingTab);return}
+ // Landing page tab switching
+ if(t.dataset.landingTab){setLandingTab(t.dataset.landingTab);return}
 
-  // Library type filter tabs
-  if(t.dataset.libType){
-    libFilterType=t.dataset.libType;
-    document.querySelectorAll('[data-lib-type]').forEach(el=>el.classList.toggle('active',el.dataset.libType===libFilterType));
-    renderLibraryModal();return;
+ // Library type filter tabs
+ if(t.dataset.libType){
+  libFilterType=t.dataset.libType;
+  document.querySelectorAll('[data-lib-type]').forEach(el=>el.classList.toggle('active',el.dataset.libType===libFilterType));
+  renderLibraryModal();return;
+ }
+
+ // Library scope toggle (global/private)
+ if(t.dataset.libScope){
+  libFilterScope=t.dataset.libScope;
+  document.querySelectorAll('[data-lib-scope]').forEach(el=>el.classList.toggle('active',el.dataset.libScope===libFilterScope));
+  renderLibraryModal();return;
+ }
+
+ // Library favorites star
+ if(t.dataset.libStar){toggleFavorite(t.dataset.libStar);return}
+
+ // Library publish to global
+ if(t.dataset.libPublish){
+  if(confirm(`"${libraryCache.private[t.dataset.libPublish]?.name}" für alle global veröffentlichen?`)){
+   publishGame(t.dataset.libPublish);
   }
+  return;
+ }
 
-  // Library scope toggle (global/private)
-  if(t.dataset.libScope){
-    libFilterScope=t.dataset.libScope;
-    document.querySelectorAll('[data-lib-scope]').forEach(el=>el.classList.toggle('active',el.dataset.libScope===libFilterScope));
-    renderLibraryModal();return;
+ // Library edit
+ if(t.dataset.libEdit){openLibraryEditForm(t.dataset.libEdit);return}
+
+ // Library cancel edit
+ if(t.dataset.libCancel){
+  const form=document.getElementById(`lib-edit-${t.dataset.libCancel}`);
+  if(form){form.classList.add('hidden');form.innerHTML=''}
+  return;
+ }
+
+ // Library save edit
+ if(t.dataset.libSave){saveLibraryEdit(t.dataset.libSave, t.dataset.libSaveScope);return}
+
+ // Library delete
+ if(t.dataset.libDelete){
+  const game=libraryCache[t.dataset.libDeleteScope]?.[t.dataset.libDelete];
+  if(game && confirm(`"${game.name}" wirklich löschen?`)){
+   deleteLibraryGame(t.dataset.libDelete, t.dataset.libDeleteScope);
   }
+  return;
+ }
 
-  // Library favorites star
-  if(t.dataset.libStar){toggleFavorite(t.dataset.libStar);return}
+ // Library add to current game
+ if(t.dataset.libAdd){addGameFromLibrary(t.dataset.libAdd);return}
 
-  // Library publish to global
-  if(t.dataset.libPublish){
-    if(confirm(`"${libraryCache.private[t.dataset.libPublish]?.name}" für alle global veröffentlichen?`)){
-      publishGame(t.dataset.libPublish);
-    }
-    return;
-  }
-
-  // Library edit
-  if(t.dataset.libEdit){openLibraryEditForm(t.dataset.libEdit);return}
-
-  // Library cancel edit
-  if(t.dataset.libCancel){
-    const form=document.getElementById(`lib-edit-${t.dataset.libCancel}`);
-    if(form){form.classList.add('hidden');form.innerHTML=''}
-    return;
-  }
-
-  // Library save edit
-  if(t.dataset.libSave){saveLibraryEdit(t.dataset.libSave, t.dataset.libSaveScope);return}
-
-  // Library delete
-  if(t.dataset.libDelete){
-    const game=libraryCache[t.dataset.libDeleteScope]?.[t.dataset.libDelete];
-    if(game && confirm(`"${game.name}" wirklich löschen?`)){
-      deleteLibraryGame(t.dataset.libDelete, t.dataset.libDeleteScope);
-    }
-    return;
-  }
-
-  // Library add to current game
-  if(t.dataset.libAdd){addGameFromLibrary(t.dataset.libAdd);return}
-
-  if(t.id==='dance-skip-btn'){endDancebreak(window._dbCb);return}
-  if(t.id==='win-new-btn'){location.reload();return}
+ if(t.id==='dance-skip-btn'){endDancebreak(window._dbCb);return}
+ if(t.id==='win-new-btn'){location.reload();return}
 });
 
 // Setup Initial Buttons
@@ -2695,25 +2695,25 @@ document.getElementById('lib-penalty-btn').addEventListener('click',()=>openLibr
 
 // Library search
 document.getElementById('lib-search-input').addEventListener('input',e=>{
-  libSearchQuery=e.target.value.trim();
-  renderLibraryModal();
+ libSearchQuery=e.target.value.trim();
+ renderLibraryModal();
 });
 
 // Library sort
 document.getElementById('lib-sort-select').addEventListener('change',e=>{
-  libFilterSort=e.target.value;
-  renderLibraryModal();
+ libFilterSort=e.target.value;
+ renderLibraryModal();
 });
 
 // Library favorites only filter
 document.getElementById('lib-fav-only').addEventListener('change',e=>{
-  libFilterFavOnly=e.target.checked;
-  renderLibraryModal();
+ libFilterFavOnly=e.target.checked;
+ renderLibraryModal();
 });
 
 document.getElementById('btn-go-setup').addEventListener('click', () => {
-  if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('setup');
-  showPhase('phase-setup');
+ if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('setup');
+ showPhase('phase-setup');
 });
 
 document.getElementById('add-player-btn').addEventListener('click',addPlayer);
@@ -2738,7 +2738,7 @@ showLandingForUser(auth ? auth.currentUser : null);
 // Check URL Params for quick join
 const urlParams = new URLSearchParams(window.location.search);
 if(urlParams.has('code')){
-  document.getElementById('landing-code').value = urlParams.get('code');
+ document.getElementById('landing-code').value = urlParams.get('code');
 }
 
 </script>
