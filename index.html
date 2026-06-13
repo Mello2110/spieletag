@@ -632,6 +632,20 @@ select.small-select{
   .history-item{gap:6px;padding:10px 12px}
   .btn-group{gap:8px}
   .dancebreak-overlay h2{font-size:1.8rem;letter-spacing:2px}
+  
+  /* Responsive Modals */
+  .modal-content{margin: 10px; max-height: calc(100vh - 20px);}
+  .modal-header{padding: 16px; flex-direction: column; align-items: flex-start; gap: 8px;}
+  .modal-header h3{font-size: 1.2rem;}
+  .modal-close{position: absolute; top: 12px; right: 12px;}
+  .modal-body{padding: 16px;}
+  .lib-game-card{flex-direction: column; align-items: flex-start; gap: 12px;}
+  .lib-game-actions{width: 100%; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;}
+  .lib-filter-row{flex-direction: column; align-items: stretch;}
+  .lib-scope-toggle{margin-left: 0; align-self: flex-start; width: 100%; display: flex;}
+  .lib-scope-toggle button{flex: 1;}
+  .auth-tabs{flex-wrap: wrap;}
+  #landing-auth-screen .card {padding: 24px 16px;}
 }
 @media(min-width:768px){
   .header h1{font-size:3rem}
@@ -1391,9 +1405,13 @@ async function landingRegister() {
     }
     const cred = await auth.createUserWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
     await cred.user.updateProfile({ displayName: username });
+    currentUsername = username;
+    updateAuthButton();
+    if (document.getElementById('phase-session') && !document.getElementById('phase-session').classList.contains('hidden')) {
+      showLandingForUser(cred.user);
+    }
     await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
     showLandingSuccess('Konto erstellt! Willkommen 🎉');
-    // onAuthStateChanged handles navigation
   } catch(e) {
     let msg = 'Fehler beim Registrieren.';
     if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
@@ -1514,6 +1532,8 @@ async function registerUser() {
 
     // Set display name
     await cred.user.updateProfile({ displayName: username });
+    currentUsername = username;
+    updateAuthButton();
 
     // Reserve username in DB
     await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
