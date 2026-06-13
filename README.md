@@ -364,18 +364,52 @@ Damit der Multiplayer-Modus funktioniert, musst du **einmalig ein kostenloses Fi
     "sessions": {
       "$code": {
         ".read": true,
-        "meta": { ".write": "auth == null" },
+        "meta": { ".write": true },
         "proposals": { ".write": true },
         "approvedGames": { ".write": true },
         "gameState": { ".write": true },
         "settings": { ".write": true },
         "players": { ".write": true }
       }
+    },
+    "usernames": {
+      ".read": true,
+      "$username": {
+        ".write": "!data.exists() && auth != null"
+      }
+    },
+    "library_games": {
+      "private": {
+        "$uid": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        }
+      },
+      "global": {
+        ".read": true,
+        "$gameId": {
+          ".write": "auth != null && (!data.exists() || data.child('creatorUid').val() == auth.uid)"
+        }
+      }
+    },
+    "library_favorites": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      }
     }
   }
 }
 ```
 5. Klicke auf **Veröffentlichen**.
+
+### Schritt 2b: Firebase Authentication aktivieren
+1. Klicke links unter *Build* auf **Authentication**.
+2. Klicke auf **Loslegen**.
+3. Wähle unter *Sign-in method* die Option **E-Mail/Passwort** und aktiviere sie.
+4. Klicke auf **Speichern**.
+
+> **Hinweis:** Die App nutzt intern das Schema `benutzername@spieletag.local` für Accounts, sodass Nutzer nur einen Benutzernamen (kein echtes E-Mail) benötigen.
 
 ### Schritt 3: Web-App hinzufügen & Config kopieren
 1. Gehe zur Projektübersicht (Zahnrad oben links -> Projekteinstellungen).
@@ -388,7 +422,7 @@ Damit der Multiplayer-Modus funktioniert, musst du **einmalig ein kostenloses Fi
 2. Scrolle ganz nach unten zum Bereich `<script>`.
 3. Gleich am Anfang des Scripts findest du den Platzhalter `const firebaseConfig = { ... }`.
 4. Ersetze diesen Block mit der kopierten Config aus Schritt 3.
-5. Speichere die Datei. **Fertig! Dein Live-Multiplayer ist jetzt einsatzbereit.**
+5. Speichere die Datei. **Fertig! Multiplayer und Spiele-Bibliothek sind jetzt einsatzbereit.**
 
 ---
 

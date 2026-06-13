@@ -14,6 +14,7 @@
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <style>
 :root {
@@ -63,6 +64,16 @@ html.dark .draw-card .game-points.complement{filter:brightness(1.6)}
 html.dark .final-row.first{background:#7A3D5E}
 html.dark .btn-secondary{background:var(--bg-card)}
 html.dark select{color-scheme:dark}
+html.dark .auth-btn{background:var(--bg-card);border-color:var(--border);color:var(--text)}
+html.dark .modal-overlay{background:rgba(0,0,0,0.7)}
+html.dark .modal-content{background:var(--bg-card);border-color:var(--border)}
+html.dark .lib-tab.active{background:var(--accent);color:#fff}
+html.dark .lib-tab{background:var(--bg);color:var(--text-muted)}
+html.dark .lib-game-card{background:var(--bg);border-color:var(--border)}
+html.dark .lib-game-card:hover{border-color:var(--accent)}
+html.dark .auth-tab.active{border-bottom-color:var(--accent);color:var(--accent)}
+html.dark .auth-input-hint{color:var(--text-muted)}
+html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-light)}
 
 /* Dark mode toggle */
 .darkmode-btn{
@@ -75,6 +86,27 @@ html.dark select{color-scheme:dark}
   box-shadow:var(--shadow-sm);
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
+}
+
+/* Auth Button */
+.auth-btn{
+  position:fixed;top:16px;right:106px;z-index:50;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:20px;padding:8px 14px;cursor:pointer;
+  font-size:.85rem;transition:all var(--transition);
+  display:flex;align-items:center;gap:6px;
+  font-family:'DM Sans',sans-serif;color:var(--text);
+  box-shadow:var(--shadow-sm);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  white-space:nowrap;max-width:160px;overflow:hidden;
+}
+.auth-btn .auth-avatar{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-size:.65rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
 }
 
 /* Session Info Banner */
@@ -94,6 +126,225 @@ html.dark select{color-scheme:dark}
   width: 8px; height: 8px; border-radius: 50%; background: #2ecc71;
 }
 .connection-status.offline { background: #e74c3c; }
+
+/* ==========================================
+   MODAL BASE
+   ========================================== */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.5);
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  animation:fadeIn .2s ease;
+}
+.modal-overlay.hidden{display:none}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-content{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:16px;width:100%;max-width:480px;
+  max-height:90vh;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-lg);
+  animation:slideUp .25s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px 16px;border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.modal-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.modal-close{
+  background:none;border:none;cursor:pointer;
+  font-size:1.4rem;color:var(--text-light);
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;transition:background var(--transition);
+  -webkit-tap-highlight-color:transparent;
+}
+.modal-close:hover{background:var(--bg)}
+.modal-body{overflow-y:auto;flex:1;padding:20px 24px}
+.modal-footer{
+  padding:16px 24px;border-top:1px solid var(--border);
+  flex-shrink:0;
+}
+
+/* ==========================================
+   AUTH MODAL
+   ========================================== */
+.auth-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px}
+.auth-tab{
+  flex:1;padding:10px;text-align:center;cursor:pointer;
+  font-size:.9rem;font-weight:500;color:var(--text-muted);
+  border-bottom:2px solid transparent;margin-bottom:-2px;
+  transition:all var(--transition);
+  background:none;border-top:none;border-left:none;border-right:none;
+  font-family:'DM Sans',sans-serif;
+}
+.auth-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-field label{
+  display:block;font-size:.8rem;font-weight:600;
+  color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;
+}
+.auth-input-hint{font-size:.75rem;color:var(--text-light);margin-top:4px}
+.auth-error{
+  background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);
+  border-radius:var(--radius-sm);padding:10px 14px;
+  font-size:.85rem;color:#c0392b;display:none;
+}
+.auth-error.visible{display:block}
+.auth-success{
+  background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);
+  border-radius:var(--radius-sm);padding:10px 14px;
+  font-size:.85rem;color:#27ae60;display:none;text-align:center;
+}
+.auth-success.visible{display:block}
+.auth-divider{
+  display:flex;align-items:center;gap:10px;color:var(--text-light);font-size:.8rem;
+}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.user-info-panel{text-align:center;padding:8px 0}
+.user-avatar-large{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--complement));
+  color:#fff;font-size:1.5rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+}
+.user-displayname{font-size:1.1rem;font-weight:600;margin-bottom:4px}
+.user-meta{font-size:.8rem;color:var(--text-muted)}
+.user-stats{
+  display:flex;gap:16px;justify-content:center;
+  margin:16px 0;padding:16px;
+  background:var(--bg);border-radius:var(--radius-sm);
+}
+.user-stat{text-align:center}
+.user-stat-val{font-size:1.2rem;font-weight:700;color:var(--accent)}
+.user-stat-label{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+
+/* ==========================================
+   LIBRARY MODAL
+   ========================================== */
+.lib-modal .modal-content{max-width:600px}
+.lib-filter-bar{
+  display:flex;flex-direction:column;gap:10px;margin-bottom:16px;
+}
+.lib-search{
+  position:relative;
+}
+.lib-search input{
+  padding-left:36px;
+}
+.lib-search-icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--text-light);font-size:1rem;pointer-events:none;
+}
+.lib-filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lib-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.lib-tab{
+  padding:6px 12px;border-radius:20px;cursor:pointer;
+  font-size:.8rem;font-weight:600;border:1px solid var(--border);
+  background:var(--bg);color:var(--text-muted);
+  transition:all var(--transition);
+  -webkit-tap-highlight-color:transparent;
+  font-family:'DM Sans',sans-serif;
+}
+.lib-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lib-tab.tab-between.active{background:var(--complement);border-color:var(--complement)}
+.lib-tab.tab-penalty.active{background:#8B4513;border-color:#8B4513}
+.lib-scope-toggle{
+  display:flex;border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  margin-left:auto;flex-shrink:0;
+}
+.lib-scope-btn{
+  padding:6px 14px;font-size:.8rem;font-weight:600;cursor:pointer;
+  background:var(--bg);color:var(--text-muted);border:none;
+  transition:all var(--transition);font-family:'DM Sans',sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+.lib-scope-btn.active{background:var(--accent);color:#fff}
+.lib-sort-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-muted)}
+.lib-sort-row select{
+  padding:6px 28px 6px 10px;font-size:.82rem;
+  border-radius:20px;border-color:var(--border);
+}
+.lib-empty{
+  text-align:center;padding:40px 20px;color:var(--text-muted);
+}
+.lib-empty-icon{font-size:2.5rem;margin-bottom:12px}
+.lib-games-list{display:flex;flex-direction:column;gap:8px}
+.lib-game-card{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px 14px;
+  display:flex;align-items:center;gap:10px;
+  transition:border-color var(--transition);
+}
+.lib-game-card:hover{border-color:var(--border-hover)}
+.lib-game-info{flex:1;min-width:0}
+.lib-game-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lib-game-meta{font-size:.75rem;color:var(--text-muted);margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lib-game-creator{font-size:.72rem;color:var(--text-light);font-style:italic}
+.lib-game-actions{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.lib-btn{
+  background:none;border:none;cursor:pointer;
+  padding:6px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--text-muted);
+  transition:all var(--transition);
+  -webkit-tap-highlight-color:transparent;
+  min-width:32px;min-height:32px;
+}
+.lib-btn:hover{background:var(--bg-card);color:var(--text)}
+.lib-btn.star-btn.active{color:#f39c12}
+.lib-btn.add-btn{background:var(--accent);color:#fff;border-radius:8px;font-size:.8rem;padding:6px 12px;font-weight:600}
+.lib-btn.add-btn:hover{background:var(--accent-light)}
+.lib-btn.publish-btn:hover{color:var(--complement)}
+.lib-btn.edit-btn:hover{color:var(--accent)}
+.lib-btn.delete-btn:hover{color:#e74c3c}
+.lib-global-badge{
+  font-size:.65rem;font-weight:700;padding:2px 6px;
+  border-radius:4px;background:rgba(37,80,79,0.15);
+  color:var(--complement);text-transform:uppercase;letter-spacing:.5px;
+}
+
+/* Edit inline form in library */
+.lib-edit-form{
+  background:var(--bg-card);border:1px solid var(--accent);
+  border-radius:var(--radius-sm);padding:12px;margin-top:8px;
+  display:flex;flex-direction:column;gap:8px;
+  animation:slideIn .2s ease;
+}
+.lib-edit-form input,.lib-edit-form textarea{font-size:15px;padding:10px 12px}
+.lib-edit-actions{display:flex;gap:8px;justify-content:flex-end}
+
+/* Library button under game categories */
+.btn-lib{
+  background:transparent;color:var(--complement);
+  border:1px dashed var(--complement);
+  width:100%;padding:12px;margin-top:6px;
+  border-radius:var(--radius-sm);
+  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:all var(--transition);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.btn-lib:active{background:rgba(37,80,79,0.1)}
+
+/* Saved badge on input fields */
+.game-field-wrap{position:relative}
+.saved-badge{
+  position:absolute;top:-8px;left:8px;z-index:5;
+  font-size:.65rem;font-weight:700;padding:2px 8px;
+  border-radius:10px;background:rgba(37,80,79,0.12);
+  color:var(--complement);pointer-events:none;
+}
+
+/* Login prompt in library */
+.lib-login-prompt{
+  text-align:center;padding:32px 20px;
+}
+.lib-login-prompt p{color:var(--text-muted);margin-bottom:16px;font-size:.9rem}
+
 
 *{margin:0;padding:0;box-sizing:border-box}
 body{
@@ -390,6 +641,155 @@ select.small-select{
 </head>
 <body>
 <button class="darkmode-btn" id="darkmode-btn" type="button">🌙 Dark</button>
+<button class="auth-btn" id="auth-btn" type="button">
+  <span class="auth-avatar" id="auth-avatar-mini">👤</span>
+  <span id="auth-btn-label">Anmelden</span>
+</button>
+
+<!-- ==========================================
+     AUTH MODAL
+     ========================================== -->
+<div class="modal-overlay hidden" id="auth-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="auth-modal-title">Konto</h3>
+      <button class="modal-close" id="auth-modal-close" type="button">×</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Logged-in view -->
+      <div id="auth-user-view" class="hidden">
+        <div class="user-info-panel">
+          <div class="user-avatar-large" id="auth-user-avatar">?</div>
+          <div class="user-displayname" id="auth-user-name">—</div>
+          <div class="user-meta">Spieletag-Konto</div>
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <div class="user-stat-val" id="stat-private">0</div>
+            <div class="user-stat-label">Eigene Spiele</div>
+          </div>
+          <div class="user-stat">
+            <div class="user-stat-val" id="stat-global">0</div>
+            <div class="user-stat-label">Veröffentlicht</div>
+          </div>
+          <div class="user-stat">
+            <div class="user-stat-val" id="stat-favs">0</div>
+            <div class="user-stat-label">Favoriten</div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" type="button" id="auth-logout-btn" style="width:100%;margin-top:8px;">🚪 Abmelden</button>
+      </div>
+
+      <!-- Guest view: Login / Register tabs -->
+      <div id="auth-guest-view">
+        <div class="auth-tabs">
+          <button class="auth-tab active" type="button" data-auth-tab="login">Anmelden</button>
+          <button class="auth-tab" type="button" data-auth-tab="register">Registrieren</button>
+        </div>
+
+        <div id="auth-error" class="auth-error"></div>
+        <div id="auth-success" class="auth-success"></div>
+
+        <!-- Login form -->
+        <div id="auth-form-login" class="auth-form">
+          <div class="auth-field">
+            <label for="login-username">Benutzername</label>
+            <input type="text" id="login-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none">
+          </div>
+          <div class="auth-field">
+            <label for="login-password">Passwort</label>
+            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-login" style="width:100%">Anmelden →</button>
+        </div>
+
+        <!-- Register form -->
+        <div id="auth-form-register" class="auth-form hidden">
+          <div class="auth-field">
+            <label for="reg-username">Benutzername</label>
+            <input type="text" id="reg-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
+            <div class="auth-input-hint">Nur Buchstaben, Zahlen und Unterstriche. Einmal vergeben und dauerhaft!</div>
+          </div>
+          <div class="auth-field">
+            <label for="reg-password">Passwort</label>
+            <input type="password" id="reg-password" placeholder="Min. 6 Zeichen" autocomplete="new-password">
+          </div>
+          <div class="auth-field">
+            <label for="reg-password2">Passwort bestätigen</label>
+            <input type="password" id="reg-password2" placeholder="Nochmal eingeben" autocomplete="new-password">
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-register" style="width:100%">Konto erstellen →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     LIBRARY MODAL
+     ========================================== -->
+<div class="modal-overlay hidden lib-modal" id="library-modal">
+  <div class="modal-content" style="max-width:620px">
+    <div class="modal-header">
+      <h3>📚 Spiele-Bibliothek</h3>
+      <button class="modal-close" id="library-modal-close" type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <!-- Login prompt when not logged in -->
+      <div id="lib-login-prompt" class="lib-login-prompt hidden">
+        <div style="font-size:2.5rem;margin-bottom:12px">🔒</div>
+        <p>Melde dich an, um die gemeinsame Spiele-Bibliothek zu nutzen!</p>
+        <button class="btn btn-primary" type="button" id="lib-goto-login">Jetzt anmelden</button>
+      </div>
+
+      <!-- Main library view -->
+      <div id="lib-main-view">
+        <div class="lib-filter-bar">
+          <div class="lib-search">
+            <span class="lib-search-icon">🔍</span>
+            <input type="text" id="lib-search-input" placeholder="Spiel suchen …" autocomplete="off">
+          </div>
+          <div class="lib-filter-row">
+            <div class="lib-tabs" id="lib-type-tabs">
+              <button class="lib-tab active" data-lib-type="all">Alle</button>
+              <button class="lib-tab tab-main" data-lib-type="main">🟣 Haupt</button>
+              <button class="lib-tab tab-between" data-lib-type="between">🟢 Zwischen</button>
+              <button class="lib-tab tab-penalty" data-lib-type="penalty">🟤 Strafe</button>
+            </div>
+            <div class="lib-scope-toggle">
+              <button class="lib-scope-btn active" data-lib-scope="global">🌐 Global</button>
+              <button class="lib-scope-btn" data-lib-scope="private">👤 Eigene</button>
+            </div>
+          </div>
+          <div class="lib-sort-row">
+            <span>Sortieren:</span>
+            <select id="lib-sort-select" class="small-select">
+              <option value="favs">⭐ Favoriten zuerst</option>
+              <option value="az">A → Z</option>
+              <option value="newest">Neueste zuerst</option>
+            </select>
+            <label style="margin-left:auto;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.8rem;">
+              <input type="checkbox" id="lib-fav-only" style="width:16px;height:16px;accent-color:var(--accent)"> Nur Favoriten
+            </label>
+          </div>
+        </div>
+
+        <div id="lib-games-container">
+          <div class="lib-empty">
+            <div class="lib-empty-icon">🎲</div>
+            <p>Keine Spiele gefunden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div style="font-size:.8rem;color:var(--text-muted)">
+        Spiele werden beim Starten eines Spieletags automatisch gespeichert.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="session-banner" class="session-banner hidden">
   <div class="connection-status" id="conn-status"></div>
@@ -411,28 +811,95 @@ select.small-select{
     <div class="phase-dot" data-phase="2"></div>
   </div>
 
-  <!-- SESSION LANDING -->
+  <!-- LOGIN LANDING (Phase 0) -->
   <div id="phase-session">
-    <div class="card" style="text-align: center; padding: 40px 20px;">
-      <h2>Gemeinsam spielen</h2>
-      <p class="text-muted" style="margin: 16px 0 32px;">Starte eine neue Session oder trete einer bestehenden bei, um gemeinsam Spiele vorzuschlagen und live mitzufiebern.</p>
-      
-      <div style="max-width: 300px; margin: 0 auto;">
-        <input type="text" id="landing-name" placeholder="Dein Name..." style="margin-bottom: 24px; text-align: center;">
-        
-        <button class="btn btn-primary" type="button" id="btn-create-session" style="width: 100%; margin-bottom: 24px;">🎮 Neue Session erstellen</button>
-        
-        <div style="position: relative; text-align: center; margin-bottom: 24px;">
-          <hr style="border: 0; border-top: 1px solid var(--border);">
-          <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
-        </div>
-        
-        <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px;">
-        <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%;">📱 Session beitreten</button>
-      </div>
 
-      <div style="margin-top: 40px;">
-        <button class="btn btn-secondary" type="button" id="btn-local-mode" style="font-size: 0.85rem; padding: 10px 16px;">Lokalen Modus (ohne Multiplayer) nutzen</button>
+    <!-- Auth Screen (shown when not logged in) -->
+    <div id="landing-auth-screen">
+      <div class="card" style="max-width:420px;margin:0 auto;padding:36px 32px;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:3rem;margin-bottom:8px;">🎲</div>
+          <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:6px;">Willkommen!</h2>
+          <p class="text-muted" style="font-size:.9rem;">Melde dich an oder erstelle ein Konto,<br>um die Spiele-Bibliothek zu nutzen.</p>
+        </div>
+
+        <div class="auth-tabs" style="margin-bottom:24px;">
+          <button class="auth-tab active" type="button" data-landing-tab="login">Anmelden</button>
+          <button class="auth-tab" type="button" data-landing-tab="register">Registrieren</button>
+        </div>
+
+        <div id="landing-auth-error" class="auth-error" style="margin-bottom:12px;"></div>
+        <div id="landing-auth-success" class="auth-success" style="margin-bottom:12px;"></div>
+
+        <!-- Landing Login form -->
+        <div id="landing-form-login" class="auth-form">
+          <div class="auth-field">
+            <label for="landing-login-username">Benutzername</label>
+            <input type="text" id="landing-login-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none">
+          </div>
+          <div class="auth-field">
+            <label for="landing-login-password">Passwort</label>
+            <input type="password" id="landing-login-password" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-landing-login" style="width:100%;margin-top:4px;">Anmelden →</button>
+        </div>
+
+        <!-- Landing Register form -->
+        <div id="landing-form-register" class="auth-form hidden">
+          <div class="auth-field">
+            <label for="landing-reg-username">Benutzername</label>
+            <input type="text" id="landing-reg-username" placeholder="z. B. Marcel" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
+            <div class="auth-input-hint">Nur Buchstaben, Zahlen, Unterstriche · Einmalig & dauerhaft</div>
+          </div>
+          <div class="auth-field">
+            <label for="landing-reg-password">Passwort</label>
+            <input type="password" id="landing-reg-password" placeholder="Min. 6 Zeichen" autocomplete="new-password">
+          </div>
+          <div class="auth-field">
+            <label for="landing-reg-password2">Passwort bestätigen</label>
+            <input type="password" id="landing-reg-password2" placeholder="Nochmal eingeben" autocomplete="new-password">
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-landing-register" style="width:100%;margin-top:4px;">Konto erstellen →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Session Screen (shown when logged in) -->
+    <div id="landing-session-screen" class="hidden">
+      <div class="card" style="text-align: center; padding: 40px 20px;">
+        <div style="margin-bottom:20px;">
+          <div style="font-size:2rem;font-weight:700;color:var(--accent);" id="landing-welcome-name">Hallo!</div>
+          <p class="text-muted" style="margin-top:6px;font-size:.9rem;">Bereit für den nächsten Spieleabend? 🎲</p>
+        </div>
+
+        <h2 style="margin-bottom:8px;">Gemeinsam spielen</h2>
+        <p class="text-muted" style="margin: 8px 0 28px;">Starte eine neue Session oder trete einer bestehenden bei.</p>
+
+        <div style="max-width: 300px; margin: 0 auto;">
+          <!-- Name auto-filled from username, hidden but still functional for existing logic -->
+          <input type="text" id="landing-name" style="display:none;">
+
+          <button class="btn btn-primary" type="button" id="btn-create-session" style="width: 100%; margin-bottom: 16px;">🎮 Neue Session erstellen</button>
+
+          <div style="position: relative; text-align: center; margin-bottom: 16px;">
+            <hr style="border: 0; border-top: 1px solid var(--border);">
+            <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
+          </div>
+
+          <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px;">
+          <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%; margin-bottom: 24px;">📱 Session beitreten</button>
+
+          <div style="position: relative; text-align: center; margin-bottom: 16px;">
+            <hr style="border: 0; border-top: 1px solid var(--border);">
+            <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
+          </div>
+
+          <button class="btn btn-secondary" type="button" id="btn-local-mode" style="font-size: 0.85rem; padding: 10px 16px; width:100%;">🖥️ Alleine / lokal spielen</button>
+        </div>
+
+        <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
+          <button class="btn" type="button" id="btn-open-library-landing" style="font-size:.85rem;color:var(--complement);background:none;padding:8px 16px;border:1px solid var(--complement);border-radius:20px;">📚 Spiele-Bibliothek öffnen</button>
+        </div>
       </div>
     </div>
   </div>
@@ -574,6 +1041,7 @@ select.small-select{
         <div class="card-subtitle">Progressive Punkte · Wiederholungen wählbar</div>
         <div id="main-games-list"></div>
         <button class="btn btn-add" type="button" id="add-main-btn">＋ Hauptspiel</button>
+        <button class="btn-lib" type="button" id="lib-main-btn">📚 Aus Bibliothek hinzufügen</button>
         <div class="proposal-inbox hidden" id="inbox-main">
           <div class="option-section-title">📬 Vorschläge von Gästen</div>
           <div id="proposals-main-list"></div>
@@ -585,6 +1053,7 @@ select.small-select{
         <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
         <div id="between-games-list"></div>
         <button class="btn btn-add" type="button" id="add-between-btn">＋ Zwischenspiel</button>
+        <button class="btn-lib" type="button" id="lib-between-btn">📚 Aus Bibliothek hinzufügen</button>
         <div class="proposal-inbox hidden" id="inbox-between">
           <div class="option-section-title">📬 Vorschläge von Gästen</div>
           <div id="proposals-between-list"></div>
@@ -596,6 +1065,7 @@ select.small-select{
         <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
         <div id="penalty-games-list"></div>
         <button class="btn btn-add" type="button" id="add-penalty-btn">＋ Strafspiel</button>
+        <button class="btn-lib" type="button" id="lib-penalty-btn">📚 Aus Bibliothek hinzufügen</button>
         <div class="proposal-inbox hidden" id="inbox-penalty">
           <div class="option-section-title">📬 Vorschläge von Gästen</div>
           <div id="proposals-penalty-list"></div>
@@ -753,10 +1223,12 @@ const firebaseConfig = {
 // Initialisiere Firebase nur, wenn der Key geändert wurde, ansonsten nutze lokalen Modus
 let useFirebase = firebaseConfig.apiKey !== "DEIN_API_KEY";
 let db = null;
+let auth = null;
 if (useFirebase) {
   try {
     firebase.initializeApp(firebaseConfig);
     db = firebase.database();
+    auth = firebase.auth();
   } catch (e) {
     console.warn("Firebase Init Fehler:", e);
     useFirebase = false;
@@ -779,6 +1251,19 @@ let settings={
   probWeights:{main:null, between:null, penalty:null},
   probUserSet:{main:false, between:false, penalty:false}
 };
+
+// ==========================================
+// 2b. AUTH & LIBRARY STATE
+// ==========================================
+let currentUser = null;
+let currentUsername = null;
+let libraryCache = { private: {}, global: {}, favorites: {} };
+let libFilterType = 'all';   // 'all'|'main'|'between'|'penalty'
+let libFilterScope = 'global'; // 'global'|'private'
+let libFilterSort = 'favs';   // 'favs'|'az'|'newest'
+let libFilterFavOnly = false;
+let libSearchQuery = '';
+let libOpenForType = null;    // pre-filter when opened from category button
 
 // Multiplayer State
 let sessionCode = null;
@@ -804,8 +1289,578 @@ function getDeviceId() {
 }
 
 // ==========================================
+// 2c. AUTH & LIBRARY FUNCTIONS
+// ==========================================
+
+// --- Auth State Observer ---
+function showLandingForUser(user) {
+  const authScreen = document.getElementById('landing-auth-screen');
+  const sessionScreen = document.getElementById('landing-session-screen');
+  if (user) {
+    authScreen.classList.add('hidden');
+    sessionScreen.classList.remove('hidden');
+    // Auto-fill hidden name field so existing multiplayer logic works
+    const nameField = document.getElementById('landing-name');
+    if (nameField) nameField.value = user.displayName || '';
+    // Update welcome message
+    const wn = document.getElementById('landing-welcome-name');
+    if (wn) wn.textContent = `Hallo, ${user.displayName || 'Spieler'}! 👋`;
+  } else {
+    authScreen.classList.remove('hidden');
+    sessionScreen.classList.add('hidden');
+  }
+}
+
+if (auth) {
+  auth.onAuthStateChanged(user => {
+    currentUser = user;
+    currentUsername = user ? user.displayName : null;
+    updateAuthButton();
+    // Control landing page view
+    if (document.getElementById('phase-session') &&
+        !document.getElementById('phase-session').classList.contains('hidden')) {
+      showLandingForUser(user);
+    }
+    if (user) {
+      loadLibrary();
+    } else {
+      libraryCache = { private: {}, global: {}, favorites: {} };
+    }
+  });
+}
+
+// Landing page tab switching
+function setLandingTab(tab) {
+  document.querySelectorAll('[data-landing-tab]').forEach(t =>
+    t.classList.toggle('active', t.dataset.landingTab === tab)
+  );
+  document.getElementById('landing-form-login').classList.toggle('hidden', tab !== 'login');
+  document.getElementById('landing-form-register').classList.toggle('hidden', tab !== 'register');
+  document.getElementById('landing-auth-error').classList.remove('visible');
+  document.getElementById('landing-auth-success').classList.remove('visible');
+}
+
+function showLandingError(msg) {
+  const el = document.getElementById('landing-auth-error');
+  el.textContent = msg; el.classList.add('visible');
+  document.getElementById('landing-auth-success').classList.remove('visible');
+}
+function showLandingSuccess(msg) {
+  const el = document.getElementById('landing-auth-success');
+  el.textContent = msg; el.classList.add('visible');
+  document.getElementById('landing-auth-error').classList.remove('visible');
+}
+
+async function landingLogin() {
+  const username = document.getElementById('landing-login-username').value.trim();
+  const password = document.getElementById('landing-login-password').value;
+  if (!username || !password) return showLandingError('Bitte Benutzername und Passwort eingeben.');
+  if (!useFirebase) return showLandingError('Firebase nicht konfiguriert.');
+  const btn = document.getElementById('btn-landing-login');
+  btn.disabled = true; btn.textContent = 'Anmelden …';
+  try {
+    await auth.signInWithEmailAndPassword(`${username.toLowerCase()}@spieletag.local`, password);
+    // onAuthStateChanged handles the rest
+  } catch(e) {
+    let msg = 'Anmeldung fehlgeschlagen.';
+    if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
+      msg = 'Benutzername oder Passwort falsch.';
+    }
+    showLandingError(msg);
+    btn.disabled = false; btn.textContent = 'Anmelden →';
+  }
+}
+
+async function landingRegister() {
+  const username = document.getElementById('landing-reg-username').value.trim();
+  const password = document.getElementById('landing-reg-password').value;
+  const password2 = document.getElementById('landing-reg-password2').value;
+  if (!username) return showLandingError('Bitte einen Benutzernamen eingeben.');
+  if (!/^[a-zA-Z0-9_]{2,20}$/.test(username)) return showLandingError('Nur Buchstaben, Zahlen und Unterstriche (2–20 Zeichen).');
+  if (password.length < 6) return showLandingError('Passwort muss mindestens 6 Zeichen haben.');
+  if (password !== password2) return showLandingError('Passwörter stimmen nicht überein.');
+  if (!useFirebase) return showLandingError('Firebase nicht konfiguriert.');
+  const usernameLower = username.toLowerCase();
+  const btn = document.getElementById('btn-landing-register');
+  btn.disabled = true; btn.textContent = 'Prüfe …';
+  try {
+    const snap = await db.ref(`usernames/${usernameLower}`).once('value');
+    if (snap.exists()) {
+      showLandingError('Dieser Benutzername ist bereits vergeben.');
+      btn.disabled = false; btn.textContent = 'Konto erstellen →'; return;
+    }
+    const cred = await auth.createUserWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
+    await cred.user.updateProfile({ displayName: username });
+    await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
+    showLandingSuccess('Konto erstellt! Willkommen 🎉');
+    // onAuthStateChanged handles navigation
+  } catch(e) {
+    let msg = 'Fehler beim Registrieren.';
+    if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
+    showLandingError(msg);
+    btn.disabled = false; btn.textContent = 'Konto erstellen →';
+  }
+}
+
+
+// --- Auth UI ---
+function updateAuthButton() {
+  const btn = document.getElementById('auth-btn');
+  const label = document.getElementById('auth-btn-label');
+  const mini = document.getElementById('auth-avatar-mini');
+  if (currentUser && currentUsername) {
+    label.textContent = currentUsername;
+    mini.textContent = currentUsername.charAt(0).toUpperCase();
+    mini.style.display = 'flex';
+  } else {
+    label.textContent = 'Anmelden';
+    mini.textContent = '👤';
+    mini.style.display = 'flex';
+  }
+}
+
+function openAuthModal() {
+  const modal = document.getElementById('auth-modal');
+  modal.classList.remove('hidden');
+  if (currentUser) {
+    showAuthUserView();
+  } else {
+    showAuthGuestView();
+  }
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.add('hidden');
+}
+
+function showAuthUserView() {
+  document.getElementById('auth-user-view').classList.remove('hidden');
+  document.getElementById('auth-guest-view').classList.add('hidden');
+  document.getElementById('auth-user-name').textContent = currentUsername || '—';
+  document.getElementById('auth-user-avatar').textContent = currentUsername ? currentUsername.charAt(0).toUpperCase() : '?';
+  updateUserStats();
+}
+
+function showAuthGuestView() {
+  document.getElementById('auth-user-view').classList.add('hidden');
+  document.getElementById('auth-guest-view').classList.remove('hidden');
+}
+
+function updateUserStats() {
+  const privCount = Object.keys(libraryCache.private).length;
+  const globalCount = Object.values(libraryCache.global).filter(g => g.creatorUid === currentUser?.uid).length;
+  const favCount = Object.keys(libraryCache.favorites).length;
+  document.getElementById('stat-private').textContent = privCount;
+  document.getElementById('stat-global').textContent = globalCount;
+  document.getElementById('stat-favs').textContent = favCount;
+}
+
+function setAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.authTab === tab));
+  document.getElementById('auth-form-login').classList.toggle('hidden', tab !== 'login');
+  document.getElementById('auth-form-register').classList.toggle('hidden', tab !== 'register');
+  clearAuthMessages();
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('auth-error');
+  el.textContent = msg;
+  el.classList.add('visible');
+  document.getElementById('auth-success').classList.remove('visible');
+}
+
+function showAuthSuccess(msg) {
+  const el = document.getElementById('auth-success');
+  el.textContent = msg;
+  el.classList.add('visible');
+  document.getElementById('auth-error').classList.remove('visible');
+}
+
+function clearAuthMessages() {
+  document.getElementById('auth-error').classList.remove('visible');
+  document.getElementById('auth-success').classList.remove('visible');
+}
+
+// --- Registration ---
+async function registerUser() {
+  const username = document.getElementById('reg-username').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const password2 = document.getElementById('reg-password2').value;
+
+  if (!username) return showAuthError('Bitte einen Benutzernamen eingeben.');
+  if (!/^[a-zA-Z0-9_]{2,20}$/.test(username)) return showAuthError('Nur Buchstaben, Zahlen und Unterstriche (2–20 Zeichen).');
+  if (password.length < 6) return showAuthError('Passwort muss mindestens 6 Zeichen haben.');
+  if (password !== password2) return showAuthError('Passwörter stimmen nicht überein.');
+  if (!useFirebase) return showAuthError('Firebase nicht konfiguriert.');
+
+  const usernameLower = username.toLowerCase();
+  const btn = document.getElementById('btn-register');
+  btn.disabled = true;
+  btn.textContent = 'Prüfe …';
+
+  try {
+    // Check if username is taken
+    const snap = await db.ref(`usernames/${usernameLower}`).once('value');
+    if (snap.exists()) {
+      showAuthError('Dieser Benutzername ist bereits vergeben.');
+      btn.disabled = false; btn.textContent = 'Konto erstellen →';
+      return;
+    }
+
+    // Create Firebase Auth account
+    const cred = await auth.createUserWithEmailAndPassword(
+      `${usernameLower}@spieletag.local`, password
+    );
+
+    // Set display name
+    await cred.user.updateProfile({ displayName: username });
+
+    // Reserve username in DB
+    await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
+
+    showAuthSuccess('Konto erstellt! Du bist jetzt angemeldet.');
+    setTimeout(() => closeAuthModal(), 1500);
+
+  } catch(e) {
+    let msg = 'Fehler beim Registrieren.';
+    if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
+    if (e.code === 'auth/weak-password') msg = 'Passwort ist zu schwach (min. 6 Zeichen).';
+    showAuthError(msg);
+    btn.disabled = false; btn.textContent = 'Konto erstellen →';
+  }
+}
+
+// --- Login ---
+async function loginUser() {
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+
+  if (!username || !password) return showAuthError('Bitte Benutzername und Passwort eingeben.');
+  if (!useFirebase) return showAuthError('Firebase nicht konfiguriert.');
+
+  const usernameLower = username.toLowerCase();
+  const btn = document.getElementById('btn-login');
+  btn.disabled = true; btn.textContent = 'Anmelden …';
+
+  try {
+    await auth.signInWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
+    closeAuthModal();
+  } catch(e) {
+    let msg = 'Anmeldung fehlgeschlagen.';
+    if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
+      msg = 'Benutzername oder Passwort falsch.';
+    }
+    showAuthError(msg);
+    btn.disabled = false; btn.textContent = 'Anmelden →';
+  }
+}
+
+// --- Logout ---
+async function logoutUser() {
+  if (auth) await auth.signOut();
+  closeAuthModal();
+}
+
+// ==========================================
+// LIBRARY: DATA LAYER
+// ==========================================
+
+const LIB_CACHE_KEY = 'spieletag-lib-cache';
+
+function saveLibraryToLocalStorage() {
+  try {
+    localStorage.setItem(LIB_CACHE_KEY, JSON.stringify(libraryCache));
+  } catch(e) {}
+}
+
+function loadLibraryFromLocalStorage() {
+  try {
+    const raw = localStorage.getItem(LIB_CACHE_KEY);
+    if (raw) libraryCache = JSON.parse(raw);
+  } catch(e) {}
+}
+
+async function loadLibrary() {
+  if (!currentUser || !useFirebase) {
+    loadLibraryFromLocalStorage();
+    return;
+  }
+  try {
+    // Load private games
+    const privSnap = await db.ref(`library_games/private/${currentUser.uid}`).once('value');
+    libraryCache.private = privSnap.val() || {};
+
+    // Load global games
+    const globalSnap = await db.ref('library_games/global').once('value');
+    libraryCache.global = globalSnap.val() || {};
+
+    // Load favorites
+    const favSnap = await db.ref(`library_favorites/${currentUser.uid}`).once('value');
+    libraryCache.favorites = favSnap.val() || {};
+
+    saveLibraryToLocalStorage();
+    updateUserStats();
+  } catch(e) {
+    console.warn('Library load error, using cache:', e);
+    loadLibraryFromLocalStorage();
+  }
+}
+
+async function saveGameToLibrary(gameData) {
+  if (!currentUser || !useFirebase) return null;
+  const { name, type, desc, points, maxRepeats } = gameData;
+  const newRef = db.ref(`library_games/private/${currentUser.uid}`).push();
+  const gameId = newRef.key;
+  const entry = { id: gameId, name, type, desc: desc||'', points: points||0, maxRepeats: maxRepeats||1, createdAt: Date.now() };
+  await newRef.set(entry);
+  libraryCache.private[gameId] = entry;
+  saveLibraryToLocalStorage();
+  return gameId;
+}
+
+async function updateLibraryGame(gameId, scope, data) {
+  if (!currentUser || !useFirebase) return;
+  const path = scope === 'global'
+    ? `library_games/global/${gameId}`
+    : `library_games/private/${currentUser.uid}/${gameId}`;
+  const allowed = ['name','desc','points','maxRepeats'];
+  const update = {};
+  allowed.forEach(k => { if(data[k] !== undefined) update[k] = data[k]; });
+  await db.ref(path).update(update);
+  if (scope === 'global') Object.assign(libraryCache.global[gameId], update);
+  else Object.assign(libraryCache.private[gameId], update);
+  saveLibraryToLocalStorage();
+}
+
+async function deleteLibraryGame(gameId, scope) {
+  if (!currentUser || !useFirebase) return;
+  if (scope === 'global') {
+    await db.ref(`library_games/global/${gameId}`).remove();
+    delete libraryCache.global[gameId];
+    // also remove from favorites for this user
+    if (libraryCache.favorites[gameId]) {
+      await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).remove();
+      delete libraryCache.favorites[gameId];
+    }
+  } else {
+    await db.ref(`library_games/private/${currentUser.uid}/${gameId}`).remove();
+    delete libraryCache.private[gameId];
+  }
+  saveLibraryToLocalStorage();
+  renderLibraryModal();
+}
+
+async function publishGame(gameId) {
+  if (!currentUser || !useFirebase) return;
+  const game = libraryCache.private[gameId];
+  if (!game) return;
+  const globalRef = db.ref(`library_games/global`).push();
+  const globalId = globalRef.key;
+  const entry = {
+    ...game, id: globalId,
+    creatorUid: currentUser.uid,
+    creatorName: currentUsername || 'Anonym',
+    publishedAt: Date.now()
+  };
+  await globalRef.set(entry);
+  libraryCache.global[globalId] = entry;
+  saveLibraryToLocalStorage();
+  renderLibraryModal();
+  alert(`"${game.name}" wurde veröffentlicht! 🌐`);
+}
+
+async function toggleFavorite(gameId) {
+  if (!currentUser || !useFirebase) return;
+  const isFav = !!libraryCache.favorites[gameId];
+  if (isFav) {
+    await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).remove();
+    delete libraryCache.favorites[gameId];
+  } else {
+    await db.ref(`library_favorites/${currentUser.uid}/${gameId}`).set(true);
+    libraryCache.favorites[gameId] = true;
+  }
+  saveLibraryToLocalStorage();
+  renderLibraryModal();
+}
+
+// Autosave all games in current setup to private library
+async function autosaveGamesOnStart() {
+  if (!currentUser || !useFirebase) return;
+  const existingNames = Object.values(libraryCache.private).map(g => g.name.toLowerCase());
+  for (const game of allGames) {
+    if (!existingNames.includes(game.name.toLowerCase())) {
+      await saveGameToLibrary(game);
+    }
+  }
+  updateUserStats();
+}
+
+// ==========================================
+// LIBRARY: MODAL UI
+// ==========================================
+
+function openLibraryModal(preFilterType) {
+  if (!useFirebase) {
+    alert('Die Spiele-Bibliothek erfordert eine Firebase-Verbindung.');
+    return;
+  }
+  libOpenForType = preFilterType || null;
+  if (preFilterType && preFilterType !== 'all') {
+    libFilterType = preFilterType;
+    document.querySelectorAll('[data-lib-type]').forEach(t => {
+      t.classList.toggle('active', t.dataset.libType === preFilterType);
+    });
+  }
+  const modal = document.getElementById('library-modal');
+  modal.classList.remove('hidden');
+
+  if (!currentUser) {
+    document.getElementById('lib-login-prompt').classList.remove('hidden');
+    document.getElementById('lib-main-view').classList.add('hidden');
+  } else {
+    document.getElementById('lib-login-prompt').classList.add('hidden');
+    document.getElementById('lib-main-view').classList.remove('hidden');
+    renderLibraryModal();
+  }
+}
+
+function closeLibraryModal() {
+  document.getElementById('library-modal').classList.add('hidden');
+}
+
+function getFilteredLibraryGames() {
+  let games = [];
+  if (libFilterScope === 'global') {
+    games = Object.values(libraryCache.global);
+  } else {
+    games = Object.values(libraryCache.private);
+  }
+
+  // Filter by type
+  if (libFilterType !== 'all') {
+    games = games.filter(g => g.type === libFilterType);
+  }
+
+  // Filter by search
+  if (libSearchQuery) {
+    const q = libSearchQuery.toLowerCase();
+    games = games.filter(g => g.name.toLowerCase().includes(q) || (g.desc||'').toLowerCase().includes(q));
+  }
+
+  // Filter by favorites only
+  if (libFilterFavOnly) {
+    games = games.filter(g => libraryCache.favorites[g.id]);
+  }
+
+  // Sort
+  if (libFilterSort === 'favs') {
+    games.sort((a, b) => {
+      const af = libraryCache.favorites[a.id] ? 1 : 0;
+      const bf = libraryCache.favorites[b.id] ? 1 : 0;
+      if (bf !== af) return bf - af;
+      return a.name.localeCompare(b.name);
+    });
+  } else if (libFilterSort === 'az') {
+    games.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (libFilterSort === 'newest') {
+    games.sort((a, b) => (b.createdAt||b.publishedAt||0) - (a.createdAt||a.publishedAt||0));
+  }
+
+  return games;
+}
+
+function renderLibraryModal() {
+  if (!currentUser) return;
+  const games = getFilteredLibraryGames();
+  const container = document.getElementById('lib-games-container');
+
+  if (games.length === 0) {
+    container.innerHTML = `<div class="lib-empty"><div class="lib-empty-icon">🎲</div><p>Keine Spiele gefunden.</p>${libFilterScope==='private'&&libFilterType!=='all'?'<p style="font-size:.8rem;margin-top:8px;color:var(--text-light)">Starte einen Spieletag – deine Spiele werden dann automatisch gespeichert!</p>':''}</div>`;
+    return;
+  }
+
+  const typeBadge = {main:'<span class="badge badge-main">H</span>',between:'<span class="badge badge-between">Z</span>',penalty:'<span class="badge badge-penalty">S</span>'};
+  const typeLabel = {main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
+
+  container.innerHTML = `<div class="lib-games-list">${games.map(g => {
+    const isFav = !!libraryCache.favorites[g.id];
+    const isOwn = libFilterScope === 'private' || g.creatorUid === currentUser.uid;
+    const isGlobal = !!g.creatorUid; // has creatorUid = is in global collection
+    const ptsInfo = g.type !== 'main' ? `· ${g.points} Pkt` : '';
+    const repInfo = g.maxRepeats === 0 ? '· ∞×' : `· ${g.maxRepeats}×`;
+
+    return `<div class="lib-game-card" data-game-id="${g.id}">
+      ${typeBadge[g.type]||''}
+      <div class="lib-game-info">
+        <div class="lib-game-name">${esc(g.name)} ${isGlobal && libFilterScope==='private'?'<span class="lib-global-badge">global</span>':''}</div>
+        <div class="lib-game-meta">
+          <span>${typeLabel[g.type]||''}</span>
+          ${ptsInfo ? `<span>${ptsInfo}</span>` : ''}
+          <span>${repInfo}</span>
+          ${g.desc ? `<span style="color:var(--text-light)">${esc(g.desc.substring(0,40))}${g.desc.length>40?'…':''}</span>` : ''}
+        </div>
+        ${libFilterScope==='global' && g.creatorName ? `<div class="lib-game-creator">von ${esc(g.creatorName)}</div>` : ''}
+      </div>
+      <div class="lib-game-actions">
+        <button class="lib-btn star-btn ${isFav?'active':''}" data-lib-star="${g.id}" title="${isFav?'Aus Favoriten entfernen':'Zu Favoriten hinzufügen'}">${isFav?'⭐':'☆'}</button>
+        ${isOwn && !isGlobal ? `<button class="lib-btn publish-btn" data-lib-publish="${g.id}" title="Global veröffentlichen">🌐</button>` : ''}
+        ${isOwn ? `<button class="lib-btn edit-btn" data-lib-edit="${g.id}" title="Bearbeiten">✏️</button>` : ''}
+        ${isOwn ? `<button class="lib-btn delete-btn" data-lib-delete="${g.id}" data-lib-delete-scope="${libFilterScope}" title="Löschen">🗑</button>` : ''}
+        <button class="lib-btn add-btn" data-lib-add="${g.id}" title="Zum Spieletag hinzufügen">+ Add</button>
+      </div>
+    </div>
+    <div id="lib-edit-${g.id}" class="lib-edit-form hidden"></div>`;
+  }).join('')}</div>`;
+}
+
+function openLibraryEditForm(gameId) {
+  // close any other open edit forms
+  document.querySelectorAll('.lib-edit-form').forEach(f => {
+    if (f.id !== `lib-edit-${gameId}`) { f.classList.add('hidden'); f.innerHTML = ''; }
+  });
+
+  const game = libraryCache.private[gameId] || libraryCache.global[gameId];
+  if (!game) return;
+  const scope = libraryCache.global[gameId] ? 'global' : 'private';
+  const showPts = game.type !== 'main';
+  const editDiv = document.getElementById(`lib-edit-${gameId}`);
+  editDiv.innerHTML = `
+    <input type="text" id="lib-edit-name-${gameId}" value="${esc(game.name)}" placeholder="Name">
+    <textarea id="lib-edit-desc-${gameId}" rows="2" placeholder="Beschreibung">${esc(game.desc||'')}</textarea>
+    ${showPts ? `<div style="display:flex;gap:8px;align-items:center"><label style="font-size:.8rem">Punkte</label><input type="number" id="lib-edit-pts-${gameId}" value="${game.points||2}" style="width:70px" min="1"></div>` : ''}
+    <div class="lib-edit-actions">
+      <button class="btn btn-secondary" type="button" data-lib-cancel="${gameId}" style="padding:8px 16px;font-size:.85rem">Abbrechen</button>
+      <button class="btn btn-primary" type="button" data-lib-save="${gameId}" data-lib-save-scope="${scope}" style="padding:8px 16px;font-size:.85rem">Speichern</button>
+    </div>`;
+  editDiv.classList.remove('hidden');
+}
+
+async function saveLibraryEdit(gameId, scope) {
+  const nameEl = document.getElementById(`lib-edit-name-${gameId}`);
+  const descEl = document.getElementById(`lib-edit-desc-${gameId}`);
+  const ptsEl = document.getElementById(`lib-edit-pts-${gameId}`);
+  if (!nameEl) return;
+  const data = { name: nameEl.value.trim(), desc: descEl ? descEl.value.trim() : '' };
+  if (ptsEl) data.points = parseInt(ptsEl.value)||2;
+  if (!data.name) return alert('Name darf nicht leer sein.');
+  await updateLibraryGame(gameId, scope, data);
+  document.getElementById(`lib-edit-${gameId}`).classList.add('hidden');
+  renderLibraryModal();
+}
+
+function addGameFromLibrary(gameId) {
+  const game = libraryCache.global[gameId] || libraryCache.private[gameId];
+  if (!game) return;
+  addGameField(game.type, game);
+  closeLibraryModal();
+}
+
+// Library modal event delegation (click handler in main click handler below)
+
+// ==========================================
 // 3. UI PHASES & DARK MODE
 // ==========================================
+
 function toggleDarkMode(){
   document.documentElement.classList.toggle('dark');
   const isDark=document.documentElement.classList.contains('dark');
@@ -1342,6 +2397,9 @@ function startGame(){
   if(players.length<2)return alert('Mindestens 2 Spieler benötigt.');
   if(allGames.length<1)return alert('Mindestens 1 Spiel benötigt.');
   
+  // Autosave new games to private library (fire & forget, non-blocking)
+  autosaveGamesOnStart();
+  
   savedGames=JSON.parse(JSON.stringify(allGames));
   savedPlayers=[...players];
   scores={};players.forEach(p=>scores[p]=0);
@@ -1514,22 +2572,124 @@ function endDancebreak(cb){
 
 // UI Event Binding
 document.addEventListener('click',function(e){
-  const t=e.target;
+  const t=e.target.closest('[data-remove-player],[data-remove-field],[data-undo],[data-prop-accept],[data-prop-reject],[data-auth-tab],[data-landing-tab],[data-lib-type],[data-lib-scope],[data-lib-star],[data-lib-publish],[data-lib-edit],[data-lib-delete],[data-lib-add],[data-lib-cancel],[data-lib-save]') || e.target;
+
   if(t.dataset.removePlayer){removePlayer(t.dataset.removePlayer);return}
   if(t.dataset.removeField){removeField(t.dataset.removeField);return}
   if(t.dataset.undo!==undefined){undoResult(parseInt(t.dataset.undo));return}
   if(t.dataset.propAccept){handleProposalAction(t.dataset.propAccept, 'accept');return}
   if(t.dataset.propReject){handleProposalAction(t.dataset.propReject, 'reject');return}
-  
+
+  // Auth tab switching (in auth modal)
+  if(t.dataset.authTab){setAuthTab(t.dataset.authTab);return}
+
+  // Landing page tab switching
+  if(t.dataset.landingTab){setLandingTab(t.dataset.landingTab);return}
+
+  // Library type filter tabs
+  if(t.dataset.libType){
+    libFilterType=t.dataset.libType;
+    document.querySelectorAll('[data-lib-type]').forEach(el=>el.classList.toggle('active',el.dataset.libType===libFilterType));
+    renderLibraryModal();return;
+  }
+
+  // Library scope toggle (global/private)
+  if(t.dataset.libScope){
+    libFilterScope=t.dataset.libScope;
+    document.querySelectorAll('[data-lib-scope]').forEach(el=>el.classList.toggle('active',el.dataset.libScope===libFilterScope));
+    renderLibraryModal();return;
+  }
+
+  // Library favorites star
+  if(t.dataset.libStar){toggleFavorite(t.dataset.libStar);return}
+
+  // Library publish to global
+  if(t.dataset.libPublish){
+    if(confirm(`"${libraryCache.private[t.dataset.libPublish]?.name}" für alle global veröffentlichen?`)){
+      publishGame(t.dataset.libPublish);
+    }
+    return;
+  }
+
+  // Library edit
+  if(t.dataset.libEdit){openLibraryEditForm(t.dataset.libEdit);return}
+
+  // Library cancel edit
+  if(t.dataset.libCancel){
+    const form=document.getElementById(`lib-edit-${t.dataset.libCancel}`);
+    if(form){form.classList.add('hidden');form.innerHTML=''}
+    return;
+  }
+
+  // Library save edit
+  if(t.dataset.libSave){saveLibraryEdit(t.dataset.libSave, t.dataset.libSaveScope);return}
+
+  // Library delete
+  if(t.dataset.libDelete){
+    const game=libraryCache[t.dataset.libDeleteScope]?.[t.dataset.libDelete];
+    if(game && confirm(`"${game.name}" wirklich löschen?`)){
+      deleteLibraryGame(t.dataset.libDelete, t.dataset.libDeleteScope);
+    }
+    return;
+  }
+
+  // Library add to current game
+  if(t.dataset.libAdd){addGameFromLibrary(t.dataset.libAdd);return}
+
   if(t.id==='dance-skip-btn'){endDancebreak(window._dbCb);return}
   if(t.id==='win-new-btn'){location.reload();return}
 });
 
 // Setup Initial Buttons
 document.getElementById('darkmode-btn').addEventListener('click',toggleDarkMode);
+document.getElementById('auth-btn').addEventListener('click',openAuthModal);
 document.getElementById('btn-create-session').addEventListener('click',createSession);
 document.getElementById('btn-join-session').addEventListener('click',joinSession);
 document.getElementById('btn-local-mode').addEventListener('click',startLocalMode);
+
+// Landing page auth
+document.getElementById('btn-landing-login').addEventListener('click',landingLogin);
+document.getElementById('btn-landing-register').addEventListener('click',landingRegister);
+document.getElementById('landing-login-password').addEventListener('keydown',e=>{if(e.key==='Enter')landingLogin();});
+document.getElementById('landing-reg-password2').addEventListener('keydown',e=>{if(e.key==='Enter')landingRegister();});
+document.getElementById('btn-open-library-landing').addEventListener('click',()=>openLibraryModal('all'));
+
+// Auth modal controls
+document.getElementById('auth-modal-close').addEventListener('click',closeAuthModal);
+document.getElementById('auth-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeAuthModal();});
+document.getElementById('btn-login').addEventListener('click',loginUser);
+document.getElementById('btn-register').addEventListener('click',registerUser);
+document.getElementById('auth-logout-btn').addEventListener('click',logoutUser);
+
+// Login/Register form keyboard support
+document.getElementById('login-password').addEventListener('keydown',e=>{if(e.key==='Enter')loginUser();});
+document.getElementById('reg-password2').addEventListener('keydown',e=>{if(e.key==='Enter')registerUser();});
+
+// Library modal controls
+document.getElementById('library-modal-close').addEventListener('click',closeLibraryModal);
+document.getElementById('library-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLibraryModal();});
+document.getElementById('lib-goto-login').addEventListener('click',()=>{closeLibraryModal();openAuthModal();});
+document.getElementById('lib-main-btn').addEventListener('click',()=>openLibraryModal('main'));
+document.getElementById('lib-between-btn').addEventListener('click',()=>openLibraryModal('between'));
+document.getElementById('lib-penalty-btn').addEventListener('click',()=>openLibraryModal('penalty'));
+
+// Library search
+document.getElementById('lib-search-input').addEventListener('input',e=>{
+  libSearchQuery=e.target.value.trim();
+  renderLibraryModal();
+});
+
+// Library sort
+document.getElementById('lib-sort-select').addEventListener('change',e=>{
+  libFilterSort=e.target.value;
+  renderLibraryModal();
+});
+
+// Library favorites only filter
+document.getElementById('lib-fav-only').addEventListener('change',e=>{
+  libFilterFavOnly=e.target.checked;
+  renderLibraryModal();
+});
 
 document.getElementById('btn-go-setup').addEventListener('click', () => {
   if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('setup');
@@ -1552,6 +2712,8 @@ document.getElementById('end-game-btn').addEventListener('click',showWinnerScree
 initDarkMode();
 // Default Phase
 showPhase('phase-session');
+// Show correct sub-screen based on current auth state (handles page refresh when already logged in)
+showLandingForUser(auth ? auth.currentUser : null);
 
 // Check URL Params for quick join
 const urlParams = new URLSearchParams(window.location.search);
