@@ -1315,10 +1315,10 @@ function showLandingForUser(user) {
   sessionScreen.classList.remove('hidden');
   // Auto-fill hidden name field so existing multiplayer logic works
   const nameField = document.getElementById('landing-name');
-  if (nameField) nameField.value = user.displayName || '';
+  if (nameField) nameField.value = currentUsername || (user && user.displayName) || '';
   // Update welcome message
   const wn = document.getElementById('landing-welcome-name');
-  if (wn) wn.textContent = `Hallo, ${user.displayName || 'Spieler'}! `;
+  if (wn) wn.textContent = `Hallo, ${currentUsername || (user && user.displayName) || 'Spieler'}!`;
  } else {
   authScreen.classList.remove('hidden');
   sessionScreen.classList.add('hidden');
@@ -1929,7 +1929,7 @@ function generateSessionCode() {
 
 async function createSession() {
  if (!useFirebase) return alert("Firebase nicht konfiguriert. Bitte lokalen Modus nutzen.");
- const nameInp = document.getElementById('landing-name').value.trim();
+ const nameInp = currentUsername || document.getElementById('landing-name').value.trim() || "Spieler";
  if (!nameInp) return alert("Bitte gib deinen Namen ein.");
  myPlayerName = nameInp;
 
@@ -1986,7 +1986,7 @@ async function createSession() {
 
 async function joinSession() {
  if (!useFirebase) return alert("Firebase nicht konfiguriert.");
- const nameInp = document.getElementById('landing-name').value.trim();
+ const nameInp = currentUsername || document.getElementById('landing-name').value.trim() || "Spieler";
  const codeInp = document.getElementById('landing-code').value.trim().toUpperCase();
  if (!nameInp) return alert("Bitte gib deinen Namen ein.");
  if (codeInp.length !== 6) return alert("Code muss 6 Zeichen lang sein.");
