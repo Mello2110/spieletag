@@ -83,6 +83,10 @@ Die App funktioniert wie eine richtige App auf dem Homescreen – ohne App Store
 
 | Feature | Beschreibung |
 |---------|-------------|
+| ☁️ Cloud-Multiplayer | Jeder Spieler kann auf seinem Gerät die Ziehung und Punkte live verfolgen |
+| 📚 Spiele-Bibliothek | Persönliche ("Meine Spiele") & Globale ("Community") Spiele speichern und teilen |
+| ⭐ Favoriten-System | Die besten Community-Spiele als Favoriten markieren |
+| 🔒 Accounts | Einfaches Login-/Registriersystem um deine Bibliothek überall zu synchronisieren |
 | 🎮 Drei Spielkategorien | Hauptspiele, Zwischenspiele, Strafspiele mit je eigenen Punktregeln |
 | 🎲 Zufallsziehung | Zufälliges Ziehen mit einstellbaren Wahrscheinlichkeiten pro Kategorie |
 | 📊 Live-Scoreboard | Punkte aller Spieler immer im Blick, automatisch aktualisiert |
@@ -90,8 +94,7 @@ Die App funktioniert wie eine richtige App auf dem Homescreen – ohne App Store
 | ↩️ Undo-Funktion | Letzte Runde rückgängig machen, falls beim Eintragen ein Fehler passiert |
 | 💃 Dancebreak | Zufällige Tanzpause mit Timer, Fortschrittsbalken und Skip-Option |
 | 🌙 Dark Mode | Automatisch an System-Einstellung angepasst, manuell umschaltbar |
-| 📱 PWA-ready | Als App auf iOS & Android installierbar (kein App Store nötig) |
-| 🔄 Neustart-Optionen | Gleiche Spiele nochmal / Setup anpassen / Komplett neu |
+| 📱 Native PWA | Als App auf iOS & Android installierbar, mit edge-to-edge App-Icon |
 | 🏆 Siegerehrung | Animierte Abschlussansicht mit Ranking aller Spieler |
 
 ---
@@ -104,16 +107,15 @@ Die App funktioniert wie eine richtige App auf dem Homescreen – ohne App Store
 Spieletag System
 └── index.html          ← Einzige Datei – Self-contained SPA
     ├── <style>          ← Komplettes CSS-Design-System (~330 Zeilen)
-    ├── <body>           ← Semantisches HTML mit 3 Phasen-Views
+    ├── <body>           ← Semantisches HTML mit Landing-Auth & 3 Phasen-Views
     └── <script>         ← Vanilla JS (~420 Zeilen), kein Framework
 ```
 
 - **Stack:** Reines HTML5 / CSS3 / Vanilla JavaScript – zero dependencies
-- **Paradigma:** Single-File SPA mit manuellem Phasen-Routing
-- **Persistenz:** `localStorage` für Dark-Mode-Präferenz
-- **Fonts:** Google Fonts (DM Sans + Playfair Display via CDN)
-- **Hosting:** Statisch hostbar auf GitHub Pages, Netlify, Vercel o. ä.
-- **PWA-Features:** Apple Web App Meta-Tags, Touch-Icon, Viewport-Lock, iOS-Zoom-Prevention (`font-size: 16px` auf allen Inputs)
+- **Paradigma:** Single-File SPA mit manuellem View-Routing (Lobby, Setup, Play, Winner)
+- **Datenbank & Auth:** Firebase Realtime Database (Multiplayer, Library, Sync) & Firebase Auth
+- **Design:** Modernes "Clean Aesthetic" Design ohne Emojis, minimalistisch, edel.
+- **PWA-Features:** `manifest.json`, Apple Web App Meta-Tags, randloses PWA-Icon.
 
 ---
 
