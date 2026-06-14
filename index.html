@@ -1939,22 +1939,27 @@ async function createSession() {
  isLocalMode = false;
 
  const sessionRef = db.ref(`sessions/${code}`);
- await sessionRef.set({
-  meta: {
-   hostId: deviceId,
-   hostName: myPlayerName,
-   phase: 'lobby', // 'lobby', 'setup', 'play', 'winner'
-   createdAt: firebase.database.ServerValue.TIMESTAMP,
-   sessionActive: true
-  },
-  gameState: {
-   scores: { [myPlayerName]: 0 },
-   history: [],
-   currentGame: null,
-   mainGameCounter: 0,
-   dancebreakActive: false
-  }
- });
+ try {
+  await sessionRef.update({
+   meta: {
+    hostId: deviceId,
+    hostName: myPlayerName,
+    phase: 'lobby', // 'lobby', 'setup', 'play', 'winner'
+    createdAt: firebase.database.ServerValue.TIMESTAMP,
+    sessionActive: true
+   },
+   gameState: {
+    scores: { [myPlayerName]: 0 },
+    history: [],
+    currentGame: null,
+    mainGameCounter: 0,
+    dancebreakActive: false
+   }
+  });
+ } catch(e) {
+  alert("Fehler beim Erstellen der Session: " + e.message);
+  return;
+ }
 
  // Host in Lobby aufnehmen
  db.ref(`sessions/${code}/players/${deviceId}`).set({
