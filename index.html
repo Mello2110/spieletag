@@ -584,6 +584,20 @@ select.small-select{
 .final-row.first .pts{color:#fff}
 
 .end-game-btn{margin-top:16px;text-align:center}
+
+/* Main Menu Grid */
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.menu-card{
+ background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+ padding:20px 12px; text-align:center; cursor:pointer;
+ transition:var(--transition); display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.menu-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.menu-card-icon{font-size:1.8rem;margin-bottom:8px;}
+.menu-card-title{font-weight:600;font-size:0.95rem;color:var(--text);margin-bottom:4px;}
+.menu-card-desc{font-size:0.75rem;color:var(--text-muted);line-height:1.3;}
+@media(max-width:400px){.menu-grid{grid-template-columns:1fr;}}
+
 .hidden{display:none!important}
 .text-muted{color:var(--text-muted)}.text-sm{font-size:.85rem}
 .warn-text{color:#c0392b;font-size:.78rem;margin-top:4px}
@@ -760,6 +774,47 @@ select.small-select{
 
    <!-- Main library view -->
    <div id="lib-main-view">
+    <div style="margin-bottom:16px;">
+     <button class="btn btn-primary" type="button" id="btn-lib-new-game" style="width:100%;font-size:.9rem;padding:10px;">+ Neues Spiel erstellen</button>
+    </div>
+    
+    <div id="lib-create-form" class="hidden" style="background:var(--bg-card); border:1px solid var(--accent); border-radius:var(--radius); padding:16px; margin-bottom:16px;">
+     <h4 style="margin-bottom:12px;color:var(--accent);">Neues Spiel anlegen</h4>
+     <input type="text" id="lib-create-name" placeholder="Name des Spiels" style="margin-bottom:8px;">
+     <textarea id="lib-create-desc" rows="2" placeholder="Beschreibung (optional)" style="margin-bottom:12px;"></textarea>
+     
+     <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <select id="lib-create-type" style="flex:1;">
+       <option value="main">Hauptspiel</option>
+       <option value="between">Zwischenspiel</option>
+       <option value="penalty">Strafspiel</option>
+      </select>
+      <input type="number" id="lib-create-points" placeholder="Punkte" style="width:80px; display:none;" min="0">
+      <select id="lib-create-repeats" style="width:80px;" title="Wiederholungen (0 = unendlich)">
+       <option value="1">1×</option>
+       <option value="2">2×</option>
+       <option value="3">3×</option>
+       <option value="4">4×</option>
+       <option value="5">5×</option>
+       <option value="0">∞×</option>
+      </select>
+     </div>
+     
+     <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;font-size:0.85rem;">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+       <input type="radio" name="lib-create-scope" value="private" checked style="accent-color:var(--accent);"> Nur für mich (Privat)
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+       <input type="radio" name="lib-create-scope" value="global" style="accent-color:var(--accent);"> Für alle (Global)
+      </label>
+     </div>
+     
+     <div style="display:flex;gap:8px;">
+      <button class="btn btn-primary" type="button" id="btn-lib-create-save" style="flex:1;padding:8px;">Speichern</button>
+      <button class="btn btn-secondary" type="button" id="btn-lib-create-cancel" style="flex:1;padding:8px;">Abbrechen</button>
+     </div>
+    </div>
+
     <div class="lib-filter-bar">
      <div class="lib-search">
       <span class="lib-search-icon"></span>
@@ -881,39 +936,46 @@ select.small-select{
 
   <!-- Session Screen (shown when logged in) -->
   <div id="landing-session-screen" class="hidden">
-   <div class="card" style="text-align: center; padding: 40px 20px;">
-    <div style="margin-bottom:20px;">
-     <div style="font-size:2rem;font-weight:700;color:var(--accent);" id="landing-welcome-name">Hallo!</div>
-     <p class="text-muted" style="margin-top:6px;font-size:.9rem;">Bereit für den nächsten Spieleabend? </p>
+   <div class="card" style="padding: 32px 20px;">
+    <div style="text-align:center; margin-bottom:24px;">
+     <div style="font-size:1.8rem;font-weight:700;color:var(--accent);" id="landing-welcome-name">Hallo!</div>
+     <p class="text-muted" style="margin-top:6px;font-size:.9rem;">Was möchtest du tun?</p>
     </div>
 
-    <h2 style="margin-bottom:8px;">Gemeinsam spielen</h2>
-    <p class="text-muted" style="margin: 8px 0 28px;">Starte eine neue Session oder trete einer bestehenden bei.</p>
+    <!-- Hidden input to keep old JS logic working -->
+    <input type="text" id="landing-name" style="display:none;">
 
-    <div style="max-width: 300px; margin: 0 auto;">
-     <!-- Name auto-filled from username, hidden but still functional for existing logic -->
-     <input type="text" id="landing-name" style="display:none;">
-
-     <button class="btn btn-primary" type="button" id="btn-create-session" style="width: 100%; margin-bottom: 16px;">Neue Session erstellen</button>
-
-     <div style="position: relative; text-align: center; margin-bottom: 16px;">
-      <hr style="border: 0; border-top: 1px solid var(--border);">
-      <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
+    <div class="menu-grid">
+     <div class="menu-card" id="btn-create-session">
+      <div class="menu-card-icon">🚀</div>
+      <div class="menu-card-title">Neue Live-Session</div>
+      <div class="menu-card-desc">Gemeinsam an mehreren Geräten spielen.</div>
      </div>
-
-     <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px;">
-     <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%; margin-bottom: 24px;">Session beitreten</button>
-
-     <div style="position: relative; text-align: center; margin-bottom: 16px;">
-      <hr style="border: 0; border-top: 1px solid var(--border);">
-      <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0 10px; color: var(--text-muted); font-size: 0.85rem;">ODER</span>
+     
+     <div class="menu-card" id="btn-join-session-card">
+      <div class="menu-card-icon">🤝</div>
+      <div class="menu-card-title">Session beitreten</div>
+      <div class="menu-card-desc">Mit einem 6-stelligen Code beitreten.</div>
      </div>
-
-     <button class="btn btn-secondary" type="button" id="btn-local-mode" style="font-size: 0.85rem; padding: 10px 16px; width:100%;">Alleine / lokal spielen</button>
+     
+     <div class="menu-card" id="btn-local-mode">
+      <div class="menu-card-icon">🖥️</div>
+      <div class="menu-card-title">Lokale Session</div>
+      <div class="menu-card-desc">Offline an einem einzigen Gerät spielen.</div>
+     </div>
+     
+     <div class="menu-card" id="btn-open-library-landing">
+      <div class="menu-card-icon">📚</div>
+      <div class="menu-card-title">Bibliothek</div>
+      <div class="menu-card-desc">Spiele anlegen & Favoriten verwalten.</div>
+     </div>
     </div>
 
-    <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
-     <button class="btn" type="button" id="btn-open-library-landing" style="font-size:.85rem;color:var(--complement);background:none;padding:8px 16px;border:1px solid var(--complement);border-radius:20px;">Spiele-Bibliothek öffnen</button>
+    <!-- Join Session Code Input (Hidden by default) -->
+    <div id="join-session-container" class="hidden" style="text-align:center; padding-top:16px; border-top:1px solid var(--border);">
+     <p style="font-size:0.85rem; font-weight:600; margin-bottom:8px;">Session Code eingeben:</p>
+     <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px; max-width:200px; margin-left:auto; margin-right:auto;">
+     <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%; max-width:200px;">Beitreten</button>
     </div>
    </div>
   </div>
@@ -1639,6 +1701,30 @@ async function saveGameToLibrary(gameData) {
  return gameId;
 }
 
+async function createNewLibraryGame(gameData, scope) {
+ if (!currentUser || !useFirebase) return null;
+ const path = scope === 'global' ? `library_games/global` : `library_games/private/${currentUser.uid}`;
+ const newRef = db.ref(path).push();
+ const gameId = newRef.key;
+ const entry = {
+  id: gameId,
+  name: gameData.name,
+  type: gameData.type,
+  desc: gameData.desc || '',
+  points: gameData.points || 0,
+  maxRepeats: gameData.maxRepeats || 1,
+  createdAt: Date.now()
+ };
+ if (scope === 'global') {
+  entry.creatorUid = currentUser.uid;
+  entry.creatorName = currentUsername || 'Anonym';
+ }
+ await newRef.set(entry);
+ libraryCache[scope][gameId] = entry;
+ saveLibraryToLocalStorage();
+ return gameId;
+}
+
 async function updateLibraryGame(gameId, scope, data) {
  if (!currentUser || !useFirebase) return;
  const path = scope === 'global'
@@ -1891,7 +1977,7 @@ function toggleDarkMode(){
 function initDarkMode(){
  try{
   const s=localStorage.getItem('gameday-dark');
-  if(s==='1'||(s===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+  if(s==='1'){
    document.documentElement.classList.add('dark');
    document.getElementById('darkmode-btn').textContent='☀️ Light';
   }
@@ -2670,6 +2756,7 @@ document.addEventListener('click',function(e){
 document.getElementById('darkmode-btn').addEventListener('click',toggleDarkMode);
 document.getElementById('auth-btn').addEventListener('click',openAuthModal);
 document.getElementById('btn-create-session').addEventListener('click',createSession);
+document.getElementById('btn-join-session-card').addEventListener('click',()=>document.getElementById('join-session-container').classList.toggle('hidden'));
 document.getElementById('btn-join-session').addEventListener('click',joinSession);
 document.getElementById('btn-local-mode').addEventListener('click',startLocalMode);
 
@@ -2733,6 +2820,57 @@ document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('draw-btn').addEventListener('click',drawGame);
 document.getElementById('submit-btn').addEventListener('click',submitResults);
 document.getElementById('end-game-btn').addEventListener('click',showWinnerScreen);
+
+// Library Add New Game Form Logic
+document.getElementById('btn-lib-new-game').addEventListener('click', () => {
+ document.getElementById('lib-create-form').classList.remove('hidden');
+ document.getElementById('btn-lib-new-game').parentElement.classList.add('hidden');
+ document.getElementById('lib-create-name').focus();
+});
+
+document.getElementById('btn-lib-create-cancel').addEventListener('click', () => {
+ document.getElementById('lib-create-form').classList.add('hidden');
+ document.getElementById('btn-lib-new-game').parentElement.classList.remove('hidden');
+ // reset
+ document.getElementById('lib-create-name').value = '';
+ document.getElementById('lib-create-desc').value = '';
+ document.getElementById('lib-create-type').value = 'main';
+ document.getElementById('lib-create-points').style.display = 'none';
+ document.getElementById('lib-create-points').value = '';
+ document.getElementById('lib-create-repeats').value = '1';
+});
+
+document.getElementById('lib-create-type').addEventListener('change', (e) => {
+ document.getElementById('lib-create-points').style.display = e.target.value === 'main' ? 'none' : 'block';
+});
+
+document.getElementById('btn-lib-create-save').addEventListener('click', async () => {
+ const name = document.getElementById('lib-create-name').value.trim();
+ if(!name) { alert('Bitte einen Namen eingeben.'); return; }
+ 
+ const type = document.getElementById('lib-create-type').value;
+ const desc = document.getElementById('lib-create-desc').value.trim();
+ const points = type === 'main' ? 0 : parseInt(document.getElementById('lib-create-points').value || '1', 10);
+ const repeats = parseInt(document.getElementById('lib-create-repeats').value, 10);
+ const scope = document.querySelector('input[name="lib-create-scope"]:checked').value;
+ 
+ const btn = document.getElementById('btn-lib-create-save');
+ btn.disabled = true;
+ btn.textContent = 'Speichert...';
+ 
+ try {
+  await createNewLibraryGame({ name, type, desc, points, maxRepeats: repeats }, scope);
+  // Reset and hide
+  document.getElementById('btn-lib-create-cancel').click();
+  renderLibraryModal();
+ } catch(e) {
+  console.error("Error creating library game", e);
+  alert("Fehler beim Speichern. Bitte überprüfe deine Verbindung.");
+ } finally {
+  btn.disabled = false;
+  btn.textContent = 'Speichern';
+ }
+});
 
 // Start
 initDarkMode();
