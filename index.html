@@ -76,31 +76,44 @@ html.dark .auth-tab.active{border-bottom-color:var(--accent);color:var(--accent)
 html.dark .auth-input-hint{color:var(--text-muted)}
 html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-light)}
 
+/* Top navigation bar (contains dark-mode toggle + auth button) */
+.topbar{
+ position:fixed;top:0;left:0;right:0;z-index:50;
+ display:flex;align-items:center;justify-content:flex-end;
+ gap:8px;padding:10px 12px;
+ pointer-events:none; /* allow clicks through empty area */
+}
+.topbar > *{pointer-events:all;}
+
 /* Dark mode toggle */
 .darkmode-btn{
- position:fixed;top:16px;right:16px;z-index:50;
  background:var(--bg-card);border:1px solid var(--border);
- border-radius:20px;padding:8px 14px;cursor:pointer;
- font-size:.85rem;transition:all var(--transition);
+ border-radius:20px;padding:7px 12px;cursor:pointer;
+ font-size:.82rem;transition:all var(--transition);
  display:flex;align-items:center;gap:4px;
  font-family:'DM Sans',sans-serif;color:var(--text);
  box-shadow:var(--shadow-sm);
  -webkit-tap-highlight-color:transparent;
  touch-action:manipulation;
+ white-space:nowrap;flex-shrink:0;
 }
 
 /* Auth Button */
 .auth-btn{
- position:fixed;top:16px;right:106px;z-index:50;
  background:var(--bg-card);border:1px solid var(--border);
- border-radius:20px;padding:8px 14px;cursor:pointer;
- font-size:.85rem;transition:all var(--transition);
+ border-radius:20px;padding:7px 12px;cursor:pointer;
+ font-size:.82rem;transition:all var(--transition);
  display:flex;align-items:center;gap:6px;
  font-family:'DM Sans',sans-serif;color:var(--text);
  box-shadow:var(--shadow-sm);
  -webkit-tap-highlight-color:transparent;
  touch-action:manipulation;
- white-space:nowrap;max-width:160px;overflow:hidden;
+ /* Limit width so long names don't explode the layout */
+ min-width:0;max-width:160px;
+}
+#auth-btn-label{
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ max-width:100px;
 }
 .auth-btn .auth-avatar{
  width:20px;height:20px;border-radius:50%;
@@ -108,6 +121,14 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
  font-size:.65rem;font-weight:700;
  display:flex;align-items:center;justify-content:center;
  flex-shrink:0;
+}
+
+/* Smaller phones — keep everything on one row but tighter */
+@media(max-width:380px){
+ .topbar{padding:8px 8px;gap:6px;}
+ .darkmode-btn{padding:6px 10px;font-size:.78rem;}
+ .auth-btn{padding:6px 10px;font-size:.78rem;}
+ #auth-btn-label{max-width:72px;}
 }
 
 /* Session Info Banner */
@@ -151,19 +172,20 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .modal-header{
  display:flex;align-items:center;justify-content:space-between;
- padding:20px 24px 16px;border-bottom:1px solid var(--border);
- flex-shrink:0;
+ padding:16px 20px;border-bottom:1px solid var(--border);
+ flex-shrink:0;position:relative;
 }
 .modal-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
 .modal-close{
  background:none;border:none;cursor:pointer;
- font-size:1.4rem;color:var(--text-light);
- width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+ font-size:1.5rem;line-height:1;color:var(--text-light);
+ width:36px;height:36px;display:flex;align-items:center;justify-content:center;
  border-radius:8px;transition:background var(--transition);
  -webkit-tap-highlight-color:transparent;
+ flex-shrink:0;
 }
 .modal-close:hover{background:var(--bg)}
-.modal-body{overflow-y:auto;flex:1;padding:20px 24px}
+.modal-body{overflow-y:auto;flex:1;padding:16px 20px}
 .modal-footer{
  padding:16px 24px;border-top:1px solid var(--border);
  flex-shrink:0;
@@ -354,7 +376,7 @@ body{
  -webkit-font-smoothing:antialiased;
  -webkit-text-size-adjust:100%;
 }
-.container{max-width:900px;margin:0 auto;padding:24px 16px 100px}
+.container{max-width:900px;margin:0 auto;padding:68px 16px 100px}
 
 .header{text-align:center;padding:48px 0 40px}
 .header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--accent);letter-spacing:-1px;line-height:1}
@@ -652,11 +674,11 @@ select.small-select{
  .dancebreak-overlay h2{font-size:1.8rem;letter-spacing:2px}
  
  /* Responsive Modals */
- .modal-content{margin: 10px; max-height: calc(100vh - 20px);}
- .modal-header{padding: 16px; flex-direction: column; align-items: flex-start; gap: 8px;}
- .modal-header h3{font-size: 1.2rem;}
- .modal-close{position: absolute; top: 12px; right: 12px;}
- .modal-body{padding: 16px;}
+ .modal-overlay{padding:8px;align-items:flex-end;}
+ .modal-content{max-height:calc(100dvh - 16px);border-radius:16px 16px 0 0;}
+ .modal-header{padding:14px 16px;}
+ .modal-header h3{font-size:1.1rem;}
+ .modal-body{padding:14px 16px;}
  .lib-game-card{flex-direction: column; align-items: flex-start; gap: 12px;}
  .lib-game-actions{width: 100%; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;}
  .lib-filter-row{flex-direction: column; align-items: stretch;}
@@ -671,12 +693,13 @@ select.small-select{
 }
 </style>
 </head>
-<body>
-<button class="darkmode-btn" id="darkmode-btn" type="button">Dark</button>
-<button class="auth-btn" id="auth-btn" type="button">
- <span class="auth-avatar" id="auth-avatar-mini"></span>
- <span id="auth-btn-label">Anmelden</span>
-</button>
+<div class="topbar">
+ <button class="darkmode-btn" id="darkmode-btn" type="button">Dark</button>
+ <button class="auth-btn" id="auth-btn" type="button">
+  <span class="auth-avatar" id="auth-avatar-mini"></span>
+  <span id="auth-btn-label">Anmelden</span>
+ </button>
+</div>
 
 <!-- ==========================================
    AUTH MODAL
@@ -2886,6 +2909,22 @@ const urlParams = new URLSearchParams(window.location.search);
 if(urlParams.has('code')){
  document.getElementById('landing-code').value = urlParams.get('code');
 }
+
+// ── DEV HELPER (call from console: seedTestGames()) ──────────────────────
+window.seedTestGames = async function() {
+ if(!currentUser) { console.warn('Bitte erst einloggen!'); return; }
+ const testGames = [
+  { name:'Bierpong Classic', type:'main',    desc:'Klassisches Bierpong – 2 Mannschaften, 10 Becher pro Seite. Wer zuerst alle Becher des Gegners trifft gewinnt.',  points:0,  maxRepeats:2  },
+  { name:'Flunkyball',       type:'between', desc:'Ball werfen, Gegner-Flasche umwerfen und dann trinken bevor der Ball wieder da ist. Koordination trifft Reaktion.', points:2,  maxRepeats:3  },
+  { name:'Wahrheit oder Pflicht', type:'penalty', desc:'Wer verliert, muss eine Wahrheit oder Pflicht aus der Gruppe erfüllen – kein Entkommen möglich.',             points:1,  maxRepeats:0  },
+ ];
+ for(const g of testGames) {
+  await createNewLibraryGame(g, 'private');
+  console.log('✅ Angelegt:', g.name);
+ }
+ renderLibraryModal();
+ console.log('Fertig! Öffne die Bibliothek → Eigene um die Spiele zu sehen.');
+};
 
 </script>
 </body>
