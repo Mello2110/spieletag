@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Spieletag">
+<meta name="theme-color" content="#4F253D">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" type="image/png" href="icon.png">
@@ -76,33 +77,60 @@ html.dark .auth-tab.active{border-bottom-color:var(--accent);color:var(--accent)
 html.dark .auth-input-hint{color:var(--text-muted)}
 html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-light)}
 
-/* Top navigation bar (contains dark-mode toggle + auth button) */
+/* Top navigation bar (contains session/back button + dark-mode toggle + auth button) */
 .topbar{
  position:fixed;top:0;left:0;right:0;z-index:50;
  display:flex;align-items:center;justify-content:flex-end;
- gap:8px;padding:10px 12px;
+ gap:8px;padding:10px 14px;
+ background:rgba(245,244,242,0.85);
+ backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+ border-bottom:1px solid rgba(0,0,0,0.04);
  pointer-events:none; /* allow clicks through empty area */
+ transition:background var(--transition);
+}
+html.dark .topbar{
+ background:rgba(17,17,19,0.85);
+ border-bottom-color:rgba(255,255,255,0.05);
 }
 .topbar > *{pointer-events:all;}
+.topbar-left{
+ margin-right:auto;display:flex;align-items:center;gap:8px;min-width:0;
+}
 
-/* Dark mode toggle */
-.darkmode-btn{
+/* Back / Menu button in topbar */
+.nav-back-btn{
  background:var(--bg-card);border:1px solid var(--border);
  border-radius:20px;padding:7px 12px;cursor:pointer;
- font-size:.82rem;transition:all var(--transition);
- display:flex;align-items:center;gap:4px;
+ font-size:.82rem;font-weight:500;transition:all var(--transition);
+ display:inline-flex;align-items:center;gap:5px;
  font-family:'DM Sans',sans-serif;color:var(--text);
  box-shadow:var(--shadow-sm);
  -webkit-tap-highlight-color:transparent;
  touch-action:manipulation;
  white-space:nowrap;flex-shrink:0;
 }
+.nav-back-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Dark mode & Sound toggle */
+.darkmode-btn, .sound-btn{
+ background:var(--bg-card);border:1px solid var(--border);
+ border-radius:20px;padding:7px 12px;cursor:pointer;
+ font-size:.82rem;font-weight:500;transition:all var(--transition);
+ display:flex;align-items:center;gap:5px;
+ font-family:'DM Sans',sans-serif;color:var(--text);
+ box-shadow:var(--shadow-sm);
+ -webkit-tap-highlight-color:transparent;
+ touch-action:manipulation;
+ white-space:nowrap;flex-shrink:0;
+}
+.darkmode-btn:hover, .sound-btn:hover{border-color:var(--border-hover)}
+.sound-btn.muted{color:var(--text-light);opacity:0.75}
 
 /* Auth Button */
 .auth-btn{
  background:var(--bg-card);border:1px solid var(--border);
  border-radius:20px;padding:7px 12px;cursor:pointer;
- font-size:.82rem;transition:all var(--transition);
+ font-size:.82rem;font-weight:500;transition:all var(--transition);
  display:flex;align-items:center;gap:6px;
  font-family:'DM Sans',sans-serif;color:var(--text);
  box-shadow:var(--shadow-sm);
@@ -111,6 +139,7 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
  /* Limit width so long names don't explode the layout */
  min-width:0;max-width:160px;
 }
+.auth-btn:hover{border-color:var(--border-hover)}
 #auth-btn-label{
  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
  max-width:100px;
@@ -123,31 +152,51 @@ html.dark .saved-badge{background:rgba(37,80,79,0.2);color:var(--complement-ligh
  flex-shrink:0;
 }
 
-/* Smaller phones — keep everything on one row but tighter */
-@media(max-width:380px){
- .topbar{padding:8px 8px;gap:6px;}
- .darkmode-btn{padding:6px 10px;font-size:.78rem;}
- .auth-btn{padding:6px 10px;font-size:.78rem;}
- #auth-btn-label{max-width:72px;}
-}
-
-/* Session Info Banner */
+/* Session Info Banner (inside topbar-left) */
 .session-banner {
- position:fixed;top:16px;left:16px;z-index:50;
  background:var(--accent);color:white;
- border-radius:20px;padding:8px 14px;
- font-size:.85rem;font-weight:600;
+ border-radius:20px;padding:6px 12px;
+ font-size:.8rem;font-weight:600;
  box-shadow:var(--shadow-sm);
- display:flex;align-items:center;gap:8px;
+ display:inline-flex;align-items:center;gap:6px;
+ white-space:nowrap;cursor:pointer;
+ border:none;font-family:'DM Sans',sans-serif;
+ transition:all var(--transition);
 }
+.session-banner:hover{background:var(--accent-light)}
 .session-banner .role-badge {
  background:rgba(255,255,255,0.2);
- padding:2px 6px;border-radius:10px;font-size:0.7rem;text-transform:uppercase;
+ padding:2px 6px;border-radius:10px;font-size:0.65rem;text-transform:uppercase;
 }
 .connection-status {
- width: 8px; height: 8px; border-radius: 50%; background: #2ecc71;
+ width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; flex-shrink:0;
 }
 .connection-status.offline { background: #e74c3c; }
+
+/* Smaller phones — keep everything on one row but tighter */
+@media(max-width:420px){
+ .topbar{padding:8px 10px;gap:6px;}
+ .nav-back-btn{padding:6px 10px;font-size:.76rem;}
+ .darkmode-btn{padding:6px 10px;font-size:.76rem;}
+ .auth-btn{padding:6px 10px;font-size:.76rem;}
+ .session-banner{padding:5px 10px;font-size:.75rem;}
+ #auth-btn-label{max-width:68px;}
+}
+
+/* Toast notification */
+.toast-container{
+ position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+ z-index:400;display:flex;flex-direction:column;gap:8px;
+ pointer-events:none;width:max-content;max-width:calc(100vw - 32px);
+}
+.toast{
+ background:var(--bg-dark);color:#fff;
+ padding:10px 18px;border-radius:24px;font-size:.85rem;font-weight:500;
+ box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;
+ animation:toastIn .25s ease;
+ border:1px solid rgba(255,255,255,0.1);
+}
+@keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 /* ==========================================
   MODAL BASE
@@ -570,10 +619,75 @@ select.small-select{
 .score-pts{font-weight:700;font-size:1.1rem;color:var(--accent);filter:brightness(1.8)}
 
 .results-section{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px;text-align:left}
-.results-title{font-weight:600;margin-bottom:12px;font-size:.95rem}
-.result-row{display:flex;align-items:center;gap:12px;padding:8px 0}
-.result-row label{flex:1;font-size:.9rem}
-.result-row select{width:auto;min-width:160px}
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px;flex-wrap:wrap}
+.results-title{font-weight:600;font-size:.95rem;margin:0}
+.results-quick-actions{display:flex;gap:6px}
+.results-quick-btn{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:4px 10px;font-size:.75rem;color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--transition)}
+.results-quick-btn:hover{border-color:var(--accent);color:var(--accent)}
+.winner-chips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+.winner-chip{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;
+ padding:12px 14px;border-radius:var(--radius-sm);
+ background:var(--bg);border:1.5px solid var(--border);
+ cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:500;color:var(--text);
+ transition:all .18s ease;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+ user-select:none;text-align:left;
+}
+.winner-chip:hover{border-color:var(--border-hover)}
+.winner-chip .wc-status{
+ font-size:.75rem;font-weight:600;padding:3px 8px;border-radius:12px;
+ background:rgba(0,0,0,0.05);color:var(--text-light);transition:all .18s ease;white-space:nowrap;
+}
+html.dark .winner-chip .wc-status{background:rgba(255,255,255,0.06)}
+.winner-chip.selected{
+ border-color:var(--complement);background:rgba(37,80,79,0.1);color:var(--complement);font-weight:600;
+ box-shadow:0 2px 10px rgba(37,80,79,0.15);transform:translateY(-1px);
+}
+html.dark .winner-chip.selected{
+ border-color:var(--complement-light);background:rgba(52,113,112,0.22);color:#6cd4d2;
+}
+.winner-chip.selected .wc-status{
+ background:var(--complement);color:#fff;
+}
+
+/* Resume active local game banner */
+.resume-banner{
+ background:var(--bg-card);border:1.5px solid var(--complement);border-radius:var(--radius);
+ padding:16px 20px;margin-bottom:20px;box-shadow:var(--shadow-md);
+ display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+.resume-banner-info{flex:1;min-width:180px}
+.resume-banner-title{font-weight:700;font-size:.95rem;color:var(--complement);display:flex;align-items:center;gap:6px;margin-bottom:3px}
+html.dark .resume-banner-title{color:#6cd4d2}
+.resume-banner-sub{font-size:.8rem;color:var(--text-muted)}
+.resume-banner-actions{display:flex;gap:8px;align-items:center}
+
+/* Presets / Templates bar */
+.presets-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.preset-chip{
+ display:inline-flex;align-items:center;gap:6px;background:var(--bg);
+ border:1px solid var(--border);border-radius:20px;padding:6px 12px;
+ font-size:.82rem;font-weight:500;color:var(--text);cursor:pointer;
+ transition:all var(--transition);
+}
+.preset-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.preset-chip-del{
+ background:none;border:none;color:var(--text-light);cursor:pointer;
+ font-size:1rem;line-height:1;padding:0 2px;border-radius:50%;
+}
+.preset-chip-del:hover{color:#e74c3c}
+
+/* Lobby Share & QR */
+.lobby-share-row{display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.lobby-qr-box{
+ margin:16px auto 4px;padding:16px;background:#fff;border-radius:var(--radius);
+ border:1px solid var(--border);display:inline-flex;flex-direction:column;align-items:center;gap:8px;
+ box-shadow:var(--shadow-sm);
+}
+.lobby-qr-box img{width:168px;height:168px;display:block;border-radius:6px}
+.lobby-qr-box span{font-size:.75rem;color:#555;font-weight:500}
+
+#confetti-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:160}
 
 .history-section{margin-top:24px}
 .history-item{
@@ -658,8 +772,8 @@ select.small-select{
 .host-disconnect-overlay h2 { margin-top: 16px; color: #e74c3c; }
 
 @media(max-width:600px){
- .container{padding:16px 12px 80px}
- .header{padding:36px 0 28px}
+ .container{padding:56px 12px 80px}
+ .header{padding:28px 0 24px}
  .header h1{font-size:2rem}
  .card{padding:18px}
  .draw-card{padding:28px 18px}
@@ -693,13 +807,29 @@ select.small-select{
 }
 </style>
 </head>
+<body>
 <div class="topbar">
+ <div class="topbar-left">
+  <button class="nav-back-btn hidden" id="nav-back-btn" type="button" title="Zurück zum Hauptmenü">
+   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+   <span>Menü</span>
+  </button>
+  <button id="session-banner" class="session-banner hidden" type="button" title="Klicken, um Session-Code zu kopieren">
+   <div class="connection-status" id="conn-status"></div>
+   <span id="banner-code">Code: ---</span>
+   <span class="role-badge" id="banner-role">GUEST</span>
+  </button>
+ </div>
+ <button class="sound-btn" id="sound-btn" type="button" title="Sound-Effekte an/aus">🔊 Ton</button>
  <button class="darkmode-btn" id="darkmode-btn" type="button">Dark</button>
  <button class="auth-btn" id="auth-btn" type="button">
-  <span class="auth-avatar" id="auth-avatar-mini"></span>
+  <span class="auth-avatar" id="auth-avatar-mini" style="display:none;"></span>
   <span id="auth-btn-label">Anmelden</span>
  </button>
 </div>
+
+<div class="toast-container" id="toast-container"></div>
+<canvas id="confetti-canvas" class="hidden"></canvas>
 
 <!-- ==========================================
    AUTH MODAL
@@ -793,7 +923,9 @@ select.small-select{
   <div class="modal-body">
    <!-- Login prompt when not logged in -->
    <div id="lib-login-prompt" class="lib-login-prompt hidden">
-    <div style="font-size:2.5rem;margin-bottom:12px"></div>
+    <div style="margin-bottom:12px;color:var(--accent);">
+     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
     <p>Melde dich an, um die gemeinsame Spiele-Bibliothek zu nutzen!</p>
     <button class="btn btn-primary" type="button" id="lib-goto-login">Jetzt anmelden</button>
    </div>
@@ -809,14 +941,14 @@ select.small-select{
      <input type="text" id="lib-create-name" placeholder="Name des Spiels" style="margin-bottom:8px;">
      <textarea id="lib-create-desc" rows="2" placeholder="Beschreibung (optional)" style="margin-bottom:12px;"></textarea>
      
-     <div style="display:flex;gap:8px;margin-bottom:12px;">
-      <select id="lib-create-type" style="flex:1;">
+     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+      <select id="lib-create-type" style="flex:1;min-width:140px;">
        <option value="main">Hauptspiel</option>
        <option value="between">Zwischenspiel</option>
        <option value="penalty">Strafspiel</option>
       </select>
-      <input type="number" id="lib-create-points" placeholder="Punkte" style="width:80px; display:none;" min="0">
-      <select id="lib-create-repeats" style="width:80px;" title="Wiederholungen (0 = unendlich)">
+      <input type="number" id="lib-create-points" placeholder="Pkt" value="2" style="width:80px; display:none;" min="1" title="Punkte">
+      <select id="lib-create-repeats" style="width:84px;" title="Wiederholungen (0 = unendlich)">
        <option value="1">1×</option>
        <option value="2">2×</option>
        <option value="3">3×</option>
@@ -826,7 +958,7 @@ select.small-select{
       </select>
      </div>
      
-     <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;font-size:0.85rem;">
+     <div style="display:flex;gap:16px;align-items:center;margin-bottom:16px;font-size:0.85rem;flex-wrap:wrap;">
       <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
        <input type="radio" name="lib-create-scope" value="private" checked style="accent-color:var(--accent);"> Nur für mich (Privat)
       </label>
@@ -836,8 +968,8 @@ select.small-select{
      </div>
      
      <div style="display:flex;gap:8px;">
-      <button class="btn btn-primary" type="button" id="btn-lib-create-save" style="flex:1;padding:8px;">Speichern</button>
-      <button class="btn btn-secondary" type="button" id="btn-lib-create-cancel" style="flex:1;padding:8px;">Abbrechen</button>
+      <button class="btn btn-primary" type="button" id="btn-lib-create-save" style="flex:1;padding:10px;">Speichern</button>
+      <button class="btn btn-secondary" type="button" id="btn-lib-create-cancel" style="flex:1;padding:10px;">Abbrechen</button>
      </div>
     </div>
 
@@ -848,14 +980,14 @@ select.small-select{
      </div>
      <div class="lib-filter-row">
       <div class="lib-tabs" id="lib-type-tabs">
-       <button class="lib-tab active" data-lib-type="all">Alle</button>
-       <button class="lib-tab tab-main" data-lib-type="main">Haupt</button>
-       <button class="lib-tab tab-between" data-lib-type="between">Zwischen</button>
-       <button class="lib-tab tab-penalty" data-lib-type="penalty">Strafe</button>
+       <button class="lib-tab active" type="button" data-lib-type="all">Alle</button>
+       <button class="lib-tab tab-main" type="button" data-lib-type="main">Haupt</button>
+       <button class="lib-tab tab-between" type="button" data-lib-type="between">Zwischen</button>
+       <button class="lib-tab tab-penalty" type="button" data-lib-type="penalty">Strafe</button>
       </div>
       <div class="lib-scope-toggle">
-       <button class="lib-scope-btn active" data-lib-scope="global">Global</button>
-       <button class="lib-scope-btn" data-lib-scope="private">Eigene</button>
+       <button class="lib-scope-btn active" type="button" data-lib-scope="global">Global</button>
+       <button class="lib-scope-btn" type="button" data-lib-scope="private">Eigene</button>
       </div>
      </div>
      <div class="lib-sort-row">
@@ -872,28 +1004,22 @@ select.small-select{
 
     <div id="lib-games-container">
      <div class="lib-empty">
-      <div class="lib-empty-icon"></div>
       <p>Keine Spiele gefunden.</p>
      </div>
     </div>
    </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
    <div style="font-size:.8rem;color:var(--text-muted)">
-    Neues Spiel oben erstellen — direkt privat oder global sichtbar.
+    Tipp: Klicke auf <strong>+ Add</strong>, um Spiele direkt deinem Spieletag hinzuzufügen.
    </div>
+   <button class="btn btn-secondary" type="button" id="lib-modal-done-btn" style="padding:8px 16px;min-height:38px;font-size:.85rem;">Fertig</button>
   </div>
  </div>
 </div>
 
-<div id="session-banner" class="session-banner hidden">
- <div class="connection-status" id="conn-status"></div>
- <span id="banner-code">Code: ---</span>
- <span class="role-badge" id="banner-role">GUEST</span>
-</div>
-
 <div class="host-disconnect-overlay hidden" id="host-disconnect">
- <div style="font-size: 3rem;"></div>
+ <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
  <h2>Verbindung zum Host verloren</h2>
  <p style="margin-top: 10px; color: #bbb;">Das Spiel pausiert, bis der Host wieder online ist.</p>
 </div>
@@ -909,13 +1035,30 @@ select.small-select{
  <!-- LOGIN LANDING (Phase 0) -->
  <div id="phase-session">
 
+  <!-- Resume Unfinished Local Game Banner -->
+  <div id="resume-game-banner" class="resume-banner hidden">
+   <div class="resume-banner-info">
+    <div class="resume-banner-title">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+     <span>Laufenden Spieletag fortsetzen?</span>
+    </div>
+    <div class="resume-banner-sub" id="resume-banner-meta">Runde 1 · 2 Spieler</div>
+   </div>
+   <div class="resume-banner-actions">
+    <button class="btn btn-complement" type="button" id="btn-resume-game" style="padding:10px 18px;min-height:40px;font-size:.88rem;">Fortsetzen →</button>
+    <button class="btn btn-secondary" type="button" id="btn-discard-game" style="padding:10px 14px;min-height:40px;font-size:.85rem;" title="Gespeicherten Spielstand verwerfen">Verwerfen</button>
+   </div>
+  </div>
+
   <!-- Auth Screen (shown when not logged in) -->
   <div id="landing-auth-screen">
-   <div class="card" style="max-width:420px;margin:0 auto;padding:36px 32px;">
-    <div style="text-align:center;margin-bottom:28px;">
-     <div style="font-size:3rem;margin-bottom:8px;"></div>
+   <div class="card" style="max-width:420px;margin:0 auto;padding:32px 28px;">
+    <div style="text-align:center;margin-bottom:24px;">
+     <div style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:var(--accent-glow);color:var(--accent);margin-bottom:12px;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/></svg>
+     </div>
      <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.6rem;color:var(--accent);margin-bottom:6px;">Willkommen!</h2>
-     <p class="text-muted" style="font-size:.9rem;">Melde dich an oder erstelle ein Konto,<br>um die Spiele-Bibliothek zu nutzen.</p>
+     <p class="text-muted" style="font-size:.9rem;">Melde dich an oder erstelle ein Konto,<br>um die Spiele-Bibliothek & Live-Sessions zu nutzen.</p>
     </div>
 
     <div class="auth-tabs" style="margin-bottom:24px;">
@@ -956,6 +1099,9 @@ select.small-select{
      </div>
      <button class="btn btn-primary" type="button" id="btn-landing-register" style="width:100%;margin-top:4px;">Konto erstellen →</button>
     </div>
+
+    <div class="auth-divider" style="margin:20px 0 16px;">oder</div>
+    <button class="btn btn-secondary" type="button" id="btn-guest-local" style="width:100%;font-size:.9rem;padding:12px;">Ohne Konto lokal spielen →</button>
    </div>
   </div>
 
@@ -973,34 +1119,44 @@ select.small-select{
     <div class="menu-grid">
      <div class="menu-card" id="btn-create-session">
       <svg class="menu-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>
-      <div class="menu-card-title">Neue Live-Session</div>
-      <p class="menu-card-desc">Gemeinsam an mehreren Geräten spielen.</p>
+      <div>
+       <div class="menu-card-title">Neue Live-Session</div>
+       <p class="menu-card-desc">Gemeinsam an mehreren Geräten spielen.</p>
+      </div>
      </div>
      
      <div class="menu-card" id="btn-join-session-card">
       <svg class="menu-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
-      <div class="menu-card-title">Session beitreten</div>
-      <p class="menu-card-desc">Mit einem 6-stelligen Code einsteigen.</p>
+      <div>
+       <div class="menu-card-title">Session beitreten</div>
+       <p class="menu-card-desc">Mit einem 6-stelligen Code einsteigen.</p>
+      </div>
      </div>
      
      <div class="menu-card" id="btn-local-mode">
       <svg class="menu-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      <div class="menu-card-title">Lokal spielen</div>
-      <p class="menu-card-desc">Offline auf einem einzigen Gerät.</p>
+      <div>
+       <div class="menu-card-title">Lokal spielen</div>
+       <p class="menu-card-desc">Auf diesem Gerät einrichten & starten.</p>
+      </div>
      </div>
      
      <div class="menu-card" id="btn-open-library-landing">
       <svg class="menu-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      <div class="menu-card-title">Bibliothek</div>
-      <p class="menu-card-desc">Spiele anlegen & Favoriten verwalten.</p>
+      <div>
+       <div class="menu-card-title">Bibliothek</div>
+       <p class="menu-card-desc">Spiele anlegen & Favoriten verwalten.</p>
+      </div>
      </div>
     </div>
 
     <!-- Join Session Code Input (Hidden by default) -->
     <div id="join-session-container" class="hidden" style="text-align:center; padding-top:16px; border-top:1px solid var(--border);">
-     <p style="font-size:0.85rem; font-weight:600; margin-bottom:8px;">Session Code eingeben:</p>
-     <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="margin-bottom: 12px; max-width:200px; margin-left:auto; margin-right:auto;">
-     <button class="btn btn-secondary" type="button" id="btn-join-session" style="width: 100%; max-width:200px;">Beitreten</button>
+     <p style="font-size:0.85rem; font-weight:600; margin-bottom:8px;">Session-Code eingeben:</p>
+     <div style="display:flex;gap:8px;justify-content:center;max-width:320px;margin:0 auto;">
+      <input type="text" id="landing-code" class="code-input" placeholder="CODE" maxlength="6" style="flex:1;">
+      <button class="btn btn-primary" type="button" id="btn-join-session" style="padding:12px 20px;">Beitreten</button>
+     </div>
     </div>
    </div>
   </div>
@@ -1010,8 +1166,24 @@ select.small-select{
  <div id="phase-lobby" class="hidden">
   <div class="card" style="text-align: center;">
    <div class="card-title" style="justify-content: center;">Session-Code</div>
-   <div style="font-family: monospace; font-size: 3rem; font-weight: 800; letter-spacing: 8px; color: var(--accent); margin: 20px 0;" id="lobby-code-display">ABCDEF</div>
-   <p class="text-muted">Teile diesen Code mit anderen, damit sie beitreten können.</p>
+   <div style="font-family: monospace; font-size: 3rem; font-weight: 800; letter-spacing: 8px; color: var(--accent); margin: 16px 0; cursor: pointer; user-select: all;" id="lobby-code-display" title="Klicken zum Kopieren">ABCDEF</div>
+   <p class="text-muted">Teile diesen Code oder den Direktlink mit deinen Mitspielern.</p>
+   <div class="lobby-share-row">
+    <button class="btn btn-secondary" type="button" id="btn-share-session" style="padding:10px 16px;min-height:42px;font-size:.88rem;">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+     <span>Einladungslink teilen</span>
+    </button>
+    <button class="btn btn-secondary" type="button" id="btn-toggle-qr" style="padding:10px 16px;min-height:42px;font-size:.88rem;">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+     <span>QR-Code</span>
+    </button>
+   </div>
+   <div id="lobby-qr-container" class="hidden">
+    <div class="lobby-qr-box">
+     <img id="lobby-qr-img" alt="Session QR-Code" src="">
+     <span>Mit Kamera scannen zum Beitreten</span>
+    </div>
+   </div>
   </div>
 
   <div class="card">
@@ -1025,7 +1197,7 @@ select.small-select{
    <button class="btn btn-primary" type="button" id="btn-go-setup">Spieletag einrichten →</button>
   </div>
   <div class="btn-group hidden" id="lobby-guest-actions">
-   <p class="text-muted">Warte auf den Host, um das Setup zu starten...</p>
+   <p class="text-muted">Warte auf den Host, um das Setup zu starten …</p>
   </div>
  </div>
 
@@ -1035,12 +1207,23 @@ select.small-select{
   <!-- HOST VIEW -->
   <div id="setup-host-view">
    <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+     <div>
+      <div class="card-title" style="margin-bottom:2px;">Vorlagen (Presets)</div>
+      <div class="card-subtitle" style="margin-bottom:0;">Komplettes Setup inkl. Spiele & Optionen speichern oder laden</div>
+     </div>
+     <button class="btn btn-secondary" type="button" id="btn-save-preset" style="padding:8px 14px;min-height:38px;font-size:.84rem;">+ Als Vorlage speichern</button>
+    </div>
+    <div class="presets-row" id="presets-list"></div>
+   </div>
+
+   <div class="card">
     <div class="card-title">Spieler</div>
-    <div class="card-subtitle">Wer ist heute dabei?</div>
+    <div class="card-subtitle">Wer ist heute dabei? (Mindestens 2 Spieler)</div>
     <div class="players-grid" id="players-grid"></div>
     <div class="player-input-row">
      <input type="text" id="player-name-input" placeholder="Name eingeben …" autocomplete="off" autocorrect="off" autocapitalize="words">
-     <button class="btn btn-secondary" type="button" id="add-player-btn">+</button>
+     <button class="btn btn-secondary" type="button" id="add-player-btn" title="Spieler hinzufügen">+</button>
     </div>
    </div>
 
@@ -1051,12 +1234,11 @@ select.small-select{
     <div class="option-section">
      <div class="option-section-title">Hauptspiel-Punkte</div>
      <div class="option-inline">
-      <label>Start bei</label>
+      <label for="main-pts-start">Start bei</label>
       <input type="number" id="main-pts-start" value="3" min="1" max="50" inputmode="numeric" pattern="[0-9]*">
-      <label>Pkt</label>
-      <label>+</label>
+      <label for="main-pts-step">Pkt +</label>
       <input type="number" id="main-pts-step" value="1" min="0" max="20" inputmode="numeric" pattern="[0-9]*">
-      <label>pro Spiel</label>
+      <label for="main-pts-step">pro Spiel</label>
      </div>
      <div class="points-preview" id="points-preview"></div>
      <div class="option-hint">Vorschau: Punkte für die ersten Hauptspiele</div>
@@ -1064,7 +1246,7 @@ select.small-select{
 
     <div class="option-section">
      <div class="option-section-title">Wann endet der Spieletag?</div>
-     <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Endet wenn alle Spiele der gewählten Kategorien aus dem Pool sind.</div>
+     <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Endet automatisch, sobald alle Spiele der gewählten Kategorien gespielt wurden.</div>
      <div class="checkbox-row">
       <input type="checkbox" id="end-main" checked>
       <label for="end-main">Hauptspiele</label>
@@ -1086,7 +1268,7 @@ select.small-select{
       <label for="prob-random">Komplett zufällig (Urne)</label>
      </div>
      <div id="prob-custom" class="hidden" style="margin-top:12px;">
-      <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Fixiere nur die Kategorien die dir wichtig sind. Nicht-fixierte Spiele teilen sich den Rest wie in einer Urne.</div>
+      <div class="option-hint" style="margin-top:0;margin-bottom:10px;">Fixiere nur die Kategorien, die dir wichtig sind. Nicht-fixierte Spiele teilen sich den Rest wie in einer Urne.</div>
       <div class="prob-grid">
        <div class="prob-row">
         <span class="prob-label"><span class="badge badge-main">H</span> Haupt</span>
@@ -1123,10 +1305,10 @@ select.small-select{
       </div>
      </div>
      <div class="option-inline" id="dancebreak-options">
-      <label>Dauer</label>
+      <label for="dancebreak-duration">Dauer</label>
       <input type="number" id="dancebreak-duration" value="60" min="10" max="300" inputmode="numeric" pattern="[0-9]*">
-      <label>Sek.</label>
-      <label style="margin-left:4px;">Chance</label>
+      <label for="dancebreak-duration">Sek.</label>
+      <label for="dancebreak-chance" style="margin-left:4px;">Chance</label>
       <select id="dancebreak-chance" class="small-select">
        <option value="0.1">10%</option>
        <option value="0.2" selected>20%</option>
@@ -1143,7 +1325,10 @@ select.small-select{
     <div class="card-subtitle">Progressive Punkte · Wiederholungen wählbar</div>
     <div id="main-games-list"></div>
     <button class="btn btn-add" type="button" id="add-main-btn">+ Hauptspiel</button>
-    <button class="btn-lib" type="button" id="lib-main-btn">Aus Bibliothek hinzufügen</button>
+    <button class="btn-lib" type="button" id="lib-main-btn">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+     Aus Bibliothek hinzufügen
+    </button>
     <div class="proposal-inbox hidden" id="inbox-main">
      <div class="option-section-title">Vorschläge von Gästen</div>
      <div id="proposals-main-list"></div>
@@ -1155,7 +1340,10 @@ select.small-select{
     <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
     <div id="between-games-list"></div>
     <button class="btn btn-add" type="button" id="add-between-btn">+ Zwischenspiel</button>
-    <button class="btn-lib" type="button" id="lib-between-btn">Aus Bibliothek hinzufügen</button>
+    <button class="btn-lib" type="button" id="lib-between-btn">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+     Aus Bibliothek hinzufügen
+    </button>
     <div class="proposal-inbox hidden" id="inbox-between">
      <div class="option-section-title">Vorschläge von Gästen</div>
      <div id="proposals-between-list"></div>
@@ -1167,7 +1355,10 @@ select.small-select{
     <div class="card-subtitle">Individuelle Punkte · Wiederholungen wählbar</div>
     <div id="penalty-games-list"></div>
     <button class="btn btn-add" type="button" id="add-penalty-btn">+ Strafspiel</button>
-    <button class="btn-lib" type="button" id="lib-penalty-btn">Aus Bibliothek hinzufügen</button>
+    <button class="btn-lib" type="button" id="lib-penalty-btn">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+     Aus Bibliothek hinzufügen
+    </button>
     <div class="proposal-inbox hidden" id="inbox-penalty">
      <div class="option-section-title">Vorschläge von Gästen</div>
      <div id="proposals-penalty-list"></div>
@@ -1186,7 +1377,7 @@ select.small-select{
     <div class="card-subtitle">Schlage Spiele vor. Der Host entscheidet, was aufgenommen wird!</div>
     
     <div class="input-group">
-     <label class="option-section-title">Kategorie</label>
+     <label class="option-section-title" for="guest-prop-type">Kategorie</label>
      <select id="guest-prop-type" style="margin-bottom: 12px;">
       <option value="main">• Hauptspiel (Punkte steigen)</option>
       <option value="between">• Zwischenspiel (Feste Punkte)</option>
@@ -1196,13 +1387,13 @@ select.small-select{
      <input type="text" id="guest-prop-name" placeholder="Spielname" style="margin-bottom: 8px;">
      <textarea id="guest-prop-desc" placeholder="Beschreibung (optional)" rows="2" style="margin-bottom: 8px;"></textarea>
      
-     <div class="input-row" id="guest-prop-pts-row" style="display:none; margin-bottom: 16px;">
-      <div style="flex: 1;">
-       <label class="option-section-title" style="display:block; margin-bottom:4px;">Punkte</label>
+     <div class="input-row" id="guest-prop-pts-row" style="margin-bottom: 16px;">
+      <div id="guest-prop-pts-col" style="flex: 1; display: none;">
+       <label class="option-section-title" for="guest-prop-pts" style="display:block; margin-bottom:4px;">Punkte</label>
        <input type="number" id="guest-prop-pts" value="2" min="1" style="width: 100%;">
       </div>
       <div style="flex: 1;">
-       <label class="option-section-title" style="display:block; margin-bottom:4px;">Wie oft?</label>
+       <label class="option-section-title" for="guest-prop-rep" style="display:block; margin-bottom:4px;">Wie oft?</label>
        <select id="guest-prop-rep" style="width: 100%;">
         <option value="1" selected>1×</option>
         <option value="2">2×</option>
@@ -1212,7 +1403,7 @@ select.small-select{
       </div>
      </div>
      
-     <button class="btn btn-primary" type="button" id="btn-submit-proposal" style="width: 100%;">📤 Vorschlagen</button>
+     <button class="btn btn-primary" type="button" id="btn-submit-proposal" style="width: 100%;">Vorschlag senden →</button>
     </div>
    </div>
 
@@ -1224,7 +1415,7 @@ select.small-select{
    </div>
 
    <div style="text-align: center; margin-top: 32px;">
-    <p class="text-muted">Warte auf den Host... das Spiel beginnt gleich!</p>
+    <p class="text-muted">Warte auf den Host … das Spiel beginnt gleich!</p>
    </div>
   </div>
  </div>
@@ -1236,12 +1427,12 @@ select.small-select{
   <div class="draw-screen">
    <div id="draw-prompt">
     <p class="text-muted text-sm" style="margin-bottom:20px;">
-     Noch <strong id="remaining-count">0</strong> Ziehungen übrig
+     Noch <strong id="remaining-count">0</strong> Ziehungen bis zum Ende
     </p>
     <!-- Host only -->
-    <button class="btn btn-primary" type="button" id="draw-btn"> Spiel ziehen</button>
+    <button class="btn btn-primary" type="button" id="draw-btn">Spiel ziehen</button>
     <!-- Guest only -->
-    <p class="text-muted hidden" id="guest-wait-draw">Warte auf Host...</p>
+    <p class="text-muted hidden" id="guest-wait-draw">Warte auf Host …</p>
    </div>
    
    <div id="current-game" class="hidden">
@@ -1255,8 +1446,14 @@ select.small-select{
     
     <!-- Host only -->
     <div class="results-section" id="host-results-section">
-     <div class="results-title">Ergebnis eintragen</div>
-     <div id="results-rows"></div>
+     <div class="results-header">
+      <div class="results-title">Wer hat gewonnen? (Antippen)</div>
+      <div class="results-quick-actions">
+       <button class="results-quick-btn" type="button" id="btn-winners-all">Alle</button>
+       <button class="results-quick-btn" type="button" id="btn-winners-none">Keine</button>
+      </div>
+     </div>
+     <div id="results-rows" class="winner-chips-grid"></div>
      <div class="btn-group" style="margin-top:16px;">
       <button class="btn btn-complement" type="button" id="submit-btn">Ergebnis bestätigen</button>
      </div>
@@ -1266,7 +1463,7 @@ select.small-select{
   
   <div class="end-game-btn" id="end-game-wrap" style="display:none;">
    <!-- Host only -->
-   <button class="btn btn-primary" type="button" id="end-game-btn" style="background:var(--complement);">🏁 Spieletag beenden</button>
+   <button class="btn btn-primary" type="button" id="end-game-btn" style="background:var(--complement);">Spieletag beenden & Siegerehrung →</button>
   </div>
   
   <div class="history-section">
@@ -1276,9 +1473,9 @@ select.small-select{
   
   <!-- Host only -->
   <div class="btn-group" id="host-restart-actions" style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);">
-   <button class="btn btn-secondary" type="button" id="restart-same-btn" style="font-size:14px;"> Neustart</button>
-   <button class="btn btn-secondary" type="button" id="restart-edit-btn" style="font-size:14px;">✏️ Anpassen</button>
-   <button class="btn btn-secondary" type="button" id="restart-full-btn" style="font-size:14px;">🗑 Komplett neu</button>
+   <button class="btn btn-secondary" type="button" id="restart-same-btn" style="font-size:14px;">Gleiche Spiele neu starten</button>
+   <button class="btn btn-secondary" type="button" id="restart-edit-btn" style="font-size:14px;">Setup anpassen</button>
+   <button class="btn btn-secondary" type="button" id="restart-full-btn" style="font-size:14px;">Hauptmenü</button>
   </div>
  </div>
 
@@ -1287,9 +1484,9 @@ select.small-select{
   <div id="winner-content"></div>
   <!-- Host only -->
   <div class="btn-group hidden" id="host-win-actions" style="margin-top:40px;">
-   <button class="btn btn-primary" type="button" id="win-restart-btn"> Nochmal spielen</button>
-   <button class="btn btn-complement" type="button" id="win-edit-btn">✏️ Anpassen</button>
-   <button class="btn btn-secondary" type="button" id="win-new-btn">Komplett neu</button>
+   <button class="btn btn-primary" type="button" id="win-restart-btn">Nochmal spielen</button>
+   <button class="btn btn-complement" type="button" id="win-edit-btn">Setup anpassen</button>
+   <button class="btn btn-secondary" type="button" id="win-new-btn">Hauptmenü</button>
   </div>
  </div>
 </div>
@@ -1375,7 +1572,7 @@ let myPlayerName = "Gast";
 let isLocalMode = !useFirebase;
 
 // Firebase Listeners
-let phaseRef, gameStateRef, playersRef, proposalsRef;
+let phaseRef, gameStateRef, playersRef, proposalsRef, hostConnRef, guestProposalsRef;
 
 // Utils
 function esc(s){
@@ -1388,6 +1585,28 @@ function getDeviceId() {
  let id = localStorage.getItem('spieletag-device-id');
  if (!id) { id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2); localStorage.setItem('spieletag-device-id', id); }
  return id;
+}
+function showToast(msg) {
+ const container = document.getElementById('toast-container');
+ if (!container) return;
+ const el = document.createElement('div');
+ el.className = 'toast';
+ el.textContent = msg;
+ container.appendChild(el);
+ setTimeout(() => {
+  el.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(8px)';
+  setTimeout(() => el.remove(), 260);
+ }, 2400);
+}
+function copySessionCode() {
+ if (!sessionCode) return;
+ if (navigator.clipboard && navigator.clipboard.writeText) {
+  navigator.clipboard.writeText(sessionCode).then(() => showToast(`Session-Code ${sessionCode} kopiert!`));
+ } else {
+  showToast(`Session-Code: ${sessionCode}`);
+ }
 }
 
 // ==========================================
@@ -1425,8 +1644,10 @@ if (auth) {
   }
   if (user) {
    loadLibrary();
+   loadPresets();
   } else {
    libraryCache = { private: {}, global: {}, favorites: {} };
+   loadPresets();
   }
  });
 }
@@ -1469,6 +1690,7 @@ async function landingLogin() {
    msg = 'Benutzername oder Passwort falsch.';
   }
   showLandingError(msg);
+ } finally {
   btn.disabled = false; btn.textContent = 'Anmelden →';
  }
 }
@@ -1489,7 +1711,7 @@ async function landingRegister() {
   const snap = await db.ref(`usernames/${usernameLower}`).once('value');
   if (snap.exists()) {
    showLandingError('Dieser Benutzername ist bereits vergeben.');
-   btn.disabled = false; btn.textContent = 'Konto erstellen →'; return;
+   return;
   }
   const cred = await auth.createUserWithEmailAndPassword(`${usernameLower}@spieletag.local`, password);
   await cred.user.updateProfile({ displayName: username });
@@ -1499,11 +1721,12 @@ async function landingRegister() {
    showLandingForUser(cred.user);
   }
   await db.ref(`usernames/${usernameLower}`).set(cred.user.uid);
-  showLandingSuccess('Konto erstellt! Willkommen ');
+  showLandingSuccess('Konto erstellt! Willkommen!');
  } catch(e) {
   let msg = 'Fehler beim Registrieren.';
   if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
   showLandingError(msg);
+ } finally {
   btn.disabled = false; btn.textContent = 'Konto erstellen →';
  }
 }
@@ -1511,7 +1734,6 @@ async function landingRegister() {
 
 // --- Auth UI ---
 function updateAuthButton() {
- const btn = document.getElementById('auth-btn');
  const label = document.getElementById('auth-btn-label');
  const mini = document.getElementById('auth-avatar-mini');
  if (currentUser && currentUsername) {
@@ -1521,7 +1743,7 @@ function updateAuthButton() {
  } else {
   label.textContent = 'Anmelden';
   mini.textContent = '';
-  mini.style.display = 'flex';
+  mini.style.display = 'none';
  }
 }
 
@@ -1562,7 +1784,7 @@ function updateUserStats() {
 }
 
 function setAuthTab(tab) {
- document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.authTab === tab));
+ document.querySelectorAll('[data-auth-tab]').forEach(t => t.classList.toggle('active', t.dataset.authTab === tab));
  document.getElementById('auth-form-login').classList.toggle('hidden', tab !== 'login');
  document.getElementById('auth-form-register').classList.toggle('hidden', tab !== 'register');
  clearAuthMessages();
@@ -1609,7 +1831,6 @@ async function registerUser() {
   const snap = await db.ref(`usernames/${usernameLower}`).once('value');
   if (snap.exists()) {
    showAuthError('Dieser Benutzername ist bereits vergeben.');
-   btn.disabled = false; btn.textContent = 'Konto erstellen →';
    return;
   }
 
@@ -1634,6 +1855,7 @@ async function registerUser() {
   if (e.code === 'auth/email-already-in-use') msg = 'Benutzername bereits vergeben.';
   if (e.code === 'auth/weak-password') msg = 'Passwort ist zu schwach (min. 6 Zeichen).';
   showAuthError(msg);
+ } finally {
   btn.disabled = false; btn.textContent = 'Konto erstellen →';
  }
 }
@@ -1659,6 +1881,7 @@ async function loginUser() {
    msg = 'Benutzername oder Passwort falsch.';
   }
   showAuthError(msg);
+ } finally {
   btn.disabled = false; btn.textContent = 'Anmelden →';
  }
 }
@@ -1719,7 +1942,7 @@ async function saveGameToLibrary(gameData) {
  const { name, type, desc, points, maxRepeats } = gameData;
  const newRef = db.ref(`library_games/private/${currentUser.uid}`).push();
  const gameId = newRef.key;
- const entry = { id: gameId, name, type, desc: desc||'', points: points||0, maxRepeats: maxRepeats||1, createdAt: Date.now() };
+ const entry = { id: gameId, name, type, desc: desc||'', points: points||0, maxRepeats: maxRepeats!==undefined?maxRepeats:1, createdAt: Date.now() };
  await newRef.set(entry);
  libraryCache.private[gameId] = entry;
  saveLibraryToLocalStorage();
@@ -1737,7 +1960,7 @@ async function createNewLibraryGame(gameData, scope) {
   type: gameData.type,
   desc: gameData.desc || '',
   points: gameData.points || 0,
-  maxRepeats: gameData.maxRepeats || 1,
+  maxRepeats: gameData.maxRepeats !== undefined ? gameData.maxRepeats : 1,
   createdAt: Date.now()
  };
  if (scope === 'global') {
@@ -1747,6 +1970,7 @@ async function createNewLibraryGame(gameData, scope) {
  await newRef.set(entry);
  libraryCache[scope][gameId] = entry;
  saveLibraryToLocalStorage();
+ updateUserStats();
  return gameId;
 }
 
@@ -1759,8 +1983,8 @@ async function updateLibraryGame(gameId, scope, data) {
  const update = {};
  allowed.forEach(k => { if(data[k] !== undefined) update[k] = data[k]; });
  await db.ref(path).update(update);
- if (scope === 'global') Object.assign(libraryCache.global[gameId], update);
- else Object.assign(libraryCache.private[gameId], update);
+ if (scope === 'global' && libraryCache.global[gameId]) Object.assign(libraryCache.global[gameId], update);
+ else if (libraryCache.private[gameId]) Object.assign(libraryCache.private[gameId], update);
  saveLibraryToLocalStorage();
 }
 
@@ -1779,7 +2003,9 @@ async function deleteLibraryGame(gameId, scope) {
   delete libraryCache.private[gameId];
  }
  saveLibraryToLocalStorage();
+ updateUserStats();
  renderLibraryModal();
+ showToast('Spiel gelöscht');
 }
 
 async function publishGame(gameId) {
@@ -1797,8 +2023,9 @@ async function publishGame(gameId) {
  await globalRef.set(entry);
  libraryCache.global[globalId] = entry;
  saveLibraryToLocalStorage();
+ updateUserStats();
  renderLibraryModal();
- alert(`"${game.name}" wurde veröffentlicht! 🌐`);
+ showToast(`"${game.name}" wurde veröffentlicht!`);
 }
 
 async function toggleFavorite(gameId) {
@@ -1812,6 +2039,7 @@ async function toggleFavorite(gameId) {
   libraryCache.favorites[gameId] = true;
  }
  saveLibraryToLocalStorage();
+ updateUserStats();
  renderLibraryModal();
 }
 
@@ -1822,6 +2050,7 @@ async function autosaveGamesOnStart() {
  for (const game of allGames) {
   if (!existingNames.includes(game.name.toLowerCase())) {
    await saveGameToLibrary(game);
+   existingNames.push(game.name.toLowerCase());
   }
  }
  updateUserStats();
@@ -1836,12 +2065,17 @@ function openLibraryModal(preFilterType) {
   alert('Die Spiele-Bibliothek erfordert eine Firebase-Verbindung.');
   return;
  }
- libOpenForType = preFilterType || null;
+ libOpenForType = preFilterType || 'all';
+ libFilterType = libOpenForType;
+ document.querySelectorAll('[data-lib-type]').forEach(t => {
+  t.classList.toggle('active', t.dataset.libType === libFilterType);
+ });
  if (preFilterType && preFilterType !== 'all') {
-  libFilterType = preFilterType;
-  document.querySelectorAll('[data-lib-type]').forEach(t => {
-   t.classList.toggle('active', t.dataset.libType === preFilterType);
-  });
+  const createTypeSel = document.getElementById('lib-create-type');
+  if (createTypeSel) {
+   createTypeSel.value = preFilterType;
+   document.getElementById('lib-create-points').style.display = preFilterType === 'main' ? 'none' : 'block';
+  }
  }
  const modal = document.getElementById('library-modal');
  modal.classList.remove('hidden');
@@ -1907,7 +2141,7 @@ function renderLibraryModal() {
  const container = document.getElementById('lib-games-container');
 
  if (games.length === 0) {
-  container.innerHTML = `<div class="lib-empty"><div class="lib-empty-icon"></div><p>Keine Spiele gefunden.</p>${libFilterScope==='private'&&libFilterType!=='all'?'<p style="font-size:.8rem;margin-top:8px;color:var(--text-light)">Starte einen Spieletag – deine Spiele werden dann automatisch gespeichert!</p>':''}</div>`;
+  container.innerHTML = `<div class="lib-empty"><p>Keine Spiele gefunden.</p>${libFilterScope==='private'?'<p style="font-size:.8rem;margin-top:8px;color:var(--text-light)">Erstelle oben ein neues Spiel oder starte einen Spieletag – deine Spiele werden automatisch gespeichert!</p>':''}</div>`;
   return;
  }
 
@@ -1929,16 +2163,16 @@ function renderLibraryModal() {
      <span>${typeLabel[g.type]||''}</span>
      ${ptsInfo ? `<span>${ptsInfo}</span>` : ''}
      <span>${repInfo}</span>
-     ${g.desc ? `<span style="color:var(--text-light)">${esc(g.desc.substring(0,40))}${g.desc.length>40?'…':''}</span>` : ''}
+     ${g.desc ? `<span style="color:var(--text-light)">${esc(g.desc.substring(0,55))}${g.desc.length>55?'…':''}</span>` : ''}
     </div>
     ${libFilterScope==='global' && g.creatorName ? `<div class="lib-game-creator">von ${esc(g.creatorName)}</div>` : ''}
    </div>
    <div class="lib-game-actions">
-    <button class="lib-btn star-btn ${isFav?'active':''}" data-lib-star="${g.id}" title="${isFav?'Aus Favoriten entfernen':'Zu Favoriten hinzufügen'}">${isFav?'★':'☆'}</button>
-    ${isOwn && !isGlobal ? `<button class="lib-btn publish-btn" data-lib-publish="${g.id}" title="Global veröffentlichen">🌐</button>` : ''}
-    ${isOwn ? `<button class="lib-btn edit-btn" data-lib-edit="${g.id}" title="Bearbeiten">✏️</button>` : ''}
-    ${isOwn ? `<button class="lib-btn delete-btn" data-lib-delete="${g.id}" data-lib-delete-scope="${libFilterScope}" title="Löschen">🗑</button>` : ''}
-    <button class="lib-btn add-btn" data-lib-add="${g.id}" title="Zum Spieletag hinzufügen">+ Add</button>
+    <button class="lib-btn star-btn ${isFav?'active':''}" type="button" data-lib-star="${g.id}" title="${isFav?'Aus Favoriten entfernen':'Zu Favoriten hinzufügen'}">${isFav?'★':'☆'}</button>
+    ${isOwn && !isGlobal ? `<button class="lib-btn publish-btn" type="button" data-lib-publish="${g.id}" title="Global veröffentlichen">🌐</button>` : ''}
+    ${isOwn ? `<button class="lib-btn edit-btn" type="button" data-lib-edit="${g.id}" title="Bearbeiten">✏️</button>` : ''}
+    ${isOwn ? `<button class="lib-btn delete-btn" type="button" data-lib-delete="${g.id}" data-lib-delete-scope="${libFilterScope}" title="Löschen">🗑</button>` : ''}
+    <button class="lib-btn add-btn" type="button" data-lib-add="${g.id}" title="Zum Spieletag hinzufügen">+ Add</button>
    </div>
   </div>
   <div id="lib-edit-${g.id}" class="lib-edit-form hidden"></div>`;
@@ -1955,14 +2189,22 @@ function openLibraryEditForm(gameId) {
  if (!game) return;
  const scope = libraryCache.global[gameId] ? 'global' : 'private';
  const showPts = game.type !== 'main';
+ const defRep = game.maxRepeats !== undefined ? game.maxRepeats : 1;
+ let repOpts = '';
+ for (let r = 1; r <= 9; r++) repOpts += `<option value="${r}" ${defRep === r ? 'selected' : ''}>${r}×</option>`;
+ repOpts += `<option value="0" ${defRep === 0 ? 'selected' : ''}>∞×</option>`;
+
  const editDiv = document.getElementById(`lib-edit-${gameId}`);
  editDiv.innerHTML = `
   <input type="text" id="lib-edit-name-${gameId}" value="${esc(game.name)}" placeholder="Name">
   <textarea id="lib-edit-desc-${gameId}" rows="2" placeholder="Beschreibung">${esc(game.desc||'')}</textarea>
-  ${showPts ? `<div style="display:flex;gap:8px;align-items:center"><label style="font-size:.8rem">Punkte</label><input type="number" id="lib-edit-pts-${gameId}" value="${game.points||2}" style="width:70px" min="1"></div>` : ''}
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+   ${showPts ? `<div style="display:flex;gap:6px;align-items:center"><label style="font-size:.8rem">Punkte</label><input type="number" id="lib-edit-pts-${gameId}" value="${game.points||2}" style="width:70px" min="1"></div>` : ''}
+   <div style="display:flex;gap:6px;align-items:center"><label style="font-size:.8rem">Wiederholungen</label><select id="lib-edit-rep-${gameId}" class="small-select">${repOpts}</select></div>
+  </div>
   <div class="lib-edit-actions">
-   <button class="btn btn-secondary" type="button" data-lib-cancel="${gameId}" style="padding:8px 16px;font-size:.85rem">Abbrechen</button>
-   <button class="btn btn-primary" type="button" data-lib-save="${gameId}" data-lib-save-scope="${scope}" style="padding:8px 16px;font-size:.85rem">Speichern</button>
+   <button class="btn btn-secondary" type="button" data-lib-cancel="${gameId}" style="padding:8px 16px;font-size:.85rem;min-height:38px">Abbrechen</button>
+   <button class="btn btn-primary" type="button" data-lib-save="${gameId}" data-lib-save-scope="${scope}" style="padding:8px 16px;font-size:.85rem;min-height:38px">Speichern</button>
   </div>`;
  editDiv.classList.remove('hidden');
 }
@@ -1971,27 +2213,435 @@ async function saveLibraryEdit(gameId, scope) {
  const nameEl = document.getElementById(`lib-edit-name-${gameId}`);
  const descEl = document.getElementById(`lib-edit-desc-${gameId}`);
  const ptsEl = document.getElementById(`lib-edit-pts-${gameId}`);
+ const repEl = document.getElementById(`lib-edit-rep-${gameId}`);
  if (!nameEl) return;
  const data = { name: nameEl.value.trim(), desc: descEl ? descEl.value.trim() : '' };
  if (ptsEl) data.points = parseInt(ptsEl.value)||2;
+ if (repEl) data.maxRepeats = parseInt(repEl.value, 10);
  if (!data.name) return alert('Name darf nicht leer sein.');
  await updateLibraryGame(gameId, scope, data);
  document.getElementById(`lib-edit-${gameId}`).classList.add('hidden');
  renderLibraryModal();
+ showToast('Änderungen gespeichert');
 }
 
-function addGameFromLibrary(gameId) {
+function addGameFromLibrary(gameId, btnEl) {
  const game = libraryCache.global[gameId] || libraryCache.private[gameId];
  if (!game) return;
+
+ // If target category list only has 1 empty field, remove that empty placeholder first
+ const list = document.getElementById(game.type + '-games-list');
+ if (list) {
+  const groups = list.querySelectorAll('.input-group');
+  if (groups.length === 1) {
+   const fid = groups[0].id.replace('field-', '');
+   const existingName = document.getElementById('name-' + fid)?.value.trim();
+   const existingDesc = document.getElementById('desc-' + fid)?.value.trim();
+   if (!existingName && !existingDesc) {
+    groups[0].remove();
+   }
+  }
+ }
+
  addGameField(game.type, game);
- closeLibraryModal();
+ showToast(`"${game.name}" zum Setup hinzugefügt`);
+
+ if (btnEl) {
+  const origText = btnEl.textContent;
+  btnEl.textContent = '✓ Hinzugefügt';
+  btnEl.style.background = 'var(--complement)';
+  setTimeout(() => {
+   if (btnEl) {
+    btnEl.textContent = origText;
+    btnEl.style.background = '';
+   }
+  }, 1400);
+ }
 }
 
-// Library modal event delegation (click handler in main click handler below)
+// ==========================================
+// 3. UI PHASES, DARK MODE, SOUND & CONFETTI
+// ==========================================
+
+let soundEnabled = true;
+let audioCtx = null;
+
+function initSound() {
+ try {
+  const s = localStorage.getItem('gameday-sound');
+  if (s === '0') soundEnabled = false;
+ } catch(e) {}
+ updateSoundButton();
+}
+
+function toggleSound() {
+ soundEnabled = !soundEnabled;
+ updateSoundButton();
+ try { localStorage.setItem('gameday-sound', soundEnabled ? '1' : '0'); } catch(e) {}
+ if (soundEnabled) playSound('tap');
+}
+
+function updateSoundButton() {
+ const btn = document.getElementById('sound-btn');
+ if (!btn) return;
+ btn.textContent = soundEnabled ? '🔊 Ton' : '🔇 Stumm';
+ btn.classList.toggle('muted', !soundEnabled);
+}
+
+function playSound(type) {
+ if (!soundEnabled) return;
+ try {
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  if (!audioCtx) audioCtx = new Ctx();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const now = audioCtx.currentTime;
+
+  const tone = (freq, start, dur, wave = 'sine', vol = 0.08) => {
+   const osc = audioCtx.createOscillator();
+   const gain = audioCtx.createGain();
+   osc.type = wave;
+   osc.frequency.setValueAtTime(freq, now + start);
+   gain.gain.setValueAtTime(vol, now + start);
+   gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+   osc.connect(gain);
+   gain.connect(audioCtx.destination);
+   osc.start(now + start);
+   osc.stop(now + start + dur);
+  };
+
+  if (type === 'tick') {
+   tone(520 + Math.random() * 220, 0, 0.045, 'triangle', 0.05);
+  } else if (type === 'tap') {
+   tone(580, 0, 0.06, 'sine', 0.06);
+  } else if (type === 'draw') {
+   tone(440, 0, 0.12, 'triangle', 0.08);
+   tone(659.25, 0.09, 0.22, 'triangle', 0.09);
+  } else if (type === 'score') {
+   tone(523.25, 0, 0.12, 'sine', 0.07);
+   tone(659.25, 0.07, 0.15, 'sine', 0.07);
+   tone(783.99, 0.14, 0.25, 'sine', 0.08);
+  } else if (type === 'beep') {
+   tone(880, 0, 0.09, 'sine', 0.07);
+  } else if (type === 'dance') {
+   [440, 554.37, 659.25, 880].forEach((f, i) => tone(f, i * 0.07, 0.16, 'sawtooth', 0.05));
+  } else if (type === 'win') {
+   [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, i * 0.11, i === 3 ? 0.45 : 0.18, 'triangle', 0.09));
+  }
+ } catch(e) {}
+}
+
+let confettiAnimId = null;
+function launchConfetti() {
+ const canvas = document.getElementById('confetti-canvas');
+ if (!canvas) return;
+ if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+ canvas.classList.remove('hidden');
+ const ctx = canvas.getContext('2d');
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+
+ const colors = ['#4F253D', '#25504F', '#F1C40F', '#E74C3C', '#2ECC71', '#9B59B6'];
+ const pieces = Array.from({ length: 110 }, () => ({
+  x: Math.random() * canvas.width,
+  y: -20 - Math.random() * canvas.height * 0.5,
+  w: 6 + Math.random() * 6,
+  h: 10 + Math.random() * 8,
+  color: colors[Math.floor(Math.random() * colors.length)],
+  vx: (Math.random() - 0.5) * 3.5,
+  vy: 2.5 + Math.random() * 4,
+  rot: Math.random() * Math.PI * 2,
+  vrot: (Math.random() - 0.5) * 0.18
+ }));
+
+ const start = performance.now();
+ function frame(ts) {
+  const elapsed = ts - start;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const alpha = elapsed > 3200 ? Math.max(0, 1 - (elapsed - 3200) / 800) : 1;
+  ctx.globalAlpha = alpha;
+  pieces.forEach(p => {
+   p.x += p.vx;
+   p.y += p.vy;
+   p.rot += p.vrot;
+   ctx.save();
+   ctx.translate(p.x, p.y);
+   ctx.rotate(p.rot);
+   ctx.fillStyle = p.color;
+   ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+   ctx.restore();
+  });
+  if (elapsed < 4000) {
+   confettiAnimId = requestAnimationFrame(frame);
+  } else {
+   ctx.clearRect(0, 0, canvas.width, canvas.height);
+   canvas.classList.add('hidden');
+   confettiAnimId = null;
+  }
+ }
+ confettiAnimId = requestAnimationFrame(frame);
+}
 
 // ==========================================
-// 3. UI PHASES & DARK MODE
+// 3b. LOCAL GAME PERSISTENCE & PRESETS
 // ==========================================
+const ACTIVE_GAME_KEY = 'spieletag-active-game';
+const PRESETS_KEY = 'spieletag-presets';
+let presetsCache = {};
+
+function saveActiveGameToLocal() {
+ if (!isLocalMode) return;
+ const inPlay = !document.getElementById('phase-play').classList.contains('hidden');
+ if (!inPlay) return;
+ try {
+  const payload = {
+   players, allGames, remainingGames, history, scores,
+   mainGameCounter, currentGame, settings, savedGames, savedPlayers,
+   updatedAt: Date.now()
+  };
+  localStorage.setItem(ACTIVE_GAME_KEY, JSON.stringify(payload));
+ } catch(e) {}
+}
+
+function clearActiveGameFromLocal() {
+ try { localStorage.removeItem(ACTIVE_GAME_KEY); } catch(e) {}
+ checkResumeBanner();
+}
+
+function checkResumeBanner() {
+ const banner = document.getElementById('resume-game-banner');
+ if (!banner) return;
+ try {
+  const raw = localStorage.getItem(ACTIVE_GAME_KEY);
+  if (!raw) { banner.classList.add('hidden'); return; }
+  const data = JSON.parse(raw);
+  if (!data || !Array.isArray(data.players) || data.players.length < 2 || !Array.isArray(data.allGames) || data.allGames.length < 1) {
+   banner.classList.add('hidden');
+   return;
+  }
+  const roundNum = (data.history ? data.history.length : 0) + (data.currentGame ? 1 : 0);
+  const meta = document.getElementById('resume-banner-meta');
+  if (meta) {
+   meta.textContent = `${roundNum > 0 ? 'Runde ' + roundNum : 'Bereit zum Ziehen'} · ${data.players.length} Spieler (${data.players.slice(0, 4).join(', ')}${data.players.length > 4 ? ' …' : ''})`;
+  }
+  banner.classList.remove('hidden');
+ } catch(e) {
+  banner.classList.add('hidden');
+ }
+}
+
+function resumeSavedGame() {
+ try {
+  const raw = localStorage.getItem(ACTIVE_GAME_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  cleanupFirebaseListeners();
+  sessionCode = null;
+  isLocalMode = true;
+  isHost = true;
+  document.getElementById('session-banner').classList.add('hidden');
+  applyHostUiVisibility(true);
+
+  players = data.players || [];
+  allGames = data.allGames || [];
+  remainingGames = data.remainingGames || [];
+  history = data.history || [];
+  scores = data.scores || {};
+  mainGameCounter = data.mainGameCounter || 0;
+  currentGame = data.currentGame || null;
+  if (data.settings) settings = data.settings;
+  savedGames = data.savedGames || JSON.parse(JSON.stringify(allGames));
+  savedPlayers = data.savedPlayers || [...players];
+
+  showPhase('phase-play');
+  renderScoreboard();
+  renderHistory();
+  updateRemaining();
+
+  if (currentGame) {
+   document.getElementById('draw-prompt').classList.add('hidden');
+   document.getElementById('current-game').classList.remove('hidden');
+   const card = document.getElementById('draw-card');
+   const tl = {main:'Hauptspiel',between:'Zwischenspiel',penalty:'Strafspiel'};
+   const tc = {main:'type-main',between:'type-between',penalty:'type-penalty'};
+   const pc = {main:'',between:'complement',penalty:'penalty-color'};
+   card.className = 'draw-card ' + (tc[currentGame.type] || '');
+   card.style.opacity = '1';
+   card.style.transform = 'scale(1) rotateY(0deg)';
+   const drawPoints = currentGame._drawPoints || currentGame.points;
+   document.getElementById('game-number').textContent = `Runde ${history.length + 1} · ${tl[currentGame.type]}`;
+   document.getElementById('game-name').textContent = currentGame.name;
+   document.getElementById('game-desc').textContent = currentGame.desc;
+   document.getElementById('game-points').className = 'game-points ' + pc[currentGame.type];
+   document.getElementById('game-points').textContent = drawPoints + (drawPoints === 1 ? ' Punkt' : ' Punkte');
+   const ri = document.getElementById('game-repeat-info');
+   if (currentGame.maxRepeats === 0) ri.textContent = 'Bereits ' + currentGame.timesPlayed + '× gespielt · Unbegrenzt';
+   else if (currentGame.maxRepeats > 1) ri.textContent = currentGame.timesPlayed + ' von ' + currentGame.maxRepeats + '× gespielt';
+   else ri.textContent = '';
+   renderResultRows();
+  } else {
+   document.getElementById('current-game').classList.add('hidden');
+   document.getElementById('draw-prompt').classList.remove('hidden');
+   document.getElementById('draw-btn').textContent = history.length > 0 ? 'Nächstes Spiel ziehen' : 'Spiel ziehen';
+  }
+  showToast('Spieletag fortgesetzt!');
+ } catch(e) {
+  console.warn('Fehler beim Wiederherstellen:', e);
+ }
+}
+
+function discardSavedGame() {
+ if (!confirm('Gespeicherten lokalen Spielstand wirklich verwerfen?')) return;
+ clearActiveGameFromLocal();
+ showToast('Gespeicherter Spielstand verworfen');
+}
+
+async function loadPresets() {
+ try {
+  const raw = localStorage.getItem(PRESETS_KEY);
+  if (raw) presetsCache = JSON.parse(raw) || {};
+ } catch(e) {}
+ if (currentUser && useFirebase) {
+  try {
+   const snap = await db.ref(`library_presets/${currentUser.uid}`).once('value');
+   if (snap.exists()) {
+    presetsCache = { ...presetsCache, ...(snap.val() || {}) };
+    localStorage.setItem(PRESETS_KEY, JSON.stringify(presetsCache));
+   }
+  } catch(e) {}
+ }
+ renderPresetsBar();
+}
+
+async function saveCurrentAsPreset() {
+ collectGames();
+ collectSettings();
+ if (allGames.length === 0 && players.length === 0) {
+  return alert('Bitte trage zuerst Spiele oder Spieler ein, bevor du eine Vorlage speicherst.');
+ }
+ const name = prompt('Name für diese Spieletag-Vorlage:', `Spieletag (${allGames.length} Spiele)`);
+ if (!name || !name.trim()) return;
+ const id = 'p_' + Date.now();
+ const entry = {
+  id,
+  name: name.trim(),
+  players: [...players],
+  settings: JSON.parse(JSON.stringify(settings)),
+  games: allGames.map(g => ({ type: g.type, name: g.name, desc: g.desc, points: g.points, maxRepeats: g.maxRepeats })),
+  createdAt: Date.now()
+ };
+ presetsCache[id] = entry;
+ try { localStorage.setItem(PRESETS_KEY, JSON.stringify(presetsCache)); } catch(e) {}
+ if (currentUser && useFirebase) {
+  try { await db.ref(`library_presets/${currentUser.uid}/${id}`).set(entry); } catch(e) {}
+ }
+ renderPresetsBar();
+ showToast(`Vorlage "${entry.name}" gespeichert!`);
+}
+
+function applyPreset(presetId) {
+ const p = presetsCache[presetId];
+ if (!p) return;
+ if (Array.isArray(p.players) && p.players.length > 0) {
+  players = [...p.players];
+  renderPlayers();
+ }
+ if (p.settings) {
+  settings = JSON.parse(JSON.stringify(p.settings));
+  document.getElementById('dancebreak-toggle').checked = !!settings.dancebreak;
+  document.getElementById('dancebreak-options').style.display = settings.dancebreak ? 'flex' : 'none';
+  document.getElementById('dancebreak-duration').value = settings.dancebreakDuration || 60;
+  document.getElementById('dancebreak-chance').value = settings.dancebreakChance || 0.2;
+  document.getElementById('main-pts-start').value = settings.mainPtsStart || 3;
+  document.getElementById('main-pts-step').value = settings.mainPtsStep !== undefined ? settings.mainPtsStep : 1;
+  document.getElementById('end-main').checked = !!settings.endConditions?.main;
+  document.getElementById('end-between').checked = !!settings.endConditions?.between;
+  document.getElementById('end-penalty').checked = !!settings.endConditions?.penalty;
+  document.getElementById('prob-random').checked = settings.probRandom !== false;
+  document.getElementById('prob-custom').classList.toggle('hidden', settings.probRandom !== false);
+  if (!settings.probRandom && settings.probWeights) {
+   ['main','between','penalty'].forEach(t => {
+    const inp = document.getElementById('prob-' + t);
+    if (inp) inp.value = settings.probUserSet?.[t] ? Math.round(settings.probWeights[t]) : '';
+   });
+   updateProbPreview();
+  }
+  updatePointsPreview();
+ }
+ if (Array.isArray(p.games)) {
+  ['main','between','penalty'].forEach(t => { document.getElementById(t + '-games-list').innerHTML = ''; });
+  gameFieldCounters = { main: 0, between: 0, penalty: 0 };
+  p.games.forEach(g => addGameField(g.type, g, true));
+  initSetupFieldsIfNeeded();
+ }
+ playSound('tap');
+ showToast(`Vorlage "${p.name}" geladen!`);
+}
+
+async function deletePreset(presetId) {
+ const p = presetsCache[presetId];
+ if (!p || !confirm(`Vorlage "${p.name}" wirklich löschen?`)) return;
+ delete presetsCache[presetId];
+ try { localStorage.setItem(PRESETS_KEY, JSON.stringify(presetsCache)); } catch(e) {}
+ if (currentUser && useFirebase) {
+  try { await db.ref(`library_presets/${currentUser.uid}/${presetId}`).remove(); } catch(e) {}
+ }
+ renderPresetsBar();
+ showToast('Vorlage gelöscht');
+}
+
+function renderPresetsBar() {
+ const list = document.getElementById('presets-list');
+ if (!list) return;
+ const items = Object.values(presetsCache).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+ if (items.length === 0) {
+  list.innerHTML = '<span class="text-muted text-sm" style="font-size:.8rem;">Noch keine Vorlagen gespeichert.</span>';
+  return;
+ }
+ list.innerHTML = items.map(p => `
+  <div class="preset-chip" data-preset-load="${esc(p.id)}" title="${ (p.games?.length || 0) } Spiele · ${ (p.players?.length || 0) } Spieler laden">
+   <span>${esc(p.name)}</span>
+   <span style="font-size:.72rem;color:var(--text-light);">(${p.games?.length || 0})</span>
+   <button class="preset-chip-del" type="button" data-preset-del="${esc(p.id)}" title="Vorlage löschen">×</button>
+  </div>
+ `).join('');
+}
+
+function getSessionInviteUrl() {
+ const url = new URL(window.location.href);
+ if (sessionCode) url.searchParams.set('code', sessionCode);
+ return url.toString();
+}
+
+function shareSessionLink() {
+ if (!sessionCode) return;
+ const shareUrl = getSessionInviteUrl();
+ if (navigator.share) {
+  navigator.share({
+   title: 'Spieletag Live-Session',
+   text: `Tritt unserer Spieletag-Runde bei! Code: ${sessionCode}`,
+   url: shareUrl
+  }).catch(() => {});
+ } else if (navigator.clipboard && navigator.clipboard.writeText) {
+  navigator.clipboard.writeText(shareUrl).then(() => showToast('Einladungslink in Zwischenablage kopiert!'));
+ } else {
+  prompt('Einladungslink kopieren:', shareUrl);
+ }
+}
+
+function updateLobbyQr() {
+ const img = document.getElementById('lobby-qr-img');
+ if (!img || !sessionCode) return;
+ const shareUrl = getSessionInviteUrl();
+ img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&data=${encodeURIComponent(shareUrl)}`;
+}
+
+function toggleLobbyQr() {
+ const box = document.getElementById('lobby-qr-container');
+ if (!box) return;
+ updateLobbyQr();
+ box.classList.toggle('hidden');
+}
 
 function toggleDarkMode(){
  document.documentElement.classList.toggle('dark');
@@ -2015,6 +2665,16 @@ function showPhase(phaseId) {
  document.getElementById(phaseId).classList.remove('hidden');
  window.scrollTo({top:0,behavior:'smooth'});
 
+ // Show/hide Back-to-Menu button in topbar
+ const backBtn = document.getElementById('nav-back-btn');
+ if (backBtn) {
+  backBtn.classList.toggle('hidden', phaseId === 'phase-session');
+ }
+
+ if (phaseId === 'phase-session') {
+  checkResumeBanner();
+ }
+
  // Update dots
  const pb = document.getElementById('main-phase-bar');
  if (phaseId === 'phase-session' || phaseId === 'phase-lobby') {
@@ -2031,6 +2691,58 @@ function showPhase(phaseId) {
  }
 }
 
+function initSetupFieldsIfNeeded() {
+ ['main', 'between', 'penalty'].forEach(type => {
+  const list = document.getElementById(type + '-games-list');
+  if (list && list.querySelectorAll('.input-group').length === 0) {
+   addGameField(type, null, true);
+  }
+ });
+ updatePointsPreview();
+ renderPlayers();
+ renderPresetsBar();
+}
+
+function applyHostUiVisibility(hostMode) {
+ // Lobby
+ document.getElementById('lobby-host-actions').classList.toggle('hidden', !hostMode);
+ document.getElementById('lobby-guest-actions').classList.toggle('hidden', hostMode);
+ // Setup
+ document.getElementById('setup-host-view').classList.toggle('hidden', !hostMode);
+ document.getElementById('setup-guest-view').classList.toggle('hidden', hostMode);
+ // Play
+ document.getElementById('draw-btn').classList.toggle('hidden', !hostMode);
+ document.getElementById('guest-wait-draw').classList.toggle('hidden', hostMode);
+ document.getElementById('host-results-section').classList.toggle('hidden', !hostMode);
+ document.getElementById('host-restart-actions').classList.toggle('hidden', !hostMode);
+ document.getElementById('host-win-actions').classList.toggle('hidden', !hostMode);
+}
+
+function cleanupFirebaseListeners() {
+ if (playersRef) { playersRef.off(); playersRef = null; }
+ if (proposalsRef) { proposalsRef.off(); proposalsRef = null; }
+ if (phaseRef) { phaseRef.off(); phaseRef = null; }
+ if (gameStateRef) { gameStateRef.off(); gameStateRef = null; }
+ if (hostConnRef) { hostConnRef.off(); hostConnRef = null; }
+ if (guestProposalsRef) { guestProposalsRef.off(); guestProposalsRef = null; }
+}
+
+function returnToMainMenu() {
+ const inPlay = !document.getElementById('phase-play').classList.contains('hidden');
+ if (inPlay && !confirm('Aktuellen Spieletag verlassen und zum Hauptmenü zurückkehren?')) {
+  return;
+ }
+ cleanupFirebaseListeners();
+ sessionCode = null;
+ isLocalMode = true;
+ isHost = true;
+ document.getElementById('session-banner').classList.add('hidden');
+ document.getElementById('host-disconnect').classList.add('hidden');
+ applyHostUiVisibility(true);
+ showPhase('phase-session');
+ showLandingForUser(currentUser);
+}
+
 // ==========================================
 // 4. MULTIPLAYER: SESSION MANAGEMENT
 // ==========================================
@@ -2045,10 +2757,12 @@ async function createSession() {
  if (!nameInp) return alert("Bitte gib deinen Namen ein.");
  myPlayerName = nameInp;
 
+ cleanupFirebaseListeners();
  const code = generateSessionCode();
  sessionCode = code;
  isHost = true;
  isLocalMode = false;
+ applyHostUiVisibility(true);
 
  const sessionRef = db.ref(`sessions/${code}`);
  try {
@@ -2065,7 +2779,9 @@ async function createSession() {
     history: [],
     currentGame: null,
     mainGameCounter: 0,
-    dancebreakActive: false
+    dancebreakActive: false,
+    remainingCount: 0,
+    isWinnerPhase: false
    }
   });
  } catch(e) {
@@ -2082,7 +2798,7 @@ async function createSession() {
  
  // Host disconnect hook
  db.ref('.info/connected').on('value', function(snap) {
-  if (snap.val() === true) {
+  if (snap.val() === true && sessionCode === code && isHost) {
    db.ref(`sessions/${code}/meta/hostConnected`).onDisconnect().set(false);
    db.ref(`sessions/${code}/meta/hostConnected`).set(true);
   }
@@ -2091,6 +2807,8 @@ async function createSession() {
  setupHostListeners();
  updateBanner();
  document.getElementById('lobby-code-display').textContent = code;
+ document.getElementById('lobby-qr-container').classList.add('hidden');
+ updateLobbyQr();
  
  // Add host to players list locally initially
  if (!players.includes(myPlayerName)) {
@@ -2106,8 +2824,9 @@ async function joinSession() {
  const nameInp = currentUsername || document.getElementById('landing-name').value.trim() || "Spieler";
  const codeInp = document.getElementById('landing-code').value.trim().toUpperCase();
  if (!nameInp) return alert("Bitte gib deinen Namen ein.");
- if (codeInp.length !== 6) return alert("Code muss 6 Zeichen lang sein.");
+ if (codeInp.length !== 6) return alert("Bitte einen 6-stelligen Session-Code eingeben.");
  
+ cleanupFirebaseListeners();
  myPlayerName = nameInp;
  sessionCode = codeInp;
  isHost = false;
@@ -2126,33 +2845,32 @@ async function joinSession() {
  });
  db.ref(`sessions/${codeInp}/players/${deviceId}`).onDisconnect().remove();
 
+ applyHostUiVisibility(false);
  setupGuestListeners();
  updateBanner();
  
- // Setup View Toggle
- document.getElementById('setup-host-view').classList.add('hidden');
- document.getElementById('setup-guest-view').classList.remove('hidden');
- 
- // Play View Toggle
- document.getElementById('draw-btn').classList.add('hidden');
- document.getElementById('guest-wait-draw').classList.remove('hidden');
- document.getElementById('host-results-section').classList.add('hidden');
- document.getElementById('host-restart-actions').classList.add('hidden');
- document.getElementById('host-win-actions').classList.add('hidden');
- 
  document.getElementById('lobby-code-display').textContent = codeInp;
- showPhase('phase-lobby');
+ document.getElementById('lobby-qr-container').classList.add('hidden');
+ updateLobbyQr();
+ const currentPhase = snap.val().phase || 'lobby';
+ if (currentPhase === 'setup') showPhase('phase-setup');
+ else if (currentPhase === 'play') showPhase('phase-play');
+ else if (currentPhase === 'winner') showPhase('phase-winner');
+ else showPhase('phase-lobby');
 }
 
 function startLocalMode() {
+ cleanupFirebaseListeners();
+ sessionCode = null;
  isLocalMode = true;
  isHost = true;
  document.getElementById('session-banner').classList.add('hidden');
+ applyHostUiVisibility(true);
  
- // Add first empty game fields
- addGameField('main'); addGameField('between'); addGameField('penalty');
- updatePointsPreview();
- 
+ if (currentUsername && players.length === 0) {
+  players.push(currentUsername);
+ }
+ initSetupFieldsIfNeeded();
  showPhase('phase-setup');
 }
 
@@ -2161,8 +2879,8 @@ function updateBanner() {
  banner.classList.remove('hidden');
  document.getElementById('banner-code').textContent = `Code: ${sessionCode}`;
  const rBadge = document.getElementById('banner-role');
- rBadge.textContent = isHost ? "HOST" : "GUEST";
- rBadge.style.background = isHost ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.2)";
+ rBadge.textContent = isHost ? "HOST" : "GAST";
+ rBadge.style.background = isHost ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.2)";
 }
 
 // ==========================================
@@ -2188,7 +2906,6 @@ function setupHostListeners() {
   // Auto-update setup player list if not started yet
   if (document.getElementById('phase-setup').classList.contains('hidden') === false || 
     document.getElementById('phase-lobby').classList.contains('hidden') === false) {
-   // Add missing players to local state
    newPlayers.forEach(p => {
     if (!players.includes(p)) players.push(p);
    });
@@ -2209,14 +2926,16 @@ function setupGuestListeners() {
  phaseRef = db.ref(`sessions/${sessionCode}/meta/phase`);
  phaseRef.on('value', snap => {
   const phase = snap.val();
+  if (phase === 'lobby') showPhase('phase-lobby');
   if (phase === 'setup') showPhase('phase-setup');
   if (phase === 'play') showPhase('phase-play');
   if (phase === 'winner') showPhase('phase-winner');
  });
 
  // Host Connection Monitor
- db.ref(`sessions/${sessionCode}/meta/hostConnected`).on('value', snap => {
-  const isConn = snap.val();
+ hostConnRef = db.ref(`sessions/${sessionCode}/meta/hostConnected`);
+ hostConnRef.on('value', snap => {
+  const isConn = snap.val() !== false;
   document.getElementById('conn-status').className = 'connection-status ' + (isConn ? '' : 'offline');
   
   const discOverlay = document.getElementById('host-disconnect');
@@ -2250,6 +2969,11 @@ function setupGuestListeners() {
   history = state.history || [];
   players = Object.keys(scores);
   
+  if (state.remainingCount !== undefined) {
+   const remEl = document.getElementById('remaining-count');
+   if (remEl) remEl.textContent = state.remainingCount;
+  }
+
   if (document.getElementById('phase-play').classList.contains('hidden') === false) {
    renderScoreboard();
    renderHistory();
@@ -2272,8 +2996,6 @@ function setupGuestListeners() {
    document.getElementById('game-desc').textContent=currentGame.desc;
    document.getElementById('game-points').className='game-points '+pc[currentGame.type];
    document.getElementById('game-points').textContent=currentGame._drawPoints+(currentGame._drawPoints===1?' Punkt':' Punkte');
-   
-   // Guest doesn't see detailed repeats info properly sync'd without more complex state, so keep simple
    document.getElementById('game-repeat-info').textContent = ""; 
   } else {
    document.getElementById('current-game').classList.add('hidden');
@@ -2282,6 +3004,8 @@ function setupGuestListeners() {
   
   if (state.dancebreakActive && !dancebreakActive) {
    showDancebreak(null); // Guest just watches
+  } else if (!state.dancebreakActive && dancebreakActive) {
+   endDancebreak(null);
   }
   
   if (state.isWinnerPhase) {
@@ -2290,19 +3014,26 @@ function setupGuestListeners() {
  });
 
  // My Proposals Status
- db.ref(`sessions/${sessionCode}/proposals`).orderByChild('submittedById').equalTo(deviceId).on('value', snap => {
+ guestProposalsRef = db.ref(`sessions/${sessionCode}/proposals`).orderByChild('submittedById').equalTo(deviceId);
+ guestProposalsRef.on('value', snap => {
   renderGuestMyProposals(snap.val() || {});
  });
 }
 
 async function syncGameState() {
- if (isLocalMode || !isHost) return;
+ if (isLocalMode) {
+  saveActiveGameToLocal();
+  return;
+ }
+ if (!isHost || !sessionCode) return;
  await db.ref(`sessions/${sessionCode}/gameState`).update({
   scores,
   history,
   currentGame,
   mainGameCounter,
-  dancebreakActive
+  dancebreakActive,
+  remainingCount: countRemaining(),
+  isWinnerPhase: !document.getElementById('phase-winner').classList.contains('hidden')
  });
 }
 
@@ -2314,12 +3045,12 @@ function submitProposal() {
  const name = document.getElementById('guest-prop-name').value.trim();
  const desc = document.getElementById('guest-prop-desc').value.trim();
  const pts = parseInt(document.getElementById('guest-prop-pts').value) || 2;
- const rep = parseInt(document.getElementById('guest-prop-rep').value) || 1;
+ const rep = parseInt(document.getElementById('guest-prop-rep').value, 10);
  
  if (!name) return alert("Bitte einen Spielnamen eingeben.");
  
  db.ref(`sessions/${sessionCode}/proposals`).push({
-  type, name, desc, points: pts, maxRepeats: rep,
+  type, name, desc, points: pts, maxRepeats: isNaN(rep) ? 1 : rep,
   submittedBy: myPlayerName,
   submittedById: deviceId,
   status: 'pending',
@@ -2328,6 +3059,7 @@ function submitProposal() {
  
  document.getElementById('guest-prop-name').value = '';
  document.getElementById('guest-prop-desc').value = '';
+ showToast('Vorschlag gesendet!');
 }
 
 function renderGuestMyProposals(propsData) {
@@ -2403,8 +3135,18 @@ function handleProposalAction(id, action) {
   db.ref(`sessions/${sessionCode}/proposals/${id}`).once('value', snap => {
    const p = snap.val();
    if (p) {
+    // Remove single empty placeholder if present
+    const list = document.getElementById(p.type + '-games-list');
+    if (list) {
+     const groups = list.querySelectorAll('.input-group');
+     if (groups.length === 1) {
+      const fid = groups[0].id.replace('field-', '');
+      if (!document.getElementById('name-' + fid)?.value.trim()) groups[0].remove();
+     }
+    }
     addGameField(p.type, p);
     db.ref(`sessions/${sessionCode}/proposals/${id}/status`).set('approved');
+    showToast(`"${p.name}" übernommen`);
    }
   });
  } else {
@@ -2415,7 +3157,7 @@ function handleProposalAction(id, action) {
 // Guest UI logic
 document.getElementById('guest-prop-type').addEventListener('change', function() {
  const isPts = this.value !== 'main';
- document.getElementById('guest-prop-pts-row').style.display = isPts ? 'flex' : 'none';
+ document.getElementById('guest-prop-pts-col').style.display = isPts ? 'block' : 'none';
 });
 
 // ==========================================
@@ -2439,8 +3181,10 @@ function renderPlayers(){
 // Points preview
 function updatePointsPreview(){
  const start=parseInt(document.getElementById('main-pts-start').value)||1;
- const step=parseInt(document.getElementById('main-pts-step').value)||0;
+ const stepInp=parseInt(document.getElementById('main-pts-step').value);
+ const step=isNaN(stepInp)?1:stepInp;
  const prev=document.getElementById('points-preview');
+ if(!prev)return;
  let html='';
  for(let i=0;i<6;i++) html+=`<span class="pp">${i+1}. → ${start+step*i}P</span>`;
  html+='<span class="pp" style="background:none;color:var(--text-light);">…</span>';
@@ -2448,15 +3192,15 @@ function updatePointsPreview(){
 }
 
 // Fields
-function addGameField(type,prefill){
+function addGameField(type,prefill,noFocus){
  gameFieldCounters[type]++;
  const list=document.getElementById(type+'-games-list');
  const id=type+'-'+gameFieldCounters[type];
  const div=document.createElement('div');
  div.className='input-group';div.id='field-'+id;
  const showPts=(type==='between'||type==='penalty');
- const defPts=prefill?prefill.points:(type==='penalty'?3:2);
- const defRep=prefill?prefill.maxRepeats:1;
+ const defPts=prefill&&prefill.points?prefill.points:(type==='penalty'?3:2);
+ const defRep=prefill&&prefill.maxRepeats!==undefined?prefill.maxRepeats:1;
  const ptsField=showPts?`<input type="number" placeholder="Pkt" min="1" value="${defPts}" id="pts-${id}" title="Punkte" inputmode="numeric" pattern="[0-9]*" style="width:60px;">`:'';
  let repOpts='';
  for(let r=1;r<=9;r++) repOpts+=`<option value="${r}" ${defRep===r?'selected':''}>${r}×</option>`;
@@ -2474,7 +3218,7 @@ function addGameField(type,prefill){
    </div>
   </div>`;
  list.appendChild(div);
- if(!prefill){const nameInp=document.getElementById('name-'+id);if(nameInp)nameInp.focus();}
+ if(!prefill&&!noFocus){const nameInp=document.getElementById('name-'+id);if(nameInp)nameInp.focus();}
 }
 function removeField(id){const el=document.getElementById('field-'+id);if(el)el.remove()}
 
@@ -2488,8 +3232,8 @@ function collectGames(){
    const desc=document.getElementById('desc-'+id)?.value.trim()||'';
    const showPts=(type==='between'||type==='penalty');
    const pts=showPts?(parseInt(document.getElementById('pts-'+id)?.value)||2):0;
-   const maxRep=parseInt(document.getElementById('rep-'+id)?.value);
-   if(name) allGames.push({type,name,desc,points:pts,maxRepeats:maxRep,timesPlayed:0,uid:'g'+(uid++)});
+   const maxRep=parseInt(document.getElementById('rep-'+id)?.value, 10);
+   if(name) allGames.push({type,name,desc,points:pts,maxRepeats:isNaN(maxRep)?1:maxRep,timesPlayed:0,uid:'g'+(uid++)});
   });
  });
 }
@@ -2499,7 +3243,8 @@ function collectSettings(){
  settings.dancebreakDuration=parseInt(document.getElementById('dancebreak-duration').value)||60;
  settings.dancebreakChance=parseFloat(document.getElementById('dancebreak-chance').value)||0.2;
  settings.mainPtsStart=parseInt(document.getElementById('main-pts-start').value)||1;
- settings.mainPtsStep=parseInt(document.getElementById('main-pts-step').value)||0;
+ const stepVal=parseInt(document.getElementById('main-pts-step').value);
+ settings.mainPtsStep=isNaN(stepVal)?1:stepVal;
  settings.endConditions={main:document.getElementById('end-main').checked,between:document.getElementById('end-between').checked,penalty:document.getElementById('end-penalty').checked};
  settings.probRandom=document.getElementById('prob-random').checked;
  if(!settings.probRandom){
@@ -2507,9 +3252,28 @@ function collectSettings(){
   settings.probWeights=probs;
   settings.probUserSet={};
   ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);settings.probUserSet[t]=inp&&inp.value.trim()!=='';});
+ } else {
+  settings.probWeights={main:null,between:null,penalty:null};
+  settings.probUserSet={main:false,between:false,penalty:false};
  }
 }
 
+function validateEndConditions(){
+ const ec=settings.endConditions;
+ if(!ec.main&&!ec.between&&!ec.penalty){
+  alert('Bitte mindestens eine Spielkategorie unter „Wann endet der Spieletag?" auswählen.');
+  return false;
+ }
+ const types=[];
+ if(ec.main)types.push('main');if(ec.between)types.push('between');if(ec.penalty)types.push('penalty');
+ const inf=allGames.filter(g=>types.includes(g.type)&&g.maxRepeats===0);
+ if(inf.length>0){
+  return confirm('Hinweis: '+inf.map(g=>g.name).join(', ')+' sind auf unbegrenzt (∞) gesetzt. Der Spieletag kann dann jederzeit manuell beendet werden. Fortfahren?');
+ }
+ return true;
+}
+
+// Probability calculation & preview
 function calcProbabilities(){
  const types=['main','between','penalty'];
  const vals={};const locked=[];let lockedSum=0;
@@ -2523,16 +3287,105 @@ function calcProbabilities(){
  return{probs:result,over:false};
 }
 
+function updateProbPreview(){
+ const{probs,over}=calcProbabilities();
+ const userSet={};
+ ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);userSet[t]=inp&&inp.value.trim()!==''});
+ const freeTypes=['main','between','penalty'].filter(t=>!userSet[t]);
+ const fixedSum=['main','between','penalty'].filter(t=>userSet[t]).reduce((s,t)=>s+probs[t],0);
+ const freeShare=Math.max(0,100-fixedSum);
+ ['main','between','penalty'].forEach(t=>{
+  document.getElementById('prob-'+t+'-auto').textContent=userSet[t]?'':'← '+Math.round(probs[t])+'%';
+  document.getElementById('prob-bar-'+t).style.width=Math.min(100,Math.max(0,probs[t]))+'%';
+ });
+ const tel=document.getElementById('prob-total');
+ tel.textContent='Gesamt: '+Math.round(Object.values(probs).reduce((a,b)=>a+b,0))+'%';
+ tel.classList.toggle('over',over);
+ if(freeTypes.length>0&&freeTypes.length<3) tel.textContent+=' · Nicht-fixierte teilen '+Math.round(freeShare)+'% (Urne)';
+}
+
+// Pool & End conditions
 function buildDrawPool(){
  remainingGames=allGames.filter(g=>g.maxRepeats===0||g.timesPlayed<g.maxRepeats);
  remainingGames.sort(()=>Math.random()-0.5);
 }
 
+function isGameOver(){
+ const ec=settings.endConditions;const types=[];
+ if(ec.main)types.push('main');if(ec.between)types.push('between');if(ec.penalty)types.push('penalty');
+ const relevantGames=allGames.filter(x=>types.includes(x.type));
+ if(relevantGames.length===0){
+  return !hasDrawableGames();
+ }
+ return types.every(type=>{
+  const g=allGames.filter(x=>x.type===type);
+  return g.length===0||g.every(x=>x.maxRepeats!==0&&x.timesPlayed>=x.maxRepeats);
+ });
+}
+
+function hasDrawableGames(){
+ return allGames.some(g=>g.maxRepeats===0||g.timesPlayed<g.maxRepeats);
+}
+
+function countRemaining(){
+ const ec=settings.endConditions;const types=[];
+ if(ec.main)types.push('main');if(ec.between)types.push('between');if(ec.penalty)types.push('penalty');
+ const relevant=allGames.filter(g=>types.includes(g.type));
+ const targetList=relevant.length>0?relevant:allGames;
+ let count=0,inf=false;
+ targetList.forEach(g=>{
+  if(g.maxRepeats===0)inf=true;
+  else count+=Math.max(0,g.maxRepeats-g.timesPlayed);
+ });
+ return inf?'∞':count;
+}
+
+function updateRemaining(){
+ if (!isHost) return;
+ const el=document.getElementById('remaining-count');
+ if(el)el.textContent=countRemaining();
+ updateEndButton();
+}
+
+function updateEndButton(){
+ if (!isHost) return;
+ const w=document.getElementById('end-game-wrap');
+ if(w) w.style.display=(history.length>0)?'block':'none';
+}
+
+// Shuffle animation
+function showShuffleAnimation(cb){
+ const ov=document.getElementById('shuffle-overlay');
+ if(!ov){if(cb)cb();return;}
+ ov.classList.remove('hidden');
+ const cards=ov.querySelectorAll('.shuffle-card');
+ let t=0;
+ const iv=setInterval(()=>{
+  playSound('tick');
+  cards.forEach(c=>{
+   c.style.transition='.15s ease';
+   c.style.transform=`translate(${(Math.random()-.5)*30}px,${(Math.random()-.5)*20}px) rotate(${(Math.random()-.5)*25}deg)`;
+  });
+  if(++t>10){
+   clearInterval(iv);
+   cards.forEach((c,i)=>{
+    c.style.transition='.28s ease';
+    c.style.transform=`rotate(${(i-1)*3}deg) translate(${(i-1)*4}px,0)`;
+   });
+   setTimeout(()=>{
+    ov.classList.add('hidden');
+    if(cb)cb();
+   },350);
+  }
+ },110);
+}
+
 function startGame(){
  if (!isHost) return;
  collectGames();collectSettings();
- if(players.length<2)return alert('Mindestens 2 Spieler benötigt.');
- if(allGames.length<1)return alert('Mindestens 1 Spiel benötigt.');
+ if(players.length<2)return alert('Bitte mindestens 2 Spieler hinzufügen (aktuell: '+players.length+').');
+ if(allGames.length<1)return alert('Bitte mindestens 1 Spiel eintragen.');
+ if(!validateEndConditions())return;
  
  // Autosave new games to private library (fire & forget, non-blocking)
  autosaveGamesOnStart();
@@ -2540,10 +3393,17 @@ function startGame(){
  savedGames=JSON.parse(JSON.stringify(allGames));
  savedPlayers=[...players];
  scores={};players.forEach(p=>scores[p]=0);
- mainGameCounter=0;history=[];
+ mainGameCounter=0;history=[];currentGame=null;
  buildDrawPool();
  
- if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('play');
+ document.getElementById('current-game').classList.add('hidden');
+ document.getElementById('draw-prompt').classList.remove('hidden');
+ document.getElementById('draw-btn').textContent='Spiel ziehen';
+
+ if (!isLocalMode && sessionCode) {
+  db.ref(`sessions/${sessionCode}/meta/phase`).set('play');
+  db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(false);
+ }
  
  showShuffleAnimation(()=>{
   showPhase('phase-play');
@@ -2556,7 +3416,9 @@ function startGame(){
 
 function drawGame(){
  if (!isHost) return;
- buildDrawPool();if(!remainingGames.length)return;
+ if (!hasDrawableGames()) { showWinnerScreen(); return; }
+ buildDrawPool();
+ if (!remainingGames.length) { showWinnerScreen(); return; }
  if(settings.dancebreak&&!dancebreakActive&&Math.random()<settings.dancebreakChance){
   showDancebreak(()=>actuallyDrawGame());
   return;
@@ -2566,14 +3428,39 @@ function drawGame(){
 
 function actuallyDrawGame(){
  let pool=remainingGames;
- // Simplified Random for snippet - full weighted random logic applies here as before
- currentGame=pool[Math.floor(Math.random()*pool.length)];
+ if(!settings.probRandom&&settings.probUserSet){
+  const pw=settings.probWeights;
+  const fixedTypes=[],freeTypes=[];let fixedSum=0;
+  ['main','between','penalty'].forEach(t=>{if(settings.probUserSet[t]&&pw[t]!=null){fixedTypes.push(t);fixedSum+=pw[t]}else{freeTypes.push(t)}});
+  const countByType={main:0,between:0,penalty:0};pool.forEach(g=>countByType[g.type]++);
+  const activeFixed=fixedTypes.filter(t=>countByType[t]>0);
+  const activeFree=freeTypes.filter(t=>countByType[t]>0);
+  if(activeFixed.length>0||activeFree.length>0){
+   let afs=0;activeFixed.forEach(t=>afs+=pw[t]);
+   const freePool=activeFree.reduce((n,t)=>n+countByType[t],0);
+   const freeShare=Math.max(0,100-afs);
+   const weights=pool.map(g=>{
+    if(activeFixed.includes(g.type))return pw[g.type]/countByType[g.type];
+    if(activeFree.includes(g.type))return freePool>0?freeShare/freePool:1;
+    return 1;
+   });
+   const totalW=weights.reduce((a,b)=>a+b,0);
+   let roll=Math.random()*totalW,picked=0;
+   for(let i=0;i<weights.length;i++){roll-=weights[i];if(roll<=0){picked=i;break}}
+   currentGame=pool[picked];
+  } else {
+   currentGame=pool[Math.floor(Math.random()*pool.length)];
+  }
+ } else {
+  currentGame=pool[Math.floor(Math.random()*pool.length)];
+ }
  
  let drawPoints=currentGame.points;
  if(currentGame.type==='main'){mainGameCounter++;drawPoints=settings.mainPtsStart+settings.mainPtsStep*(mainGameCounter-1)}
  currentGame._drawPoints=drawPoints;
  
- syncGameState(); // Sync that we drew a game
+ playSound('draw');
+ syncGameState();
 
  const card=document.getElementById('draw-card');
  document.getElementById('draw-prompt').classList.add('hidden');
@@ -2601,29 +3488,59 @@ function actuallyDrawGame(){
 
 function renderResultRows(){
  document.getElementById('results-rows').innerHTML=players.map((p,i)=>
-  `<div class="result-row"><label>${esc(p)}</label><select id="result-sel-${i}"><option value="0">Nicht gewonnen</option><option value="1"> Gewonnen</option></select></div>`
+  `<button type="button" class="winner-chip" id="result-chip-${i}" data-winner-idx="${i}"><span>${esc(p)}</span><span class="wc-status">Nicht gew.</span></button>`
  ).join('');
 }
 
+function toggleWinnerChip(idx){
+ const chip=document.getElementById('result-chip-'+idx);
+ if(!chip)return;
+ const isSel=chip.classList.toggle('selected');
+ const st=chip.querySelector('.wc-status');
+ if(st)st.textContent=isSel?'★ Gewonnen':'Nicht gew.';
+ playSound('tap');
+}
+
+function setAllWinners(sel){
+ players.forEach((_,i)=>{
+  const chip=document.getElementById('result-chip-'+i);
+  if(!chip)return;
+  chip.classList.toggle('selected',sel);
+  const st=chip.querySelector('.wc-status');
+  if(st)st.textContent=sel?'★ Gewonnen':'Nicht gew.';
+ });
+ playSound('tap');
+}
+
 function submitResults(){
- if (!isHost) return;
+ if (!isHost || !currentGame) return;
  const winners=[];
  const pts=currentGame._drawPoints||currentGame.points;
- players.forEach((p,i)=>{const sel=document.getElementById('result-sel-'+i);if(sel&&sel.value==='1'){winners.push(p);scores[p]+=pts}});
+ players.forEach((p,i)=>{
+  const chip=document.getElementById('result-chip-'+i);
+  if(chip&&chip.classList.contains('selected')){winners.push(p);scores[p]+=pts;}
+ });
  
  currentGame.timesPlayed++;
  history.push({game:{...currentGame},winners:[...winners],pointsAwarded:pts});
  
  // Clear current game
  currentGame = null;
- syncGameState();
+ playSound('score');
 
  renderScoreboard();renderHistory();
  document.getElementById('current-game').classList.add('hidden');
- document.getElementById('draw-prompt').classList.remove('hidden');
- document.getElementById('draw-btn').textContent=' Nächstes Spiel ziehen';
- 
- updateRemaining();
+
+ if (isGameOver() || !hasDrawableGames()) {
+  updateRemaining();
+  syncGameState();
+  showWinnerScreen();
+ } else {
+  document.getElementById('draw-prompt').classList.remove('hidden');
+  document.getElementById('draw-btn').textContent='Nächstes Spiel ziehen';
+  updateRemaining();
+  syncGameState();
+ }
 }
 
 // Undo
@@ -2632,20 +3549,20 @@ function undoResult(idx){
  const e=history[idx];if(!e)return;
  e.winners.forEach(w=>{scores[w]-=e.pointsAwarded});
  if(e.game.type==='main')mainGameCounter--;
- const orig=allGames.find(g=>g.uid===e.game.uid);if(orig)orig.timesPlayed--;
+ const orig=allGames.find(g=>g.uid===e.game.uid);if(orig)orig.timesPlayed=Math.max(0,orig.timesPlayed-1);
  history.splice(idx,1);
  
  currentGame = null;
- syncGameState();
-
  renderScoreboard();renderHistory();updateRemaining();
  document.getElementById('current-game').classList.add('hidden');
  document.getElementById('draw-prompt').classList.remove('hidden');
+ document.getElementById('draw-btn').textContent=history.length>0?'Nächstes Spiel ziehen':'Spiel ziehen';
+ syncGameState();
 }
 
 function renderScoreboard(){
  const s=[...players].sort((a,b)=>scores[b]-scores[a]);
- document.getElementById('scoreboard').innerHTML=`<div class="scoreboard-title">Punktestand</div>${s.map((p,i)=>`<div class="score-row"><span class="score-rank">${i+1}.</span><span class="score-name">${esc(p)}</span><span class="score-pts">${scores[p]}</span></div>`).join('')}`;
+ document.getElementById('scoreboard').innerHTML=`<div class="scoreboard-title"><span>Punktestand</span><span>Runde ${history.length}</span></div>${s.map((p,i)=>`<div class="score-row"><span class="score-rank">${i+1}.</span><span class="score-name">${esc(p)}</span><span class="score-pts">${scores[p]}</span></div>`).join('')}`;
 }
 
 function renderHistory(){
@@ -2653,54 +3570,152 @@ function renderHistory(){
  if(!history.length){l.innerHTML='<p class="text-muted text-sm" style="padding:8px 0;">Noch keine Spiele gespielt.</p>';return}
  const bt=t=>t==='main'?'main':t==='between'?'between':'penalty';
  const bl=t=>t==='main'?'H':t==='between'?'Z':'S';
- l.innerHTML=history.map((h,i)=>`<div class="history-item"><span class="history-num">${i+1}</span><span class="badge badge-${bt(h.game.type)}" style="font-size:.6rem;">${bl(h.game.type)}</span><span class="history-name">${esc(h.game.name)}</span><span class="history-winner">${h.winners.length?h.winners.map(esc).join(', '):'—'}</span>${isHost?`<button class="history-undo" type="button" data-undo="${i}">↩</button>`:''}</div>`).join('');
-}
-
-function updateRemaining(){
- if (!isHost) return;
- let count=0;
- allGames.forEach(g=>{if(g.maxRepeats!==0) count+=Math.max(0,g.maxRepeats-g.timesPlayed)});
- const el=document.getElementById('remaining-count');
- if(el)el.textContent=count;
- 
- const w=document.getElementById('end-game-wrap');
- w.style.display=(count===0 && history.length>0)?'block':'none';
+ l.innerHTML=history.map((h,i)=>`<div class="history-item"><span class="history-num">${i+1}</span><span class="badge badge-${bt(h.game.type)}" style="font-size:.6rem;">${bl(h.game.type)}</span><span class="history-name">${esc(h.game.name)}</span><span class="history-winner">${h.winners.length?h.winners.map(esc).join(', '):'—'}</span>${isHost?`<button class="history-undo" type="button" data-undo="${i}" title="Runde rückgängig machen">↩ Undo</button>`:''}</div>`).join('');
 }
 
 function showWinnerScreen(){
  if (!isHost) return;
- if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('winner');
- if (!isLocalMode) db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(true);
+ clearActiveGameFromLocal();
+ if (!isLocalMode && sessionCode) {
+  db.ref(`sessions/${sessionCode}/meta/phase`).set('winner');
+  db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(true);
+ }
  showPhase('phase-winner');
  renderWinnerScreenGuest();
 }
 
 function renderWinnerScreenGuest() {
- const s=[...players].sort((a,b)=>scores[b]-scores[a]);const w=s[0];
- document.getElementById('winner-content').innerHTML=`<div class="winner-screen"><div class="crown"></div><h2>${esc(w)}</h2><p class="subtitle">gewinnt den Spieletag mit ${scores[w]} Punkten!</p><div class="final-scores">${s.map((p,i)=>`<div class="final-row ${i===0?'first':''}"><span class="rank">${i===0?'':i+1+'.'}</span><span class="name">${esc(p)}</span><span class="pts">${scores[p]} Pkt</span></div>`).join('')}</div></div>`;
+ const s=[...players].sort((a,b)=>scores[b]-scores[a]);
+ if (!s.length) return;
+ const topScore = scores[s[0]];
+ const winners = s.filter(p => scores[p] === topScore);
+ const headline = winners.length > 1 ? winners.map(esc).join(' & ') : esc(winners[0]);
+ const subtext = winners.length > 1
+  ? `teilen sich den Sieg mit je ${topScore} ${topScore===1?'Punkt':'Punkten'}!`
+  : `gewinnt den Spieletag mit ${topScore} ${topScore===1?'Punkt':'Punkten'}!`;
+
+ const trophySvg = `<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`;
+
+ document.getElementById('winner-content').innerHTML=`<div class="winner-screen"><div class="crown">${trophySvg}</div><h2>${headline}</h2><p class="subtitle">${subtext}</p><div class="final-scores">${s.map((p,i)=>{
+  const isFirst = scores[p] === topScore;
+  return `<div class="final-row ${isFirst?'first':''}"><span class="rank">${i+1}.</span><span class="name">${esc(p)}</span><span class="pts">${scores[p]} Pkt</span></div>`;
+ }).join('')}</div></div>`;
  if (isHost) document.getElementById('host-win-actions').classList.remove('hidden');
+ playSound('win');
+ launchConfetti();
+}
+
+// Restart & Reset functions
+function restartSameGames(){
+ if (!isHost) return;
+ if (!savedGames.length) return restartToSetup();
+ players=[...savedPlayers];
+ allGames=JSON.parse(JSON.stringify(savedGames));
+ allGames.forEach(g=>g.timesPlayed=0);
+ scores={};players.forEach(p=>scores[p]=0);
+ mainGameCounter=0;history=[];currentGame=null;
+ buildDrawPool();
+
+ if (!isLocalMode && sessionCode) {
+  db.ref(`sessions/${sessionCode}/meta/phase`).set('play');
+  db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(false);
+ }
+
+ showShuffleAnimation(()=>{
+  showPhase('phase-play');
+  renderScoreboard();
+  renderHistory();
+  updateRemaining();
+  document.getElementById('current-game').classList.add('hidden');
+  document.getElementById('draw-prompt').classList.remove('hidden');
+  document.getElementById('draw-btn').textContent='Spiel ziehen';
+  syncGameState();
+ });
+}
+
+function restartToSetup(){
+ if (!isHost) return;
+ clearActiveGameFromLocal();
+ const games=savedGames.length?JSON.parse(JSON.stringify(savedGames)):[];
+ const pls=savedPlayers.length?[...savedPlayers]:[...players];
+ scores={};mainGameCounter=0;history=[];currentGame=null;remainingGames=[];players=pls;
+
+ if (!isLocalMode && sessionCode) {
+  db.ref(`sessions/${sessionCode}/meta/phase`).set('setup');
+  db.ref(`sessions/${sessionCode}/gameState/isWinnerPhase`).set(false);
+ }
+
+ renderPlayers();
+ document.getElementById('dancebreak-toggle').checked=settings.dancebreak;
+ document.getElementById('dancebreak-options').style.display=settings.dancebreak?'flex':'none';
+ document.getElementById('dancebreak-duration').value=settings.dancebreakDuration;
+ document.getElementById('dancebreak-chance').value=settings.dancebreakChance;
+ document.getElementById('main-pts-start').value=settings.mainPtsStart;
+ document.getElementById('main-pts-step').value=settings.mainPtsStep;
+ document.getElementById('end-main').checked=settings.endConditions.main;
+ document.getElementById('end-between').checked=settings.endConditions.between;
+ document.getElementById('end-penalty').checked=settings.endConditions.penalty;
+ document.getElementById('prob-random').checked=settings.probRandom;
+ document.getElementById('prob-custom').classList.toggle('hidden',settings.probRandom);
+ if(!settings.probRandom&&settings.probWeights){
+  ['main','between','penalty'].forEach(t=>{const inp=document.getElementById('prob-'+t);if(inp)inp.value=settings.probUserSet[t]?Math.round(settings.probWeights[t]):''});
+  updateProbPreview();
+ }
+ updatePointsPreview();
+ ['main','between','penalty'].forEach(t=>{document.getElementById(t+'-games-list').innerHTML=''});
+ gameFieldCounters={main:0,between:0,penalty:0};
+ if(games.length){
+  games.forEach(g=>addGameField(g.type,g,true));
+  initSetupFieldsIfNeeded();
+ } else {
+  initSetupFieldsIfNeeded();
+ }
+ showPhase('phase-setup');
+}
+
+function confirmRestart(mode){
+ const msgs={
+  same:'Neustart mit den gleichen Spielen? Der aktuelle Punktestand wird zurückgesetzt.',
+  edit:'Zurück zum Setup? Der aktuelle Spielstand wird zurückgesetzt.',
+  full:'Zurück zum Hauptmenü? Der aktuelle Spielstand wird beendet.'
+ };
+ if(!confirm(msgs[mode]))return;
+ if(mode==='same')restartSameGames();
+ else if(mode==='edit')restartToSetup();
+ else { clearActiveGameFromLocal(); returnToMainMenu(); }
 }
 
 // Dancebreak
 function showDancebreak(cb){
+ if (dancebreakTimer) clearInterval(dancebreakTimer);
+ const existing = document.getElementById('dancebreak-overlay');
+ if (existing) existing.remove();
+
  dancebreakActive=true;
+ playSound('dance');
  if(isHost) syncGameState();
  
- window._dbCb=cb;let rem=isHost ? settings.dancebreakDuration : 60; // fallback duration for guest
+ window._dbCb=cb;
+ let rem=isHost ? settings.dancebreakDuration : 60;
  const total=rem;
  const ov=document.createElement('div');ov.className='dancebreak-overlay';ov.id='dancebreak-overlay';
- ov.innerHTML=`<div class="dance-emoji">💃🕺</div><h2>Dancebreak!</h2><p class="dance-sub">Alle tanzen — keine Ausnahmen!</p><div class="dance-timer" id="dance-countdown">${rem}</div><div class="dance-bar"><div class="dance-bar-fill" id="dance-bar-fill" style="width:100%"></div></div>${isHost?`<button class="dance-skip" type="button" id="dance-skip-btn">Überspringen</button>`:''}`;
+ const musicIcon = `<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+ ov.innerHTML=`<div class="dance-emoji">${musicIcon}</div><h2>Dancebreak!</h2><p class="dance-sub">Alle tanzen — keine Ausnahmen!</p><div class="dance-timer" id="dance-countdown">${rem}</div><div class="dance-bar"><div class="dance-bar-fill" id="dance-bar-fill" style="width:100%"></div></div>${isHost?`<button class="dance-skip" type="button" id="dance-skip-btn">Überspringen</button>`:''}`;
  document.body.appendChild(ov);
  
  dancebreakTimer=setInterval(()=>{
   rem--;
-  document.getElementById('dance-countdown').textContent=rem;
-  document.getElementById('dance-bar-fill').style.width=((rem/total)*100)+'%';
+  const cdEl = document.getElementById('dance-countdown');
+  const barEl = document.getElementById('dance-bar-fill');
+  if (cdEl) cdEl.textContent=Math.max(0, rem);
+  if (barEl) barEl.style.width=(Math.max(0, rem/total)*100)+'%';
+  if (rem > 0 && rem <= 3) playSound('beep');
   if(rem<=0 && isHost) endDancebreak(cb);
  },1000);
 }
+
 function endDancebreak(cb){
- clearInterval(dancebreakTimer);dancebreakActive=false;
+ clearInterval(dancebreakTimer);dancebreakTimer=null;dancebreakActive=false;
  if(isHost) syncGameState();
  const ov=document.getElementById('dancebreak-overlay');
  if(ov){ov.style.transition='opacity .4s';ov.style.opacity='0';setTimeout(()=>ov.remove(),400)}
@@ -2709,11 +3724,14 @@ function endDancebreak(cb){
 
 // UI Event Binding
 document.addEventListener('click',function(e){
- const t=e.target.closest('[data-remove-player],[data-remove-field],[data-undo],[data-prop-accept],[data-prop-reject],[data-auth-tab],[data-landing-tab],[data-lib-type],[data-lib-scope],[data-lib-star],[data-lib-publish],[data-lib-edit],[data-lib-delete],[data-lib-add],[data-lib-cancel],[data-lib-save]') || e.target;
+ const t=e.target.closest('[data-remove-player],[data-remove-field],[data-undo],[data-prop-accept],[data-prop-reject],[data-auth-tab],[data-landing-tab],[data-lib-type],[data-lib-scope],[data-lib-star],[data-lib-publish],[data-lib-edit],[data-lib-delete],[data-lib-add],[data-lib-cancel],[data-lib-save],[data-winner-idx],[data-preset-del],[data-preset-load]') || e.target;
 
  if(t.dataset.removePlayer){removePlayer(t.dataset.removePlayer);return}
  if(t.dataset.removeField){removeField(t.dataset.removeField);return}
  if(t.dataset.undo!==undefined){undoResult(parseInt(t.dataset.undo));return}
+ if(t.dataset.winnerIdx!==undefined){toggleWinnerChip(parseInt(t.dataset.winnerIdx));return}
+ if(t.dataset.presetDel){e.stopPropagation();deletePreset(t.dataset.presetDel);return}
+ if(t.dataset.presetLoad){applyPreset(t.dataset.presetLoad);return}
  if(t.dataset.propAccept){handleProposalAction(t.dataset.propAccept, 'accept');return}
  if(t.dataset.propReject){handleProposalAction(t.dataset.propReject, 'reject');return}
 
@@ -2771,23 +3789,41 @@ document.addEventListener('click',function(e){
  }
 
  // Library add to current game
- if(t.dataset.libAdd){addGameFromLibrary(t.dataset.libAdd);return}
+ if(t.dataset.libAdd){addGameFromLibrary(t.dataset.libAdd, t);return}
 
  if(t.id==='dance-skip-btn'){endDancebreak(window._dbCb);return}
- if(t.id==='win-new-btn'){location.reload();return}
 });
 
 // Setup Initial Buttons
+document.getElementById('sound-btn').addEventListener('click',toggleSound);
 document.getElementById('darkmode-btn').addEventListener('click',toggleDarkMode);
 document.getElementById('auth-btn').addEventListener('click',openAuthModal);
+document.getElementById('nav-back-btn').addEventListener('click',returnToMainMenu);
+document.getElementById('session-banner').addEventListener('click',copySessionCode);
+document.getElementById('lobby-code-display').addEventListener('click',copySessionCode);
+document.getElementById('btn-share-session').addEventListener('click',shareSessionLink);
+document.getElementById('btn-toggle-qr').addEventListener('click',toggleLobbyQr);
+document.getElementById('btn-resume-game').addEventListener('click',resumeSavedGame);
+document.getElementById('btn-discard-game').addEventListener('click',discardSavedGame);
+document.getElementById('btn-save-preset').addEventListener('click',saveCurrentAsPreset);
+document.getElementById('btn-winners-all').addEventListener('click',()=>setAllWinners(true));
+document.getElementById('btn-winners-none').addEventListener('click',()=>setAllWinners(false));
+
 document.getElementById('btn-create-session').addEventListener('click',createSession);
-document.getElementById('btn-join-session-card').addEventListener('click',()=>document.getElementById('join-session-container').classList.toggle('hidden'));
+document.getElementById('btn-join-session-card').addEventListener('click',()=>{
+ const c = document.getElementById('join-session-container');
+ c.classList.toggle('hidden');
+ if (!c.classList.contains('hidden')) document.getElementById('landing-code').focus();
+});
 document.getElementById('btn-join-session').addEventListener('click',joinSession);
+document.getElementById('landing-code').addEventListener('keydown',e=>{if(e.key==='Enter')joinSession();});
 document.getElementById('btn-local-mode').addEventListener('click',startLocalMode);
+document.getElementById('btn-guest-local').addEventListener('click',startLocalMode);
 
 // Landing page auth
 document.getElementById('btn-landing-login').addEventListener('click',landingLogin);
 document.getElementById('btn-landing-register').addEventListener('click',landingRegister);
+document.getElementById('landing-login-username').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('landing-login-password').focus();});
 document.getElementById('landing-login-password').addEventListener('keydown',e=>{if(e.key==='Enter')landingLogin();});
 document.getElementById('landing-reg-password2').addEventListener('keydown',e=>{if(e.key==='Enter')landingRegister();});
 document.getElementById('btn-open-library-landing').addEventListener('click',()=>openLibraryModal('all'));
@@ -2800,11 +3836,13 @@ document.getElementById('btn-register').addEventListener('click',registerUser);
 document.getElementById('auth-logout-btn').addEventListener('click',logoutUser);
 
 // Login/Register form keyboard support
+document.getElementById('login-username').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('login-password').focus();});
 document.getElementById('login-password').addEventListener('keydown',e=>{if(e.key==='Enter')loginUser();});
 document.getElementById('reg-password2').addEventListener('keydown',e=>{if(e.key==='Enter')registerUser();});
 
 // Library modal controls
 document.getElementById('library-modal-close').addEventListener('click',closeLibraryModal);
+document.getElementById('lib-modal-done-btn').addEventListener('click',closeLibraryModal);
 document.getElementById('library-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLibraryModal();});
 document.getElementById('lib-goto-login').addEventListener('click',()=>{closeLibraryModal();openAuthModal();});
 document.getElementById('lib-main-btn').addEventListener('click',()=>openLibraryModal('main'));
@@ -2830,21 +3868,48 @@ document.getElementById('lib-fav-only').addEventListener('change',e=>{
 });
 
 document.getElementById('btn-go-setup').addEventListener('click', () => {
- if (!isLocalMode) db.ref(`sessions/${sessionCode}/meta/phase`).set('setup');
+ if (!isLocalMode && sessionCode) db.ref(`sessions/${sessionCode}/meta/phase`).set('setup');
+ initSetupFieldsIfNeeded();
  showPhase('phase-setup');
 });
 
+// Setup Players & Options Listeners
 document.getElementById('add-player-btn').addEventListener('click',addPlayer);
+document.getElementById('player-name-input').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();addPlayer();}});
 document.getElementById('add-main-btn').addEventListener('click',()=>addGameField('main'));
 document.getElementById('add-between-btn').addEventListener('click',()=>addGameField('between'));
 document.getElementById('add-penalty-btn').addEventListener('click',()=>addGameField('penalty'));
 
-document.getElementById('btn-submit-proposal').addEventListener('click', submitProposal);
+document.getElementById('main-pts-start').addEventListener('input',updatePointsPreview);
+document.getElementById('main-pts-step').addEventListener('input',updatePointsPreview);
+document.getElementById('dancebreak-toggle').addEventListener('change',function(){
+ document.getElementById('dancebreak-options').style.display=this.checked?'flex':'none';
+});
+document.getElementById('prob-random').addEventListener('change',function(){
+ document.getElementById('prob-custom').classList.toggle('hidden',this.checked);
+ if(!this.checked)updateProbPreview();
+});
+['prob-main','prob-between','prob-penalty'].forEach(id=>{
+ document.getElementById(id).addEventListener('input',updateProbPreview);
+});
 
+// Guest proposals
+document.getElementById('btn-submit-proposal').addEventListener('click', submitProposal);
+document.getElementById('guest-prop-name').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submitProposal();}});
+
+// Play & Winner buttons
 document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('draw-btn').addEventListener('click',drawGame);
 document.getElementById('submit-btn').addEventListener('click',submitResults);
 document.getElementById('end-game-btn').addEventListener('click',showWinnerScreen);
+
+document.getElementById('restart-same-btn').addEventListener('click',()=>confirmRestart('same'));
+document.getElementById('restart-edit-btn').addEventListener('click',()=>confirmRestart('edit'));
+document.getElementById('restart-full-btn').addEventListener('click',()=>confirmRestart('full'));
+
+document.getElementById('win-restart-btn').addEventListener('click',restartSameGames);
+document.getElementById('win-edit-btn').addEventListener('click',restartToSetup);
+document.getElementById('win-new-btn').addEventListener('click',returnToMainMenu);
 
 // Library Add New Game Form Logic
 document.getElementById('btn-lib-new-game').addEventListener('click', () => {
@@ -2861,7 +3926,7 @@ document.getElementById('btn-lib-create-cancel').addEventListener('click', () =>
  document.getElementById('lib-create-desc').value = '';
  document.getElementById('lib-create-type').value = 'main';
  document.getElementById('lib-create-points').style.display = 'none';
- document.getElementById('lib-create-points').value = '';
+ document.getElementById('lib-create-points').value = '2';
  document.getElementById('lib-create-repeats').value = '1';
 });
 
@@ -2875,19 +3940,22 @@ document.getElementById('btn-lib-create-save').addEventListener('click', async (
  
  const type = document.getElementById('lib-create-type').value;
  const desc = document.getElementById('lib-create-desc').value.trim();
- const points = type === 'main' ? 0 : parseInt(document.getElementById('lib-create-points').value || '1', 10);
+ const points = type === 'main' ? 0 : parseInt(document.getElementById('lib-create-points').value || '2', 10);
  const repeats = parseInt(document.getElementById('lib-create-repeats').value, 10);
  const scope = document.querySelector('input[name="lib-create-scope"]:checked').value;
  
  const btn = document.getElementById('btn-lib-create-save');
  btn.disabled = true;
- btn.textContent = 'Speichert...';
+ btn.textContent = 'Speichert …';
  
  try {
   await createNewLibraryGame({ name, type, desc, points, maxRepeats: repeats }, scope);
-  // Reset and hide
+  // Switch view scope to match the created game so the user sees it immediately
+  libFilterScope = scope;
+  document.querySelectorAll('[data-lib-scope]').forEach(el=>el.classList.toggle('active',el.dataset.libScope===libFilterScope));
   document.getElementById('btn-lib-create-cancel').click();
   renderLibraryModal();
+  showToast(`"${name}" in Bibliothek gespeichert`);
  } catch(e) {
   console.error("Error creating library game", e);
   alert("Fehler beim Speichern. Bitte überprüfe deine Verbindung.");
@@ -2899,6 +3967,9 @@ document.getElementById('btn-lib-create-save').addEventListener('click', async (
 
 // Start
 initDarkMode();
+initSound();
+loadPresets();
+updatePointsPreview();
 // Default Phase
 showPhase('phase-session');
 // Show correct sub-screen based on current auth state (handles page refresh when already logged in)
@@ -2907,7 +3978,16 @@ showLandingForUser(auth ? auth.currentUser : null);
 // Check URL Params for quick join
 const urlParams = new URLSearchParams(window.location.search);
 if(urlParams.has('code')){
- document.getElementById('landing-code').value = urlParams.get('code');
+ const c = urlParams.get('code').toUpperCase();
+ document.getElementById('landing-code').value = c;
+ document.getElementById('join-session-container').classList.remove('hidden');
+}
+
+// Register PWA Service Worker
+if ('serviceWorker' in navigator) {
+ window.addEventListener('load', () => {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+ });
 }
 
 // ── DEV HELPER (call from console: seedTestGames()) ──────────────────────

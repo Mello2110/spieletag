@@ -23,7 +23,7 @@ Das Spieletag System ist eine kostenlose Web-App, die euren Spieleabend organisi
   - [UI-Komponenten & Design-System](#ui-komponenten--design-system)
   - [Event-System](#event-system)
 - [🌐 Selbst hosten (GitHub Pages)](#-selbst-hosten-github-pages)
-- [🔮 Roadmap & Ideen](#-roadmap--ideen)
+- [🌐 Multiplayer & Firebase Setup](#-multiplayer--firebase-setup)
 
 ---
 
@@ -84,18 +84,23 @@ Die App funktioniert wie eine richtige App auf dem Homescreen – ohne App Store
 | Feature | Beschreibung |
 |---------|-------------|
 | ☁️ Cloud-Multiplayer | Jeder Spieler kann auf seinem Gerät die Ziehung und Punkte live verfolgen |
+| 📲 QR-Code & Einladungslink | Gäste per QR-Code oder 1-Klick-Einladungslink (`?join=CODE`) direkt in die Lobby holen |
 | 📚 Spiele-Bibliothek | Persönliche ("Meine Spiele") & Globale ("Community") Spiele speichern und teilen |
 | ⭐ Favoriten-System | Die besten Community-Spiele als Favoriten markieren |
-| 🔒 Accounts | Einfaches Login-/Registriersystem um deine Bibliothek überall zu synchronisieren |
+| 💾 Spieletag-Vorlagen (Presets) | Komplette Setups (Spieler, Spiele & Regeln) als Vorlage speichern & per 1-Klick laden (Lokal & Cloud) |
+| 🔒 Accounts | Einfaches Login-/Registriersystem um Bibliothek & Vorlagen überall zu synchronisieren |
 | 🎮 Drei Spielkategorien | Hauptspiele, Zwischenspiele, Strafspiele mit je eigenen Punktregeln |
-| 🎲 Zufallsziehung | Zufälliges Ziehen mit einstellbaren Wahrscheinlichkeiten pro Kategorie |
+| 🎲 Zufallsziehung | Zufälliges Ziehen mit einstellbaren Wahrscheinlichkeiten pro Kategorie (hybrides Urnen-Prinzip) |
+| ⚡ 1-Tap Ergebnis-Chips | Gewinner nach einer Runde blitzschnell per Touch-Chip auswählen (inkl. „Alle" / „Keiner") |
+| 🛡️ Lokaler Reload-Schutz | Automatische Zwischenspeicherung laufender Solospiele – nahtloses Fortsetzen nach versehentlichem Reload |
 | 📊 Live-Scoreboard | Punkte aller Spieler immer im Blick, automatisch aktualisiert |
 | 🔁 Wiederholungen | Jedes Spiel kann 1–9× oder unbegrenzt (∞) spielbar sein |
 | ↩️ Undo-Funktion | Letzte Runde rückgängig machen, falls beim Eintragen ein Fehler passiert |
 | 💃 Dancebreak | Zufällige Tanzpause mit Timer, Fortschrittsbalken und Skip-Option |
+| 🔊 Sound-Effekte & Konfetti | Synthetische Web-Audio-Sounds (Ziehen, Punkte, Dancebreak, Fanfare) & Sieger-Konfetti |
 | 🌙 Dark Mode | Automatisch an System-Einstellung angepasst, manuell umschaltbar |
-| 📱 Native PWA | Als App auf iOS & Android installierbar, mit edge-to-edge App-Icon |
-| 🏆 Siegerehrung | Animierte Abschlussansicht mit Ranking aller Spieler |
+| 📱 Offline-fähige PWA | Als App auf iOS & Android installierbar, inkl. Service Worker (`sw.js`) für Offline-Support |
+| 🏆 Siegerehrung | Animierte Abschlussansicht mit Ranking aller Spieler und Konfetti-Regen |
 
 ---
 
@@ -105,26 +110,26 @@ Die App funktioniert wie eine richtige App auf dem Homescreen – ohne App Store
 
 ```
 Spieletag System
-└── index.html          ← Einzige Datei – Self-contained SPA
-    ├── <style>          ← Komplettes CSS-Design-System (~330 Zeilen)
-    ├── <body>           ← Semantisches HTML mit Landing-Auth & 3 Phasen-Views
-    └── <script>         ← Vanilla JS (~420 Zeilen), kein Framework
+├── index.html          ← Hauptanwendung – Self-contained SPA (HTML, CSS & JS)
+├── sw.js               ← Service Worker für Offline-Caching & PWA-Support
+├── manifest.json       ← Web App Manifest für Homescreen-Installation
+└── icon.png            ← Randloses App-Icon
 ```
 
-- **Stack:** Reines HTML5 / CSS3 / Vanilla JavaScript – zero dependencies
-- **Paradigma:** Single-File SPA mit manuellem View-Routing (Lobby, Setup, Play, Winner)
-- **Datenbank & Auth:** Firebase Realtime Database (Multiplayer, Library, Sync) & Firebase Auth
-- **Design:** Modernes "Clean Aesthetic" Design ohne Emojis, minimalistisch, edel.
-- **PWA-Features:** `manifest.json`, Apple Web App Meta-Tags, randloses PWA-Icon.
+- **Stack:** Reines HTML5 / CSS3 / Vanilla JavaScript – keine externen Build-Tools nötig
+- **Paradigma:** Single-File SPA mit manuellem View-Routing (`#phase-session`, `#phase-lobby`, `#phase-setup`, `#phase-play`, `#phase-winner`)
+- **Datenbank & Auth:** Firebase Realtime Database (Multiplayer, Library, Presets, Sync) & Firebase Auth
+- **Design:** Modernes "Clean Aesthetic" Design mit haptischen Touch-Elementen, Web-Audio-Feedback & Canvas-Partikeln.
+- **PWA-Features:** `manifest.json`, Service Worker (`sw.js`), Apple Web App Meta-Tags, randloses PWA-Icon.
 
 ---
 
 ### Phasen-System
 
-Die App verwendet ein 3-Phasen-Modell mit Dot-Navigation:
+Die App verwendet ein mehrstufiges Phasen-Modell mit Fortschritts-Navigation:
 
 ```
-Phase 0 (Setup) → Phase 1 (Play) → Phase 2 (Winner)
+Session-Wahl → (Optional: Multiplayer-Lobby) → Phase 0 (Setup) → Phase 1 (Play) → Phase 2 (Winner)
 ```
 
 ```js
@@ -135,7 +140,7 @@ function setPhase(n) {
 }
 ```
 
-Phasen-IDs im DOM: `#phase-setup`, `#phase-play`, `#phase-winner`
+Phasen-IDs im DOM: `#phase-session`, `#phase-lobby`, `#phase-setup`, `#phase-play`, `#phase-winner`
 
 ---
 
@@ -289,6 +294,9 @@ html.dark { /* Komplettes Dark-Mode Override aller Tokens */ }
 | `.dancebreak-overlay` | Fullscreen Tanzpausen-Overlay |
 | `.prob-bar` | Visuelle Wahrscheinlichkeits-Indikatoren |
 | `.phase-dot` | Fortschritts-Navigation (active/done States) |
+| `.winner-chip` | Touch-optimierte 1-Tap Sieger-Auswahl-Buttons |
+| `.preset-chip` | Schnelllade-Chips für gespeicherte Spieletag-Vorlagen |
+| `.resume-banner` | Wiederherstellungs-Banner für laufende lokale Spiele |
 
 **Animationen:**
 - `slideIn` – neue Input-Felder
@@ -395,6 +403,12 @@ Damit der Multiplayer-Modus funktioniert, musst du **einmalig ein kostenloses Fi
       }
     },
     "library_favorites": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "library_presets": {
       "$uid": {
         ".read": "auth != null && auth.uid == $uid",
         ".write": "auth != null && auth.uid == $uid"
