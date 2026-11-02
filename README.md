@@ -1,445 +1,188 @@
-# 🎲 Spieletag System
+---
+id: "spieletag"
+title: "Spieletag System"
+tagline: "Turnkey game night manager with weighted game drawing, live scoring, and real-time cloud sync."
+category: "webapp"
+status: "production"
+featured: false
+badge: "Open Source"
+problemStatement: "Coordinating game nights and party tournaments is often disrupted by chaotic scorekeeping, decision fatigue, and disjointed rule management. Traditional manual setups lack dynamic replay balancing, turn-by-turn fairness, and instant state sharing across participants' individual devices. Hosts frequently spend more time managing session logistics than actually playing."
+technicalSolution: "The application implements a lightweight, dependency-free Progressive Web App driven by a phase-based state machine and a hybrid urn-randomization algorithm with real-time probability redistribution. It combines local state persistence, procedural Web Audio generation, and Canvas animations with Firebase Realtime Database for live guest synchronization and community presets. A custom Service Worker caching strategy ensures full offline operability for local play."
+techStack:
+  - "JavaScript (ES6+)"
+  - "HTML5 & CSS3"
+  - "Firebase Realtime Database"
+  - "Firebase Authentication"
+  - "Service Worker API (PWA)"
+  - "Web Audio API"
+  - "HTML5 Canvas API"
+architectureHighlights:
+  - "Zero-dependency single-page architecture with state-driven view transitions"
+  - "Hybrid urn-based weighted random algorithm with real-time probability recalculation"
+  - "Real-time multi-device synchronization via Firebase Realtime Database and Auth"
+  - "Offline-first PWA caching with background state persistence and reload recovery"
+links:
+  chromeWebStore: ""
+  demoUrl: "https://mello2110.github.io/spieletag/"
+  githubUrl: "https://github.com/Mello2110/spieletag"
+sandbox:
+  enabled: true
+  type: "remote"
+  embedUrl: "https://mello2110.github.io/spieletag/"
+  notes: ""
+stats:
+  version: "v1.0.0"
+---
 
-> **Für alle, die Spieleabende lieben – egal ob digital oder analog.**
+# Spieletag System
 
-Das Spieletag System ist eine kostenlose Web-App, die euren Spieleabend organisiert: Spiele mischen, Runden ziehen, Punkte tracken – alles in einem, direkt im Browser, keine Installation nötig.
+[![Status](https://img.shields.io/badge/Status-Active-emerald?style=flat-square)](#)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](#)
+[![PWA](https://img.shields.io/badge/PWA-Ready-orange?style=flat-square)](#)
+[![Firebase](https://img.shields.io/badge/Backend-Firebase%20RTDB-amber?style=flat-square)](#)
 
-👉 **[Hier klicken, um die App direkt zu starten](https://mello2110.github.io/spieletag/)**
+> Turnkey game night manager with weighted game drawing, live scoring, and real-time cloud sync.
+
+<!-- QUICK ACCESS / CALL TO ACTION -->
+<p align="left">
+  <a href="https://mello2110.github.io/spieletag/"><b>🚀 Live Demo / Web App</b></a> &nbsp;|&nbsp;
+  <a href="https://github.com/Mello2110/spieletag"><b>💻 GitHub Repository</b></a> &nbsp;|&nbsp;
+  <a href="https://github.com/Mello2110"><b>🌐 Mellow Solutions Hub</b></a>
+</p>
 
 ---
 
-## 📖 Inhaltsverzeichnis
+## 📌 Problem & Motivation
 
-- [🚀 Für Spieler – Schnellstart](#-für-spieler--schnellstart)
-- [📱 App auf dem Tablet/Handy speichern](#-app-auf-dem-tablethandy-speichern)
-- [⚙️ Was kann die App?](#️-was-kann-die-app)
-- [🔧 Für Entwickler – Technische Übersicht](#-für-entwickler--technische-übersicht)
-  - [Architektur & Stack](#architektur--stack)
-  - [Phasen-System](#phasen-system)
-  - [State Management](#state-management)
-  - [Zieh-Algorithmus & Wahrscheinlichkeiten](#zieh-algorithmus--wahrscheinlichkeiten)
-  - [Punkte-System](#punkte-system)
-  - [Dancebreak-Engine](#dancebreak-engine)
-  - [UI-Komponenten & Design-System](#ui-komponenten--design-system)
-  - [Event-System](#event-system)
-- [🌐 Selbst hosten (GitHub Pages)](#-selbst-hosten-github-pages)
-- [🌐 Multiplayer & Firebase Setup](#-multiplayer--firebase-setup)
+Organizing structured board and party game events involves significant friction:
+- **Decision Fatigue & Pacing:** Deciding what game to play next usually leads to prolonged debates, while balancing quick mini-games against main events requires active moderation.
+- **Error-Prone Manual Scoring:** Paper notes or general note-taking apps do not adapt to progressive point scales (e.g., escalating stakes as the evening unfolds) and lack instant audit trails or undo capabilities.
+- **Display Bottlenecks:** Guests gathered around a table have to lean over a single notepad or screen to check who is leading, or ask the host for constant updates.
+- **Setup Overhead & Fragility:** Dedicated apps often demand native installation or mandatory account registrations before guests can even view the current game status. Accidental browser refreshes frequently wipe in-memory progress entirely.
+
+**Spieletag System** solves this by providing a zero-install, browser-based management engine that handles randomized game drawing, progressive scoring, and multi-device cloud synchronization seamlessly.
 
 ---
 
-## 🚀 Für Spieler – Schnellstart
+## ⚡ The Solution
 
-Keine Ahnung von Technik? Kein Problem. So geht's:
+Spieletag System is constructed as a self-contained, zero-dependency Progressive Web App (PWA). It acts as an autonomous referee and game-master for physical and digital game sessions:
 
-### 1. App öffnen
-Ruf einfach den Link auf deinem Handy, Tablet oder PC auf. Fertig – keine Anmeldung, kein Download.
-
-### 2. Spieler eintragen
-Tippe die Namen aller Mitspieler ein und klick auf **＋**. Mindestens 2 Spieler werden gebraucht.
-
-### 3. Spiele hinzufügen
-Es gibt drei Spiel-Typen:
-
-| Kategorie | Wofür? | Punkte |
-|-----------|--------|--------|
-| 🟣 **Hauptspiele** | Die großen, wichtigen Spiele des Abends | Steigen pro Runde (z. B. 3, 4, 5 …) |
-| 🟢 **Zwischenspiele** | Schnelle Spiele für zwischendurch | Feste Punkte, die ihr selbst festlegt |
-| 🟤 **Strafspiele** | Für Verlierer oder Herausforderungen | Feste Punkte, die ihr selbst festlegt |
-
-Klick einfach auf **＋ Hauptspiel**, **＋ Zwischenspiel** oder **＋ Strafspiel** und trag die Spielnamen ein. Optional kannst du kurze Beschreibungen hinzufügen.
-
-### 4. Spieletag starten
-Klick auf **Spieletag starten →**. Die App mischt alles und ihr könnt loslegen!
-
-### 5. Spiele ziehen
-Jede Runde drückt ihr auf **🎲 Spiel ziehen**. Ein zufälliges Spiel wird angezeigt. Spielt es, tragt danach ein wer gewonnen hat, und zieht das nächste!
-
-### 6. Überraschung: Dancebreak! 💃🕺
-Manchmal passiert's einfach: Die App erzwingt spontan eine **Tanzpause** – alle müssen tanzen, keine Ausnahmen! (Kann in den Einstellungen angepasst oder deaktiviert werden.)
-
-### 7. Siegerehrung
-Wenn alle Spiele gespielt wurden, gibt's eine animierte Siegerehrung mit finalem Punktestand!
+1. **State Machine Navigation:** A deterministic multi-phase lifecycle (`#phase-session` &rarr; `#phase-lobby` &rarr; `#phase-setup` &rarr; `#phase-play` &rarr; `#phase-winner`) ensures clean transitions and predictable DOM state.
+2. **Hybrid Urn & Weighted Selection Algorithm:** Supports both equal-probability urn sampling and fine-grained category weights with dynamic recalculation of unconstrained categories.
+3. **Real-Time Multi-Device Sync:** Powered by Firebase Realtime Database, a host generates a 4-letter room code or QR code; guests join instantly on their smartphones to follow live draws and propose games.
+4. **Resilient Local Play & Offline Execution:** A custom Service Worker caches all core assets for offline play. An active session snapshot is mirrored to `localStorage` on every turn, protecting ongoing tournaments against accidental browser refreshes.
 
 ---
 
-## 📱 App auf dem Tablet/Handy speichern
+## 🚀 Key Features
 
-Die App funktioniert wie eine richtige App auf dem Homescreen – ohne App Store!
-
-**iPhone / iPad:**
-1. Öffne den Link in **Safari**
-2. Tippe auf das **Teilen-Symbol** (Viereck mit Pfeil nach oben)
-3. Wähle **„Zum Home-Bildschirm"**
-4. Fertig – die App erscheint als Icon auf dem Homescreen!
-
-**Android:**
-1. Öffne den Link in **Chrome**
-2. Tippe auf die **drei Punkte** oben rechts
-3. Wähle **„Zum Startbildschirm hinzufügen"**
-
----
-
-## ⚙️ Was kann die App?
-
-| Feature | Beschreibung |
-|---------|-------------|
-| ☁️ Cloud-Multiplayer | Jeder Spieler kann auf seinem Gerät die Ziehung und Punkte live verfolgen |
-| 📲 QR-Code & Einladungslink | Gäste per QR-Code oder 1-Klick-Einladungslink (`?join=CODE`) direkt in die Lobby holen |
-| 📚 Spiele-Bibliothek | Persönliche ("Meine Spiele") & Globale ("Community") Spiele speichern und teilen |
-| ⭐ Favoriten-System | Die besten Community-Spiele als Favoriten markieren |
-| 💾 Spieletag-Vorlagen (Presets) | Komplette Setups (Spieler, Spiele & Regeln) als Vorlage speichern & per 1-Klick laden (Lokal & Cloud) |
-| 🔒 Accounts | Einfaches Login-/Registriersystem um Bibliothek & Vorlagen überall zu synchronisieren |
-| 🎮 Drei Spielkategorien | Hauptspiele, Zwischenspiele, Strafspiele mit je eigenen Punktregeln |
-| 🎲 Zufallsziehung | Zufälliges Ziehen mit einstellbaren Wahrscheinlichkeiten pro Kategorie (hybrides Urnen-Prinzip) |
-| ⚡ 1-Tap Ergebnis-Chips | Gewinner nach einer Runde blitzschnell per Touch-Chip auswählen (inkl. „Alle" / „Keiner") |
-| 🛡️ Lokaler Reload-Schutz | Automatische Zwischenspeicherung laufender Solospiele – nahtloses Fortsetzen nach versehentlichem Reload |
-| 📊 Live-Scoreboard | Punkte aller Spieler immer im Blick, automatisch aktualisiert |
-| 🔁 Wiederholungen | Jedes Spiel kann 1–9× oder unbegrenzt (∞) spielbar sein |
-| ↩️ Undo-Funktion | Letzte Runde rückgängig machen, falls beim Eintragen ein Fehler passiert |
-| 💃 Dancebreak | Zufällige Tanzpause mit Timer, Fortschrittsbalken und Skip-Option |
-| 🔊 Sound-Effekte & Konfetti | Synthetische Web-Audio-Sounds (Ziehen, Punkte, Dancebreak, Fanfare) & Sieger-Konfetti |
-| 🌙 Dark Mode | Automatisch an System-Einstellung angepasst, manuell umschaltbar |
-| 📱 Offline-fähige PWA | Als App auf iOS & Android installierbar, inkl. Service Worker (`sw.js`) für Offline-Support |
-| 🏆 Siegerehrung | Animierte Abschlussansicht mit Ranking aller Spieler und Konfetti-Regen |
+- 🎲 **Three Distinct Game Categories:**
+  - **Main Games (Hauptspiele):** High-stake tournament games with customizable progressive point scaling (e.g., 3, 4, 5, 6... points per round).
+  - **Intermediary Games (Zwischenspiele):** Quick filler rounds with custom fixed point rewards.
+  - **Penalty Games (Strafspiele):** Challenge games configured for trailing players or specific punishment rules.
+- ⚖️ **Hybrid Weighted Random Drawing:** Draw games using either an urn-sampling model or user-defined percentage allocations across categories, complete with real-time probability bar indicators.
+- ☁️ **Live Cloud Multiplayer & Guest Participation:**
+  - One-tap QR code and invitation link (`?join=ROOM`) joining.
+  - Live broadcast of game draws, timers, and updated leaderboards to all connected devices.
+  - Guest proposal queue allowing participants to submit games directly from their phones.
+- ⚡ **1-Tap Winner Chips & Undo Stack:** Select single winners, "All", or "None" with a single touch. Integrated immutable-style undo stack allows rewinding misrecorded rounds without resetting game state.
+- 📚 **Game Library & Preset Management:** Save personal favorites or browse global community games. Store entire session presets (players, game collections, and rule sets) for instant one-click reloading.
+- 💃 **Procedural "Dancebreak" Intermissions:** Configurable surprise mini-events with an animated progress bar and countdown to energize player groups.
+- 🔊 **Zero-Asset Web Audio Synthesizer:** Built-in procedural sound synthesis generates custom chimes, card flips, buzzers, and victory fanfares without downloading audio files.
+- 📱 **Installable PWA & Responsive Touch UI:** Designed with 44px touch targets, iOS safe-area compliance, native standalone manifest support, and full dark/light theme switching.
 
 ---
 
-## 🔧 Für Entwickler – Technische Übersicht
+## 🛠️ Architecture & Tech Stack
 
-### Architektur & Stack
+### Technology Stack
+- **Frontend Core:** Pure Vanilla JavaScript (ES6+), semantic HTML5, modern CSS3 (Custom Properties & Design Tokens).
+- **Backend & Persistence:** Firebase Realtime Database (`firebase-database-compat.js`) for room state & proposals; Firebase Authentication (`firebase-auth-compat.js`) with pseudonymized user credentials (`username@spieletag.local`).
+- **Offline & PWA:** Service Worker API (`sw.js`) utilizing a network-first strategy for navigation and cache-first for static assets; W3C Web App Manifest.
+- **Multimedia:** Native Web Audio API for synthesized acoustic feedback; HTML5 Canvas API for real-time confetti particle simulations.
+
+### Core Architecture
 
 ```
 Spieletag System
-├── index.html          ← Hauptanwendung – Self-contained SPA (HTML, CSS & JS)
-├── sw.js               ← Service Worker für Offline-Caching & PWA-Support
-├── manifest.json       ← Web App Manifest für Homescreen-Installation
-└── icon.png            ← Randloses App-Icon
+├── index.html          ← Self-contained SPA (markup, CSS tokens, phase engine, UI handlers)
+├── sw.js               ← Service Worker (offline cache management & network strategies)
+├── manifest.json       ← W3C Web App Manifest (PWA metadata & standalone display config)
+└── icon.png            ← High-resolution application icon (1024x1024 maskable)
 ```
 
-- **Stack:** Reines HTML5 / CSS3 / Vanilla JavaScript – keine externen Build-Tools nötig
-- **Paradigma:** Single-File SPA mit manuellem View-Routing (`#phase-session`, `#phase-lobby`, `#phase-setup`, `#phase-play`, `#phase-winner`)
-- **Datenbank & Auth:** Firebase Realtime Database (Multiplayer, Library, Presets, Sync) & Firebase Auth
-- **Design:** Modernes "Clean Aesthetic" Design mit haptischen Touch-Elementen, Web-Audio-Feedback & Canvas-Partikeln.
-- **PWA-Features:** `manifest.json`, Service Worker (`sw.js`), Apple Web App Meta-Tags, randloses PWA-Icon.
-
----
-
-### Phasen-System
-
-Die App verwendet ein mehrstufiges Phasen-Modell mit Fortschritts-Navigation:
-
-```
-Session-Wahl → (Optional: Multiplayer-Lobby) → Phase 0 (Setup) → Phase 1 (Play) → Phase 2 (Winner)
-```
-
-```js
-function setPhase(n) {
-  // Versteckt alle Phase-Views per .hidden-Klasse
-  // Aktualisiert Phase-Dots (active / done)
-  // Scrollt nach oben
-}
-```
-
-Phasen-IDs im DOM: `#phase-session`, `#phase-lobby`, `#phase-setup`, `#phase-play`, `#phase-winner`
-
----
-
-### State Management
-
-Globaler State in Modul-Scope-Variablen (kein Framework):
-
-```js
-let players = []           // String[] – Spieler-Namen
-let allGames = []          // Game[] – alle konfigurierten Spiele
-let remainingGames = []    // Game[] – noch ziehbarer Pool (nach filter)
-let history = []           // HistoryEntry[] – gespielte Runden
-let scores = {}            // { [name: string]: number }
-let mainGameCounter = 0    // Zähler für progressive Hauptspiel-Punkte
-let currentGame = null     // Aktuell gezogenes Spiel-Objekt
-let savedGames = []        // Snapshot für Neustart ohne Re-Setup
-let savedPlayers = []      // Snapshot für Neustart ohne Re-Setup
-let dancebreakTimer = null // setInterval-Referenz für Countdown
-let dancebreakActive = false
-
-let settings = {
-  dancebreak: bool,
-  dancebreakDuration: number,    // Sekunden
-  dancebreakChance: number,      // 0.0–1.0
-  mainPtsStart: number,          // Startpunkte Hauptspiele
-  mainPtsStep: number,           // Punkte-Inkrement pro Hauptspiel
-  endConditions: {               // Welche Kategorien triggern Spielende
-    main: bool, between: bool, penalty: bool
-  },
-  probRandom: bool,              // Urnen-Modus vs. fixe Gewichtungen
-  probWeights: {                 // Prozentuale Gewichtungen pro Kategorie
-    main: number|null, between: number|null, penalty: number|null
-  },
-  probUserSet: {                 // Hat der User diese Kategorie manuell gesetzt?
-    main: bool, between: bool, penalty: bool
+- **Phased State Lifecycle:** View rendering is managed without external frameworks through declarative phase toggling:
+  ```js
+  // Session Choice -> Lobby -> Setup -> Play -> Winner
+  function setPhase(phaseId) {
+    document.querySelectorAll('.phase').forEach(el => el.classList.add('hidden'));
+    document.getElementById(phaseId).classList.remove('hidden');
+    updateNavigationIndicators();
   }
-}
-```
-
-**Game-Objekt Schema:**
-```js
-{
-  type: 'main' | 'between' | 'penalty',
-  name: string,
-  desc: string,
-  points: number,          // Für between/penalty; bei main berechnet
-  maxRepeats: number,      // 0 = unendlich
-  timesPlayed: number,     // Zähler
-  uid: string,             // 'g0', 'g1', … – für Undo-Lookups
-  _drawPoints: number      // Transient: Punkte zum Zeitpunkt des Ziehens
-}
-```
-
----
-
-### Zieh-Algorithmus & Wahrscheinlichkeiten
-
-Das Herzstück der App. Zwei Modi:
-
-**Modus 1: Urnen-Prinzip (Standard)**
-```js
-// Alle verbleibenden Spiele im Pool gleich wahrscheinlich
-currentGame = pool[Math.floor(Math.random() * pool.length)]
-```
-
-**Modus 2: Gewichtetes Ziehen mit hybridem Urnen-Prinzip**
-
-Nutzer kann einzelne Kategorien fixieren (z. B. „Hauptspiele immer 50%"), der Rest verteilt sich proportional wie in einer Urne.
-
-```js
-// Fixierte Kategorien: Weight = probability / anzahl_spiele_in_kategorie
-// Freie Kategorien:    Weight = freeShare / anzahl_freie_spiele_gesamt
-// → Weighted Random via kumulativer Summe (linearer Scan)
-let roll = Math.random() * totalW;
-for (let i = 0; i < weights.length; i++) {
-  roll -= weights[i];
-  if (roll <= 0) { picked = i; break; }
-}
-```
-
-Die Wahrscheinlichkeitsvorschau (`calcProbabilities()`) berechnet live, wie sich freie Kategorien den verbleibenden Prozentsatz teilen und zeigt visuelle Balken-Indikatoren.
-
----
-
-### Punkte-System
-
-**Hauptspiele – Progressive Punkte:**
-```js
-// Beim Ziehen (nicht beim Konfigurieren)
-mainGameCounter++;
-drawPoints = settings.mainPtsStart + settings.mainPtsStep * (mainGameCounter - 1)
-// Beispiel: Start 3, Step 1 → 3, 4, 5, 6, 7 …
-```
-
-**Zwischen-/Strafspiele – Feste Punkte:**
-Werden beim Konfigurieren eingetragen und direkt auf `scores[player]` addiert.
-
-**Undo-Logik:**
-```js
-// Punkte rückabwickeln, mainGameCounter korrigieren, timesPlayed--
-// History-Entry wird gespliced, kein vollständiger State-Rebuild nötig
-```
-
----
-
-### Dancebreak-Engine
-
-```js
-function showDancebreak(cb) {
-  // Injiziert Fullscreen-Overlay ins DOM
-  // setInterval() – Countdown in Sekunden
-  // Fortschrittsbalken via CSS width-Transition (linear, 1s)
-  // Skip-Button ruft endDancebreak(cb) auf
-}
-function endDancebreak(cb) {
-  // clearInterval, Overlay fade-out (CSS opacity 0)
-  // setTimeout → remove(), dann callback ausführen
-}
-```
-
-Trigger: Vor jedem `drawGame()`-Call mit konfigurierbarer Wahrscheinlichkeit (`Math.random() < settings.dancebreakChance`). `dancebreakActive`-Flag verhindert rekursive Trigger.
-
----
-
-### UI-Komponenten & Design-System
-
-**CSS Custom Properties (Design Tokens):**
-```css
-:root {
-  --accent: #4F253D        /* Primary – Burgund/Dunkelviolett */
-  --complement: #25504F    /* Secondary – Dunkelgrün */
-  --bg / --bg-card         /* Hintergrundebenen */
-  --border / --border-hover
-  --shadow-sm/md/lg
-  --radius: 12px / --radius-sm: 8px
-  --transition: 0.2s ease
-}
-html.dark { /* Komplettes Dark-Mode Override aller Tokens */ }
-```
-
-**Komponenten-Bibliothek:**
-| Klasse | Beschreibung |
-|--------|-------------|
-| `.card` | Container mit Elevation, Border, Border-Radius |
-| `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-complement`, `.btn-add` | Button-Varianten |
-| `.toggle-switch` | Custom Checkbox-Toggle (touch-optimiert, 52×32px) |
-| `.draw-card` | Game-Reveal-Karte mit type-spezifischer Border-Farbe |
-| `.scoreboard` | Dark-Background Live-Score-Liste |
-| `.history-item` | Spielverlauf-Einträge mit Undo-Button |
-| `.shuffle-overlay` | Fullscreen Kartenmisch-Animation |
-| `.dancebreak-overlay` | Fullscreen Tanzpausen-Overlay |
-| `.prob-bar` | Visuelle Wahrscheinlichkeits-Indikatoren |
-| `.phase-dot` | Fortschritts-Navigation (active/done States) |
-| `.winner-chip` | Touch-optimierte 1-Tap Sieger-Auswahl-Buttons |
-| `.preset-chip` | Schnelllade-Chips für gespeicherte Spieletag-Vorlagen |
-| `.resume-banner` | Wiederherstellungs-Banner für laufende lokale Spiele |
-
-**Animationen:**
-- `slideIn` – neue Input-Felder
-- `danceIn` – Dancebreak-Overlay Erscheinen
-- `danceBounce` – Emoji-Loop-Animation
-- Karten-Flip via `rotateY` + cubic-bezier spring-Easing
-- Shuffle-Animation: randomisierte `translate/rotate` via `setInterval`
-
-**Touch-Optimierungen:**
-- Alle interaktiven Elemente `min-height: 44px` / `min-width: 44px`
-- `-webkit-tap-highlight-color: transparent` überall
-- `touch-action: manipulation` gegen Doppeltipp-Zoom
-- Inputs `font-size: 16px` (verhindert iOS Auto-Zoom)
-- `user-scalable=no` im Viewport-Meta
-
----
-
-### Event-System
-
-Single event delegation auf `document` für dynamisch erzeugte Elemente:
-
-```js
-document.addEventListener('click', function(e) {
-  if (t.dataset.removePlayer) { ... }  // Player-Tags
-  if (t.dataset.removeField)  { ... }  // Game-Input-Felder
-  if (t.dataset.undo !== undefined) { ... }  // History Undo-Buttons
-  // Winner-Screen Buttons, Dance-Skip via ID-Checks
-})
-```
-
-Statische Elemente haben direkte `addEventListener`-Bindungen beim Init.
-
----
-
-## 🌐 Selbst hosten (GitHub Pages)
-
-### Schritt 1: GitHub Repository erstellen
-1. Erstelle einen kostenlosen Account auf [github.com](https://github.com)
-2. Klick oben rechts auf **`+`** → **`New repository`**
-3. Name vergeben (z. B. `spieletag`), auf **Public** setzen, **Create repository** klicken
-
-### Schritt 2: Datei hochladen
-1. Klick auf **`uploading an existing file`**
-2. `index.html` und `apple-touch-icon.png` hochladen
-3. Auf **Commit changes** klicken
-
-### Schritt 3: GitHub Pages aktivieren
-1. Im Repository → **Settings** → **Pages**
-2. Unter `Source`: Branch **`main`**, Ordner **`/(root)`** wählen
-3. Auf **Save** klicken
-4. Nach 1–2 Minuten erscheint euer Link: `https://USERNAME.github.io/spieletag/`
-
-> **Tipp:** Den Link als Favorit speichern oder als App auf dem Homescreen ablegen – fertig!
-
----
-
-## 🌐 Multiplayer & Firebase Setup
-
-Das System unterstützt einen echten Live-Multiplayer-Modus (Host & Guests), sodass jeder auf seinem eigenen Gerät das Spiel mitverfolgen kann und Gäste Spiele vorschlagen können! 
-Damit der Multiplayer-Modus funktioniert, musst du **einmalig ein kostenloses Firebase-Projekt** erstellen und die Zugangsdaten in die `index.html` eintragen.
-
-### Schritt 1: Firebase-Projekt erstellen
-1. Gehe zu [console.firebase.google.com](https://console.firebase.google.com/) und logge dich mit einem Google-Account ein.
-2. Klicke auf **Projekt hinzufügen** (Name z.B. "Spieletag").
-3. Google Analytics kannst du für dieses Projekt **deaktivieren**.
-
-### Schritt 2: Realtime Database einrichten
-1. Klicke links im Menü unter *Build* (oder *Erstellen*) auf **Realtime Database**.
-2. Klicke auf **Datenbank erstellen**.
-3. Wähle den Standort (z.B. *Belgium/Europe*) und starte im **Testmodus**.
-4. Wichtig: Gehe nach der Erstellung auf den Reiter **Regeln (Rules)** und kopiere Folgendes hinein:
-```json
-{
-  "rules": {
-    "sessions": {
-      "$code": {
-        ".read": true,
-        "meta": { ".write": true },
-        "proposals": { ".write": true },
-        "approvedGames": { ".write": true },
-        "gameState": { ".write": true },
-        "settings": { ".write": true },
-        "players": { ".write": true }
-      }
-    },
-    "usernames": {
-      ".read": true,
-      "$username": {
-        ".write": "!data.exists() && auth != null"
-      }
-    },
-    "library_games": {
-      "private": {
-        "$uid": {
-          ".read": "auth != null && auth.uid == $uid",
-          ".write": "auth != null && auth.uid == $uid"
-        }
-      },
-      "global": {
-        ".read": true,
-        "$gameId": {
-          ".write": "auth != null && (!data.exists() || data.child('creatorUid').val() == auth.uid)"
-        }
-      }
-    },
-    "library_favorites": {
-      "$uid": {
-        ".read": "auth != null && auth.uid == $uid",
-        ".write": "auth != null && auth.uid == $uid"
-      }
-    },
-    "library_presets": {
-      "$uid": {
-        ".read": "auth != null && auth.uid == $uid",
-        ".write": "auth != null && auth.uid == $uid"
-      }
-    }
+  ```
+- **Hybrid Urn Weighted Algorithm:**
+  ```js
+  // Fixed category weight: Weight = probability / items_in_category
+  // Floating categories:   Weight = remaining_probability / total_floating_items
+  // Cumulative weighted distribution sampling:
+  let roll = Math.random() * totalWeight;
+  for (let i = 0; i < pool.length; i++) {
+    roll -= pool[i].weight;
+    if (roll <= 0) { pickedGame = pool[i]; break; }
   }
-}
-```
-5. Klicke auf **Veröffentlichen**.
-
-### Schritt 2b: Firebase Authentication aktivieren
-1. Klicke links unter *Build* auf **Authentication**.
-2. Klicke auf **Loslegen**.
-3. Wähle unter *Sign-in method* die Option **E-Mail/Passwort** und aktiviere sie.
-4. Klicke auf **Speichern**.
-
-> **Hinweis:** Die App nutzt intern das Schema `benutzername@spieletag.local` für Accounts, sodass Nutzer nur einen Benutzernamen (kein echtes E-Mail) benötigen.
-
-### Schritt 3: Web-App hinzufügen & Config kopieren
-1. Gehe zur Projektübersicht (Zahnrad oben links -> Projekteinstellungen).
-2. Scrolle nach unten zu "Meine Apps" und klicke auf das **</> Web-Icon**.
-3. Gib einen App-Namen ein (z.B. "Web App") und klicke auf App registrieren.
-4. Es erscheint ein Code-Block. Kopiere das Objekt `firebaseConfig` (die Zeilen mit apiKey, authDomain, databaseURL, etc.).
-
-### Schritt 4: Config in der `index.html` eintragen
-1. Öffne die `index.html` mit einem Texteditor.
-2. Scrolle ganz nach unten zum Bereich `<script>`.
-3. Gleich am Anfang des Scripts findest du den Platzhalter `const firebaseConfig = { ... }`.
-4. Ersetze diesen Block mit der kopierten Config aus Schritt 3.
-5. Speichere die Datei. **Fertig! Multiplayer und Spiele-Bibliothek sind jetzt einsatzbereit.**
+  ```
+- **Event-Driven DOM Delegation:** Dynamic list entries (player tags, library chips, history entries) use centralized delegation on `document` to maintain minimal memory footprint and zero leak risks.
 
 ---
 
-*Made with ❤️ for game nights – built as a single HTML file, no dependencies, no BS.*
+## 📦 Installation & Usage
+
+### 1. Direct Browser Access (End Users)
+No compilation or installation required. Open the official web app in any standard browser:
+👉 **[Launch Spieletag System](https://mello2110.github.io/spieletag/)**
+
+To install as an app on your smartphone or tablet:
+- **iOS (Safari):** Tap the **Share** button &rarr; Select **Add to Home Screen**.
+- **Android (Chrome):** Tap the **three-dot menu** &rarr; Select **Install app** or **Add to Home Screen**.
+
+### 2. Local Development & Self-Hosting
+
+Clone the repository and serve it using any static web server:
+
+```bash
+# Clone the repository
+git clone https://github.com/Mello2110/spieletag.git
+cd spieletag
+
+# Serve locally using Python 3
+python -m http.server 8080
+
+# Or serve using Node.js / npx
+npx serve .
+```
+
+Open `http://localhost:8080` in your web browser.
+
+### 3. Optional: Configuring Your Own Firebase Backend
+For custom multiplayer hosting and private database instances:
+1. Create a free project at [Firebase Console](https://console.firebase.google.com/).
+2. Enable **Realtime Database** and **Authentication** (Email/Password provider).
+3. Copy your project configuration object and replace the `firebaseConfig` object at the bottom of `index.html`:
+   ```javascript
+   const firebaseConfig = {
+     apiKey: "YOUR_API_KEY",
+     authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+     databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+     projectId: "YOUR_PROJECT_ID",
+     storageBucket: "YOUR_PROJECT_ID.appspot.com",
+     messagingSenderId: "...",
+     appId: "..."
+   };
+   ```
+
+---
+
+## 📄 License & Disclaimer
+
+Part of the **Mellow Solutions** portfolio. Provided under the MIT License as-is for non-commercial and personal utility.
